@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>   
+  <extension
+      point="org.eclipse.ui.commands">
+    <category
+        id="org.osate.pluginsample.actions"
+        name="Sample">
+    </category>
+    <command
+        categoryId="org.osate.pluginsample.actions"
+        id="org.osate.pluginsample.actions.DoCheckModel"
+        name="Check Model">
+    </command>
+  </extension>
+  
+  <extension point="org.eclipse.ui.handlers">
+    <handler
+        class="org.osate.pluginsample.actions.DoCheckModel"
+        commandId="org.osate.pluginsample.actions.DoCheckModel">
+      <enabledWhen>
+        <with variable="selection">
+          <count
+              value="1">
+          </count>
+          <iterate>
+            <or>
+              <and>
+		<instanceof value="org.eclipse.core.resources.IFile"/>
+		<test 
+                    value="*.aaxl2"
+                    property="org.eclipse.core.resources.name">
+		</test>
+              </and>
+              <instanceof value="org.osate.aadl2.instance.SystemInstance"/>
+            </or>
+          </iterate>
+	</with>
+      </enabledWhen>
+    </handler>
+  </extension>
+  
+  <extension
+      point="org.eclipse.ui.menus">
+    <menuContribution
+        locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+      <menu
+          id="org.osate.plugin.SampleMenu"
+          label="Sample"
+          mnemonic="S">
+        <command
+            commandId="org.osate.pluginsample.actions.DoCheckModel"
+            id="org.osate.pluginsample.actions.DoCheckModel"
+            mnemonic="C"
+            label="Check Model">
+        </command>
+      </menu>
+    </menuContribution>
+    <menuContribution
+        locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
+      <toolbar
+          id="org.osate.pluginsample.Toolbar">
+        <command
+            commandId="org.osate.pluginsample.actions.DoCheckModel"
+            id="org.osate.pluginsample.actions.DoCheckModel"
+            label="Check Model"
+            tooltip="Check Model">
+        </command>
+      </toolbar>
+    </menuContribution>
+  </extension>
+  
+</plugin>
