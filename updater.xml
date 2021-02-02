@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bookmarks>
+   <site url="http://download.eclipse.org/ease/release/latest" selected="true" name="EASE"/>       
+   <site url="http://download.eclipse.org/elk/updates/releases/0.7.0" selected="true" name="Eclipse Layout Kernel"/>
+   <site url="http://dl.maketechnology.io/chromium-swt/rls/repository" selected="true" name="Chromium-SWT"/>
+   <site url="https://osate-build.sei.cmu.edu/download/osate/stable/latest/updates" selected="true" name="OSATE stable"/>
+</bookmarks>
