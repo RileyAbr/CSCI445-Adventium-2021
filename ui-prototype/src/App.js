@@ -8,11 +8,17 @@ import Assertions from "./components/Assertions";
 import Output from "./components/Output";
 
 import commonParameters from "./common-parameters.json";
-import comparions from "./comparisons.json";
+import comparisons from "./comparisons.json";
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+}
 
 function App() {
     const [parameters, setParameters] = useState(commonParameters);
-    const [assertions, setAssertions] = useState();
+    const [assertions, setAssertions] = useState(
+        commonParameters.map((val) => `${val} ${comparisons[getRandomInt(5)]} ${getRandomInt(100)}`)
+    );
 
     return (
         <Router>
@@ -61,7 +67,11 @@ function App() {
                                 <Output assertions={assertions} />
                             </Route>
                             <Route path="/assertions">
-                                <Assertions parameters={parameters} symbols={comparions} />
+                                <Assertions
+                                    parameters={parameters}
+                                    assertions={assertions}
+                                    symbols={comparisons}
+                                />
                             </Route>
                             <Route path="/">
                                 <Parameters parameters={parameters} />

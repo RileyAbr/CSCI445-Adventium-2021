@@ -1,41 +1,10 @@
 import React from "react";
 
-import comparators from "../../comparisons.json";
-
-const alphaSet = [
-    "a",
-    "b",
-    "c",
-    "d",
-    "e",
-    "f",
-    "g",
-    "h",
-    "i",
-    "j",
-    "k",
-    "l",
-    "m",
-    "n",
-    "o",
-    "p",
-    "q",
-    "r",
-    "s",
-    "t",
-    "u",
-    "v",
-    "w",
-    "x",
-    "y",
-    "z",
-];
-
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
 }
 
-const Assertions = () => (
+const Assertions = ({ parameters, assertions, symbols }) => (
     <>
         <h2>Assertions</h2>
         <div
@@ -56,10 +25,8 @@ const Assertions = () => (
                 }}
             >
                 <select style={{ flexGrow: 1 }} size="8">
-                    {alphaSet.map((val) => (
-                        <option value={val}>
-                            {val} {comparators[getRandomInt(5)]} {getRandomInt(100)}
-                        </option>
+                    {assertions.map((val) => (
+                        <option value={val}>{val}</option>
                     ))}
                 </select>
                 <button type="button">-</button>
@@ -73,12 +40,12 @@ const Assertions = () => (
                 }}
             >
                 <select style={{ width: "65%" }}>
-                    {alphaSet.map((val) => (
+                    {parameters.map((val) => (
                         <option value={val}>{val}</option>
                     ))}
                 </select>
                 <select>
-                    {comparators.map((symbol) => (
+                    {symbols.map((symbol) => (
                         <option value={symbol}>{symbol}</option>
                     ))}
                 </select>
