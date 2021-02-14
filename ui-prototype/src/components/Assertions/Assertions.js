@@ -1,5 +1,7 @@
 import React from "react";
 
+import comparators from "../../comparisons.json";
+
 const alphaSet = [
     "a",
     "b",
@@ -29,8 +31,12 @@ const alphaSet = [
     "z",
 ];
 
+function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+}
+
 const Assertions = () => (
-    <div>
+    <>
         <h2>Assertions</h2>
         <div
             style={{
@@ -51,7 +57,9 @@ const Assertions = () => (
             >
                 <select style={{ flexGrow: 1 }} size="8">
                     {alphaSet.map((val) => (
-                        <option value={val}>Sample parameter {val}</option>
+                        <option value={val}>
+                            {val} {comparators[getRandomInt(5)]} {getRandomInt(100)}
+                        </option>
                     ))}
                 </select>
                 <button type="button">-</button>
@@ -60,25 +68,27 @@ const Assertions = () => (
                 style={{
                     width: "50%",
                     display: "flex",
-                    flexFow: "row nowrap",
+                    flexFlow: "column nowrap",
                     alignItems: "center",
                 }}
             >
-                <select>
-                    <option value="test">Test</option>
+                <select style={{ width: "65%" }}>
+                    {alphaSet.map((val) => (
+                        <option value={val}>{val}</option>
+                    ))}
                 </select>
                 <select>
-                    <option value=">">{">"}</option>
-                    <option value=">">{">="}</option>
-                    <option value=">">=</option>
-                    <option value=">">{"=<"}</option>
-                    <option value=">">{"<"}</option>
+                    {comparators.map((symbol) => (
+                        <option value={symbol}>{symbol}</option>
+                    ))}
                 </select>
-                <input type="number" />
-                <button type="button">+</button>
+                <div style={{ width: "65%", display: "flex", flexFlow: "row nowrap" }}>
+                    <input type="number" style={{ flexGrow: 1 }} />
+                    <button type="button">+</button>
+                </div>
             </div>
         </div>
-    </div>
+    </>
 );
 
 export default Assertions;
