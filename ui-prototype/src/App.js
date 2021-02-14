@@ -74,7 +74,10 @@ function App() {
                                 />
                             </Route>
                             <Route path="/">
-                                <Parameters parameters={parameters} />
+                                <Parameters
+                                    parameters={parameters}
+                                    modifyParameter={() => setParameters()}
+                                />
                             </Route>
                         </Switch>
                     </article>
