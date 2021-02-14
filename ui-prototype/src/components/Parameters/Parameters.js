@@ -29,7 +29,7 @@ const alphaSet = [
     "z",
 ];
 
-const Parameters = () => (
+const Parameters = ({ parameters }) => (
     <>
         <h2>Parameters</h2>
         <div
@@ -50,8 +50,8 @@ const Parameters = () => (
                 }}
             >
                 <select style={{ flexGrow: 1 }} size="8">
-                    {alphaSet.map((val) => (
-                        <option value={val}>Sample parameter {val}</option>
+                    {parameters.map((val) => (
+                        <option value={val}>{val}</option>
                     ))}
                 </select>
                 <button type="button">-</button>

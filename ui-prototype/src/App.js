@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 
@@ -7,7 +7,13 @@ import Parameters from "./components/Parameters";
 import Assertions from "./components/Assertions";
 import Output from "./components/Output";
 
+import commonParameters from "./common-parameters.json";
+import comparions from "./comparisons.json";
+
 function App() {
+    const [parameters, setParameters] = useState(commonParameters);
+    const [assertions, setAssertions] = useState();
+
     return (
         <Router>
             <div
@@ -52,13 +58,13 @@ function App() {
                     <article style={{ flexGrow: 1 }}>
                         <Switch>
                             <Route path="/output">
-                                <Output />
+                                <Output assertions={assertions} />
                             </Route>
                             <Route path="/assertions">
-                                <Assertions />
+                                <Assertions parameters={parameters} symbols={comparions} />
                             </Route>
                             <Route path="/">
-                                <Parameters />
+                                <Parameters parameters={parameters} />
                             </Route>
                         </Switch>
                     </article>
