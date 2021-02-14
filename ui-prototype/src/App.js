@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, withRouter } from "react-router-dom";
 import "./App.css";
 
 import NavButton from "./components/NavButton";
@@ -49,7 +49,8 @@ function App() {
                             X
                         </button>
                     </header>
-                    <article>
+                    <article style={{ flexGrow: 1 }}>
+                        {withRouter(<h2>[...props]</h2>)}
                         <Switch>
                             <Route path="/output">
                                 <Output />
@@ -78,7 +79,7 @@ function App() {
                                 <NavButton>Finish</NavButton>
                             </Route>
                             <Route path="/assertions">
-                                <NavButton to="inputs">Back</NavButton>
+                                <NavButton to="parameters">Back</NavButton>
                                 <NavButton to="output">Next</NavButton>
                             </Route>
                             <Route path="/">
