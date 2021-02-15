@@ -17,7 +17,9 @@ function getRandomInt(max) {
 function App() {
     const [parameters, setParameters] = useState(commonParameters);
     const [assertions, setAssertions] = useState(
-        commonParameters.map((val) => `${val} ${comparisons[getRandomInt(5)]} ${getRandomInt(100)}`)
+        commonParameters
+            .slice(0, getRandomInt(commonParameters.length - 1) + 1)
+            .map((val) => `${val} ${comparisons[getRandomInt(5)]} ${getRandomInt(100)}`)
     );
 
     const modifyParameters = (newParameters) => {
