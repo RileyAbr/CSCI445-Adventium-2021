@@ -23,8 +23,11 @@ function App() {
     );
 
     const modifyParameters = (newParameters) => {
-        console.log(newParameters);
         setParameters(newParameters);
+    };
+
+    const modifyAssertions = (newAssertions) => {
+        setAssertions(newAssertions);
     };
 
     return (
@@ -78,6 +81,7 @@ function App() {
                                     parameters={parameters}
                                     assertions={assertions}
                                     symbols={comparisons}
+                                    modifyAssertions={modifyAssertions}
                                 />
                             </Route>
                             <Route path="/">
