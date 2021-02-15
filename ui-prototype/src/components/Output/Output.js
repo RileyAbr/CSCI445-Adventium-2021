@@ -1,4 +1,5 @@
 import React from "react";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 const Output = ({ assertions }) => {
     let formattedOutput = "";
@@ -22,7 +23,9 @@ const Output = ({ assertions }) => {
                 }}
             >
                 <textarea value={formattedOutput} style={{ width: "100%" }} rows="18" />
-                <button type="button">Copy to Clipboard</button>
+                <CopyToClipboard text={formattedOutput}>
+                    <button type="button">Copy to Clipboard</button>
+                </CopyToClipboard>
             </div>
         </>
     );
