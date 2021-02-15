@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 
@@ -29,6 +29,12 @@ function App() {
     const modifyAssertions = (newAssertions) => {
         setAssertions(newAssertions);
     };
+
+    useEffect(() => {
+        let validAssertions = [...assertions];
+        validAssertions = validAssertions.filter((item) => parameters.includes(item.split(" ")[0]));
+        setAssertions(validAssertions);
+    }, [parameters]);
 
     return (
         <Router>
