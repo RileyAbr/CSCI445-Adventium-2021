@@ -20,6 +20,11 @@ function App() {
         commonParameters.map((val) => `${val} ${comparisons[getRandomInt(5)]} ${getRandomInt(100)}`)
     );
 
+    const modifyParameters = (newParameters) => {
+        console.log(newParameters);
+        setParameters(newParameters);
+    };
+
     return (
         <Router>
             <div
@@ -76,7 +81,7 @@ function App() {
                             <Route path="/">
                                 <Parameters
                                     parameters={parameters}
-                                    modifyParameter={() => setParameters()}
+                                    modifyParameters={modifyParameters}
                                 />
                             </Route>
                         </Switch>

@@ -2,7 +2,21 @@ import React, { useState } from "react";
 
 const Parameters = ({ parameters, modifyParameters }) => {
     const [addParameterInput, setAddParameterInput] = useState();
-    const [removeParameterInput, removeAddParameterInput] = useState();
+    const [removeParameterInput, setRemoveParameterInput] = useState();
+
+    const addParameter = (addValue) => {
+        if (addValue) {
+            const newParameters = [...parameters];
+            newParameters.push(addValue);
+            modifyParameters(newParameters);
+        }
+    };
+
+    const removeParameter = (removeValue) => {
+        let newParameters = [...parameters];
+        newParameters = newParameters.filter((item) => item !== removeValue);
+        modifyParameters(newParameters);
+    };
 
     return (
         <>
@@ -24,12 +38,16 @@ const Parameters = ({ parameters, modifyParameters }) => {
                         alignItems: "center",
                     }}
                 >
-                    <select style={{ flexGrow: 1 }} size="8">
-                        {parameters.map((val) => (
-                            <option value={val}>{val}</option>
-                        ))}
+                    <select
+                        style={{ flexGrow: 1 }}
+                        size="8"
+                        onChange={(event) => setRemoveParameterInput(event.target.value)}
+                    >
+                        {parameters && parameters.map((val) => <option value={val}>{val}</option>)}
                     </select>
-                    <button type="button">-</button>
+                    <button type="button" onClick={() => removeParameter(removeParameterInput)}>
+                        -
+                    </button>
                 </div>
                 <div
                     style={{
@@ -39,8 +57,14 @@ const Parameters = ({ parameters, modifyParameters }) => {
                         alignItems: "center",
                     }}
                 >
-                    <input type="text" style={{ flexGrow: 1 }} />
-                    <button type="button">+</button>
+                    <input
+                        type="text"
+                        style={{ flexGrow: 1 }}
+                        onChange={(event) => setAddParameterInput(event.target.value)}
+                    />
+                    <button type="button" onClick={() => addParameter(addParameterInput)}>
+                        +
+                    </button>
                 </div>
             </div>
         </>
