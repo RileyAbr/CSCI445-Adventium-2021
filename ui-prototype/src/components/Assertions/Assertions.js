@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
 const Assertions = ({ parameters, assertions, symbols, modifyAssertions }) => {
-    const [addSelectedParameter, setAddSelectedParameter] = useState();
-    const [addSelectedComparator, setAddSelectedComparator] = useState();
+    const [addSelectedParameter, setAddSelectedParameter] = useState(parameters[0]);
+    const [addSelectedComparator, setAddSelectedComparator] = useState(symbols[0]);
     const [addAssertionInput, setAddAssertionInput] = useState();
     const [removeAssertionInput, setRemoveAssertionInput] = useState();
 
