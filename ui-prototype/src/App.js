@@ -50,7 +50,7 @@ function App() {
                     background: "#ffffff",
                 }}
             >
-                <h1 style={{ marginTop: 0 }}>Adventium Labs OSATE Plugin Prototype</h1>
+                <h1 style={{ marginTop: 0 }}>Adventium Labs GUMBO Plugin Prototype</h1>
                 <main
                     style={{
                         display: "flex",
