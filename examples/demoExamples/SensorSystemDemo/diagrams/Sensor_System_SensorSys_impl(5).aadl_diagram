@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="ASCII"?>
+<diagram:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:diagram="http://osate.org/diagram" formatVersion="7">
+  <element uuid="dac94033-fdc9-4d79-9109-a569083b5e25" manual="true">
+    <element uuid="585253a9-d44e-43a9-bac7-a26994f446ba" manual="true">
+      <element uuid="efa2d491-24e4-4b0a-a14a-956341553d43" manual="true">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>pressure_shutdown_cmd</seg>
+      </bo>
+    </element>
+    <element uuid="c7cd3591-6e44-47ec-ace6-a6d5aedabac6" manual="true">
+      <element uuid="bfb49dbb-cb58-4425-9c55-0fb622ddeba8" manual="true">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>pressure_to_subsys</seg>
+      </bo>
+    </element>
+    <element uuid="f4d9283a-37a9-444b-bacf-25fc1afc0223" manual="true">
+      <element uuid="2f9d102d-942d-4b25-99b1-e302e122af79" manual="true">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>radiation_shutdown_cmd</seg>
+      </bo>
+    </element>
+    <element uuid="00dd6d64-ce9f-4531-9671-88c16c3973ec" manual="true">
+      <element uuid="e975bf51-ba9b-4c3c-9431-28944467fb8e" manual="true">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>radiation_to_subsys</seg>
+      </bo>
+    </element>
+    <element uuid="1d0c3ba3-69d4-4343-a485-39f9df021ad4" manual="true">
+      <element uuid="17d5d7ed-c7a6-468c-aa60-3b9db918d848" manual="true">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>temp_shutdown_cmd</seg>
+      </bo>
+      <bendpoints>
+        <point x="188.0" y="494.0"/>
+      </bendpoints>
+    </element>
+    <element uuid="98d10e0d-d698-4d53-92f6-1f62363f3b7b" manual="true">
+      <element uuid="9caa3950-7820-4531-84dc-7139955271a2" manual="true">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>temp_to_subsys</seg>
+      </bo>
+    </element>
+    <element uuid="2f8ead8f-1a0f-42f0-b42f-bb7677dd542b" manual="true" dockArea="left">
+      <bo>
+        <seg>feature</seg>
+        <seg>env_pressure</seg>
+      </bo>
+      <position y="52.0"/>
+    </element>
+    <element uuid="44576810-953f-4c18-8e21-ce6936878566" manual="true" dockArea="left">
+      <bo>
+        <seg>feature</seg>
+        <seg>env_radiation</seg>
+      </bo>
+      <position y="220.0"/>
+    </element>
+    <element uuid="198f0117-616c-44e4-a1a0-68a36bbfbfd1" manual="true" dockArea="left">
+      <bo>
+        <seg>feature</seg>
+        <seg>env_temperature</seg>
+      </bo>
+      <position y="410.0"/>
+    </element>
+    <element uuid="fef26cd5-4653-451c-8331-9a1b068f1207" manual="true" dockArea="right">
+      <bo>
+        <seg>feature</seg>
+        <seg>shutdown</seg>
+      </bo>
+      <position x="895.0" y="136.0"/>
+    </element>
+    <element uuid="8fd71a4d-cd08-4ccf-a401-87bea3d86402" manual="true">
+      <element uuid="ab6a05fd-5c73-46f7-a126-10f13d10d9e5" manual="true">
+        <element uuid="7aafe8f4-4d96-489c-8d85-455efa1d1c29" manual="true">
+          <bo>
+            <seg>tag</seg>
+            <seg>unidirectional</seg>
+          </bo>
+        </element>
+        <bo>
+          <seg>connection</seg>
+          <seg>pressure_to_sensor</seg>
+        </bo>
+      </element>
+      <element uuid="4efeae16-bfad-4773-bdbb-022323b20c9e" manual="true">
+        <element uuid="8a12535a-2fb0-4e3e-b4a4-0b963dfb4c92" manual="true">
+          <bo>
+            <seg>tag</seg>
+            <seg>unidirectional</seg>
+          </bo>
+        </element>
+        <bo>
+          <seg>connection</seg>
+          <seg>shutdown_cmd</seg>
+        </bo>
+      </element>
+      <element uuid="496183e7-4a79-4a30-b569-2f8ec8601c92" manual="true" dockArea="left">
+        <bo>
+          <seg>feature</seg>
+          <seg>env_pressure</seg>
+        </bo>
+        <position y="10.0"/>
+      </element>
+      <element uuid="70108819-90ca-4259-8567-3e8a2becdaf6" manual="true" dockArea="right">
+        <bo>
+          <seg>feature</seg>
+          <seg>shutdown</seg>
+        </bo>
+        <position x="397.0" y="53.0"/>
+      </element>
+      <element uuid="0879eb2b-415d-4f4f-bb9c-671b7b12608d" manual="true">
+        <element uuid="4e0b6e01-f7da-4963-ac6c-e4743fc16246" manual="true" dockArea="right">
+          <bo>
+            <seg>feature</seg>
+            <seg>high_indicator</seg>
+          </bo>
+          <position x="196.0" y="50.0"/>
+        </element>
+        <element uuid="700a6aae-5e73-45ae-9b40-1ca52bde1397" manual="true" dockArea="left">
+          <bo>
+            <seg>feature</seg>
+            <seg>pressure</seg>
+          </bo>
+          <position y="50.0"/>
+        </element>
+        <bo>
+          <seg>subcomponent</seg>
+          <seg>pressure_sensor</seg>
+        </bo>
+        <position x="70.0" y="66.0"/>
+        <size width="328.0" height="108.0"/>
+      </element>
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>pressure</seg>
+      </bo>
+      <position x="128.0" y="60.0"/>
+      <size width="493.0" height="174.0"/>
+    </element>
+    <element uuid="59d84fdf-0788-4934-8ae9-2225155758f2" manual="true">
+      <element uuid="9e7016a7-ee69-4c58-ad04-73849613628a" manual="true">
+        <element uuid="7121534d-c1e9-4bfd-a1dd-32110ff7739e" manual="true">
+          <bo>
+            <seg>tag</seg>
+            <seg>unidirectional</seg>
+          </bo>
+        </element>
+        <bo>
+          <seg>connection</seg>
+          <seg>radiation_to_sensor</seg>
+        </bo>
+      </element>
+      <element uuid="363368e6-d52f-445c-a635-3521193bfda0" manual="true">
+        <element uuid="98190824-0d5c-4340-8ed3-118415ed39ab" manual="true">
+          <bo>
+            <seg>tag</seg>
+            <seg>unidirectional</seg>
+          </bo>
+        </element>
+        <bo>
+          <seg>connection</seg>
+          <seg>shutdown_cmd</seg>
+        </bo>
+      </element>
+      <element uuid="750462fd-2498-4ebd-ad44-b4cdd7dec915" manual="true" dockArea="left">
+        <bo>
+          <seg>feature</seg>
+          <seg>env_radiation</seg>
+        </bo>
+        <position y="10.0"/>
+      </element>
+      <element uuid="50337724-063b-41fb-824c-a06fce73dd99" manual="true" dockArea="right">
+        <bo>
+          <seg>feature</seg>
+          <seg>shutdown</seg>
+        </bo>
+        <position x="375.0" y="10.0"/>
+      </element>
+      <element uuid="07e343f2-22ef-41f8-861e-dc2f17dde4d8" manual="true">
+        <element uuid="e48ff8ea-f5e8-49c1-9485-7e5f9149d4ea" manual="true" dockArea="right">
+          <bo>
+            <seg>feature</seg>
+            <seg>high_indicator</seg>
+          </bo>
+          <position x="239.0" y="40.0"/>
+        </element>
+        <element uuid="c5de1c6f-ac65-44a3-8af8-d36e74d34014" manual="true" dockArea="left">
+          <bo>
+            <seg>feature</seg>
+            <seg>radiation</seg>
+          </bo>
+          <position y="40.0"/>
+        </element>
+        <bo>
+          <seg>subcomponent</seg>
+          <seg>radiation_sensor</seg>
+        </bo>
+        <position x="50.0" y="40.0"/>
+        <size width="371.0" height="108.0"/>
+      </element>
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>radiation</seg>
+      </bo>
+      <position x="128.0" y="250.0"/>
+      <size width="471.0" height="161.0"/>
+    </element>
+    <element uuid="4888c106-2445-4f5d-bf68-b63a2f2f53a5" manual="true">
+      <element uuid="994e1fd6-55fb-460a-b799-0abebcfbd8b0" manual="true">
+        <element uuid="c39018a9-d403-4f88-8685-aa4de8bf0f3b" manual="true">
+          <bo>
+            <seg>tag</seg>
+            <seg>unidirectional</seg>
+          </bo>
+        </element>
+        <bo>
+          <seg>connection</seg>
+          <seg>shutdown_cmd</seg>
+        </bo>
+      </element>
+      <element uuid="7a821116-9796-4b46-b469-6051e300a3e3" manual="true">
+        <element uuid="4bf61416-fce6-4693-b87f-c1ff7f88c292" manual="true">
+          <bo>
+            <seg>tag</seg>
+            <seg>unidirectional</seg>
+          </bo>
+        </element>
+        <bo>
+          <seg>connection</seg>
+          <seg>temp_to_sensor</seg>
+        </bo>
+      </element>
+      <element uuid="48b146b3-23d5-4338-8825-83b11acfde07" manual="true" dockArea="left">
+        <bo>
+          <seg>feature</seg>
+          <seg>env_temperature</seg>
+        </bo>
+        <position y="10.0"/>
+      </element>
+      <element uuid="f00d35e5-f41d-49f3-8f72-3fac2298a6ca" manual="true" dockArea="right">
+        <bo>
+          <seg>feature</seg>
+          <seg>shutdown</seg>
+        </bo>
+        <position x="375.0" y="10.0"/>
+      </element>
+      <element uuid="cdda8c50-8509-4a8b-ba35-89feb03bd9ee" manual="true">
+        <element uuid="45000304-3708-493e-9402-25a861b6c65e" manual="true" dockArea="right">
+          <bo>
+            <seg>feature</seg>
+            <seg>high_indicator</seg>
+          </bo>
+          <position x="244.0" y="50.0"/>
+        </element>
+        <element uuid="c76f9c6a-9847-4693-aba8-5793c7f45450" manual="true" dockArea="left">
+          <bo>
+            <seg>feature</seg>
+            <seg>temperature</seg>
+          </bo>
+          <position y="50.0"/>
+        </element>
+        <bo>
+          <seg>subcomponent</seg>
+          <seg>temp_sensor</seg>
+        </bo>
+        <position x="52.0" y="42.0"/>
+        <size width="376.0" height="108.0"/>
+      </element>
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>temp</seg>
+      </bo>
+      <position x="128.0" y="428.0"/>
+      <size width="471.0" height="163.0"/>
+    </element>
+    <bo>
+      <seg>classifier</seg>
+      <seg>sensorsys.impl</seg>
+    </bo>
+    <position x="-410.0" y="20.0"/>
+    <size width="991.0" height="609.0"/>
+  </element>
+  <config type="structure" connectionPrimaryLabelsVisible="false">
+    <enabledAadlProperties/>
+    <context>
+      <seg>classifier</seg>
+      <seg>sensor_system::sensorsys.impl</seg>
+    </context>
+  </config>
+</diagram:Diagram>

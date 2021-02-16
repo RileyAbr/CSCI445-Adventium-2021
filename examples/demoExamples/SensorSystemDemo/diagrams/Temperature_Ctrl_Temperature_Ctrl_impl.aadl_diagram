@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="ASCII"?>
+<diagram:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:diagram="http://osate.org/diagram" formatVersion="7">
+  <element uuid="a0581f5b-b3fe-4cc4-91bc-2d4c80319b4c" manual="true">
+    <element uuid="b311a4a5-1113-4931-b9ff-67987360bf19" manual="true">
+      <element uuid="1e223b99-ac7a-47da-8ca4-f53b77d7960e" manual="true">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>shutdown_cmd</seg>
+      </bo>
+    </element>
+    <element uuid="4fe2580e-778a-4af6-988f-162d832f2d88" manual="true">
+      <element uuid="f842ced5-2520-417d-b5a1-d961ee70005f" manual="true">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>temp_to_sensor</seg>
+      </bo>
+    </element>
+    <element uuid="cae6666e-c2e6-4048-9c60-c178be9fb236" manual="true" dockArea="left">
+      <bo>
+        <seg>feature</seg>
+        <seg>env_temperature</seg>
+      </bo>
+      <position y="52.0"/>
+    </element>
+    <element uuid="382ec965-4800-417a-86cc-e4840ee4380a" manual="true" dockArea="right">
+      <bo>
+        <seg>feature</seg>
+        <seg>shutdown</seg>
+      </bo>
+      <position x="601.0" y="52.0"/>
+    </element>
+    <element uuid="4a68040e-2eb2-45a9-a950-79c31400de1f" manual="true">
+      <element uuid="d7cd3f15-3042-46d4-9701-c85e9d629a5e" manual="true" dockArea="right">
+        <bo>
+          <seg>feature</seg>
+          <seg>high_indicator</seg>
+        </bo>
+        <position x="295.0" y="10.0"/>
+      </element>
+      <element uuid="95aff246-1c75-42f7-8e45-b50c599b58f0" manual="true" dockArea="left">
+        <bo>
+          <seg>feature</seg>
+          <seg>temperature</seg>
+        </bo>
+        <position y="10.0"/>
+      </element>
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>temp_sensor</seg>
+      </bo>
+      <position x="162.0" y="42.0"/>
+      <size width="427.0" height="64.0"/>
+    </element>
+    <bo>
+      <seg>classifier</seg>
+      <seg>temperature_ctrl.impl</seg>
+    </bo>
+    <position x="12.0" y="12.0"/>
+    <size width="697.0" height="118.0"/>
+  </element>
+  <config type="structure" connectionPrimaryLabelsVisible="false">
+    <enabledAadlProperties/>
+    <context>
+      <seg>classifier</seg>
+      <seg>temperature_ctrl::temperature_ctrl.impl</seg>
+    </context>
+  </config>
+</diagram:Diagram>
