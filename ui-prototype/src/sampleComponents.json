@@ -1,0 +1,16 @@
+[
+    {
+        "component": "temperature-sensor",
+        "parameters": [
+            { "name": "temperature", "type": "int" },
+            { "name": "shutdown", "type": "boolean" }
+        ]
+    },
+    {
+        "component": "rotation-sensor",
+        "parameters": [
+            { "name": "degrees", "type": "int" },
+            { "name": "shutdown", "type": "boolean" }
+        ]
+    }
+]
