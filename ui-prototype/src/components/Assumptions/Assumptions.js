@@ -19,6 +19,7 @@ const Assumptions = ({ parameters, assumptions, symbols, modifyAssumptions }) =>
         newAssumptions = newAssumptions.filter((item) => item !== removeValue);
         modifyAssumptions(newAssumptions);
     };
+
     return (
         <>
             <h2>Assumptions</h2>

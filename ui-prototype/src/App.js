@@ -23,6 +23,11 @@ function App() {
             .slice(0, getRandomInt(sampleParameters.length - 1) + 1)
             .map((val) => `${val} ${assumptionComparators[getRandomInt(5)]} ${getRandomInt(100)}`)
     );
+    const [guarantees, setGuarantees] = useState(
+        sampleParameters
+            .slice(0, getRandomInt(sampleParameters.length - 1) + 1)
+            .map((val) => `${val} ${assumptionComparators[getRandomInt(5)]} ${getRandomInt(100)}`)
+    );
 
     const modifyParameters = (newParameters) => {
         setParameters(newParameters);
@@ -30,6 +35,10 @@ function App() {
 
     const modifyAssumptions = (newAssumptions) => {
         setAssumptions(newAssumptions);
+    };
+
+    const modifyGuarantees = (newGuarantees) => {
+        setGuarantees(newGuarantees);
     };
 
     useEffect(() => {
@@ -87,7 +96,12 @@ function App() {
                                 <Output assumptions={assumptions} />
                             </Route>
                             <Route path="/guarantees">
-                                <Guarantees symbols={guaranteeComparators} />
+                                <Guarantees
+                                    parameters={parameters}
+                                    guarantees={guarantees}
+                                    symbols={guaranteeComparators}
+                                    modifyGuarantees={modifyGuarantees}
+                                />
                             </Route>
                             <Route path="/assumptions">
                                 <Assumptions
