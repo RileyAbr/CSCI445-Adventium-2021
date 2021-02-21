@@ -5,11 +5,12 @@ import "./App.css";
 import NavButton from "./components/NavButton";
 import Parameters from "./components/Parameters";
 import Assumptions from "./components/Assumptions";
+import Guarantees from "./components/Guarantees";
 import Output from "./components/Output";
 
 import sampleParameters from "./data_files/sampleParameters.json";
 import assumptionComparators from "./data_files/assumptionComparators.json";
-// import guaranteeComparators from "./data_files/guaranteeComparators.json";
+import guaranteeComparators from "./data_files/guaranteeComparators.json";
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
@@ -85,6 +86,9 @@ function App() {
                             <Route path="/output">
                                 <Output assumptions={assumptions} />
                             </Route>
+                            <Route path="/guarantees">
+                                <Guarantees symbols={guaranteeComparators} />
+                            </Route>
                             <Route path="/assumptions">
                                 <Assumptions
                                     parameters={parameters}
@@ -113,12 +117,16 @@ function App() {
                     >
                         <Switch>
                             <Route path="/output">
-                                <NavButton to="assumptions">Back</NavButton>
+                                <NavButton to="guarantees">Back</NavButton>
                                 <NavButton>Finish</NavButton>
+                            </Route>
+                            <Route path="/guarantees">
+                                <NavButton to="assumptions">Back</NavButton>
+                                <NavButton to="output">Next</NavButton>
                             </Route>
                             <Route path="/assumptions">
                                 <NavButton to="parameters">Back</NavButton>
-                                <NavButton to="output">Next</NavButton>
+                                <NavButton to="guarantees">Next</NavButton>
                             </Route>
                             <Route path="/">
                                 <NavButton disabled>Back</NavButton>
