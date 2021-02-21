@@ -7,19 +7,20 @@ import Parameters from "./components/Parameters";
 import Assertions from "./components/Assertions";
 import Output from "./components/Output";
 
-import commonParameters from "./common-parameters.json";
-import comparisons from "./comparisons.json";
+import sampleParameters from "./data_files/sampleParameters.json";
+import assumptionComparators from "./data_files/assumptionComparators.json";
+import guaranteeComparators from "./data_files/guaranteeComparators.json";
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
 }
 
 function App() {
-    const [parameters, setParameters] = useState(commonParameters);
+    const [parameters, setParameters] = useState(sampleParameters);
     const [assertions, setAssertions] = useState(
-        commonParameters
-            .slice(0, getRandomInt(commonParameters.length - 1) + 1)
-            .map((val) => `${val} ${comparisons[getRandomInt(5)]} ${getRandomInt(100)}`)
+        sampleParameters
+            .slice(0, getRandomInt(sampleParameters.length - 1) + 1)
+            .map((val) => `${val} ${assumptionComparators[getRandomInt(5)]} ${getRandomInt(100)}`)
     );
 
     const modifyParameters = (newParameters) => {
@@ -86,7 +87,7 @@ function App() {
                                 <Assertions
                                     parameters={parameters}
                                     assertions={assertions}
-                                    symbols={comparisons}
+                                    symbols={assumptionComparators}
                                     modifyAssertions={modifyAssertions}
                                 />
                             </Route>
