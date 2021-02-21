@@ -9,7 +9,7 @@ import Output from "./components/Output";
 
 import sampleParameters from "./data_files/sampleParameters.json";
 import assumptionComparators from "./data_files/assumptionComparators.json";
-import guaranteeComparators from "./data_files/guaranteeComparators.json";
+// import guaranteeComparators from "./data_files/guaranteeComparators.json";
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
