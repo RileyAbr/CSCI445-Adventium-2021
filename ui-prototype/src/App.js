@@ -4,7 +4,7 @@ import "./App.css";
 
 import NavButton from "./components/NavButton";
 import Parameters from "./components/Parameters";
-import Assertions from "./components/Assertions";
+import Assumptions from "./components/Assumptions";
 import Output from "./components/Output";
 
 import sampleParameters from "./data_files/sampleParameters.json";
@@ -17,7 +17,7 @@ function getRandomInt(max) {
 
 function App() {
     const [parameters, setParameters] = useState(sampleParameters);
-    const [assertions, setAssertions] = useState(
+    const [assumptions, setAssumptions] = useState(
         sampleParameters
             .slice(0, getRandomInt(sampleParameters.length - 1) + 1)
             .map((val) => `${val} ${assumptionComparators[getRandomInt(5)]} ${getRandomInt(100)}`)
@@ -27,14 +27,16 @@ function App() {
         setParameters(newParameters);
     };
 
-    const modifyAssertions = (newAssertions) => {
-        setAssertions(newAssertions);
+    const modifyAssumptions = (newAssumptions) => {
+        setAssumptions(newAssumptions);
     };
 
     useEffect(() => {
-        let validAssertions = [...assertions];
-        validAssertions = validAssertions.filter((item) => parameters.includes(item.split(" ")[0]));
-        setAssertions(validAssertions);
+        let validAssumptions = [...assumptions];
+        validAssumptions = validAssumptions.filter((item) =>
+            parameters.includes(item.split(" ")[0])
+        );
+        setAssumptions(validAssumptions);
     }, [parameters]);
 
     return (
@@ -81,14 +83,14 @@ function App() {
                     <article style={{ flexGrow: 1 }}>
                         <Switch>
                             <Route path="/output">
-                                <Output assertions={assertions} />
+                                <Output assumptions={assumptions} />
                             </Route>
-                            <Route path="/assertions">
-                                <Assertions
+                            <Route path="/assumptions">
+                                <Assumptions
                                     parameters={parameters}
-                                    assertions={assertions}
+                                    assumptions={assumptions}
                                     symbols={assumptionComparators}
-                                    modifyAssertions={modifyAssertions}
+                                    modifyAssumptions={modifyAssumptions}
                                 />
                             </Route>
                             <Route path="/">
@@ -111,16 +113,16 @@ function App() {
                     >
                         <Switch>
                             <Route path="/output">
-                                <NavButton to="assertions">Back</NavButton>
+                                <NavButton to="assumptions">Back</NavButton>
                                 <NavButton>Finish</NavButton>
                             </Route>
-                            <Route path="/assertions">
+                            <Route path="/assumptions">
                                 <NavButton to="parameters">Back</NavButton>
                                 <NavButton to="output">Next</NavButton>
                             </Route>
                             <Route path="/">
                                 <NavButton disabled>Back</NavButton>
-                                <NavButton to="assertions">Next</NavButton>
+                                <NavButton to="assumptions">Next</NavButton>
                             </Route>
                         </Switch>
                     </footer>

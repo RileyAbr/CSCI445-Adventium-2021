@@ -1,27 +1,27 @@
 import React, { useState } from "react";
 
-const Assertions = ({ parameters, assertions, symbols, modifyAssertions }) => {
+const Assumptions = ({ parameters, assumptions, symbols, modifyAssumptions }) => {
     const [addSelectedParameter, setAddSelectedParameter] = useState(parameters[0]);
     const [addSelectedComparator, setAddSelectedComparator] = useState(symbols[0]);
-    const [addAssertionInput, setAddAssertionInput] = useState();
-    const [removeAssertionInput, setRemoveAssertionInput] = useState();
+    const [addAssumptionInput, setAddAssumptionInput] = useState();
+    const [removeAssumptionInput, setRemoveAssumptionInput] = useState();
 
-    const addAssertion = (addValue) => {
+    const addAssumption = (addValue) => {
         if (addValue) {
-            const newAssertions = [...assertions];
-            newAssertions.push(addValue);
-            modifyAssertions(newAssertions);
+            const newAssumptions = [...assumptions];
+            newAssumptions.push(addValue);
+            modifyAssumptions(newAssumptions);
         }
     };
 
     const removeParameter = (removeValue) => {
-        let newAssertions = [...assertions];
-        newAssertions = newAssertions.filter((item) => item !== removeValue);
-        modifyAssertions(newAssertions);
+        let newAssumptions = [...assumptions];
+        newAssumptions = newAssumptions.filter((item) => item !== removeValue);
+        modifyAssumptions(newAssumptions);
     };
     return (
         <>
-            <h2>Assertions</h2>
+            <h2>Assumptions</h2>
             <div
                 style={{
                     display: "flex",
@@ -42,13 +42,13 @@ const Assertions = ({ parameters, assertions, symbols, modifyAssertions }) => {
                     <select
                         style={{ flexGrow: 1 }}
                         size="8"
-                        onChange={(event) => setRemoveAssertionInput(event.target.value)}
+                        onChange={(event) => setRemoveAssumptionInput(event.target.value)}
                     >
-                        {assertions.map((val) => (
+                        {assumptions.map((val) => (
                             <option value={val}>{val}</option>
                         ))}
                     </select>
-                    <button type="button" onClick={() => removeParameter(removeAssertionInput)}>
+                    <button type="button" onClick={() => removeParameter(removeAssumptionInput)}>
                         -
                     </button>
                 </div>
@@ -77,13 +77,13 @@ const Assertions = ({ parameters, assertions, symbols, modifyAssertions }) => {
                         <input
                             type="number"
                             style={{ flexGrow: 1 }}
-                            onChange={(event) => setAddAssertionInput(event.target.value)}
+                            onChange={(event) => setAddAssumptionInput(event.target.value)}
                         />
                         <button
                             type="button"
                             onClick={() =>
-                                addAssertion(
-                                    `${addSelectedParameter} ${addSelectedComparator} ${addAssertionInput}`
+                                addAssumption(
+                                    `${addSelectedParameter} ${addSelectedComparator} ${addAssumptionInput}`
                                 )
                             }
                         >
@@ -96,4 +96,4 @@ const Assertions = ({ parameters, assertions, symbols, modifyAssertions }) => {
     );
 };
 
-export default Assertions;
+export default Assumptions;

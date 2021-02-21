@@ -1,11 +1,11 @@
 import React from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
-const Output = ({ assertions }) => {
+const Output = ({ assumptions }) => {
     let formattedOutput = "";
 
-    for (let i = 0; i < assertions.length; i += 1) {
-        formattedOutput += `${assertions[i]} \n`;
+    for (let i = 0; i < assumptions.length; i += 1) {
+        formattedOutput += `${assumptions[i]} \n`;
     }
 
     return (
