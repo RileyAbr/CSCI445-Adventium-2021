@@ -102,7 +102,7 @@
         <seg>feature</seg>
         <seg>shutdown</seg>
       </bo>
-      <position x="895.0" y="136.0"/>
+      <position x="912.0" y="136.0"/>
     </element>
     <element uuid="8fd71a4d-cd08-4ccf-a401-87bea3d86402" manual="true">
       <element uuid="ab6a05fd-5c73-46f7-a126-10f13d10d9e5" manual="true">
@@ -141,7 +141,7 @@
           <seg>feature</seg>
           <seg>shutdown</seg>
         </bo>
-        <position x="397.0" y="53.0"/>
+        <position x="414.0" y="53.0"/>
       </element>
       <element uuid="0879eb2b-415d-4f4f-bb9c-671b7b12608d" manual="true">
         <element uuid="4e0b6e01-f7da-4963-ac6c-e4743fc16246" manual="true" dockArea="right">
@@ -149,7 +149,7 @@
             <seg>feature</seg>
             <seg>high_indicator</seg>
           </bo>
-          <position x="196.0" y="50.0"/>
+          <position x="219.0" y="50.0"/>
         </element>
         <element uuid="700a6aae-5e73-45ae-9b40-1ca52bde1397" manual="true" dockArea="left">
           <bo>
@@ -209,7 +209,7 @@
           <seg>feature</seg>
           <seg>shutdown</seg>
         </bo>
-        <position x="375.0" y="10.0"/>
+        <position x="392.0" y="10.0"/>
       </element>
       <element uuid="07e343f2-22ef-41f8-861e-dc2f17dde4d8" manual="true">
         <element uuid="e48ff8ea-f5e8-49c1-9485-7e5f9149d4ea" manual="true" dockArea="right">
@@ -217,7 +217,7 @@
             <seg>feature</seg>
             <seg>high_indicator</seg>
           </bo>
-          <position x="239.0" y="40.0"/>
+          <position x="262.0" y="40.0"/>
         </element>
         <element uuid="c5de1c6f-ac65-44a3-8af8-d36e74d34014" manual="true" dockArea="left">
           <bo>
@@ -277,7 +277,7 @@
           <seg>feature</seg>
           <seg>shutdown</seg>
         </bo>
-        <position x="375.0" y="10.0"/>
+        <position x="392.0" y="10.0"/>
       </element>
       <element uuid="cdda8c50-8509-4a8b-ba35-89feb03bd9ee" manual="true">
         <element uuid="45000304-3708-493e-9402-25a861b6c65e" manual="true" dockArea="right">
@@ -285,7 +285,7 @@
             <seg>feature</seg>
             <seg>high_indicator</seg>
           </bo>
-          <position x="244.0" y="50.0"/>
+          <position x="267.0" y="50.0"/>
         </element>
         <element uuid="c76f9c6a-9847-4693-aba8-5793c7f45450" manual="true" dockArea="left">
           <bo>

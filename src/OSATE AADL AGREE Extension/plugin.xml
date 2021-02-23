@@ -27,11 +27,11 @@
               <and>
 		<instanceof value="org.eclipse.core.resources.IFile"/>
 		<test 
-                    value="*.aaxl2"
+                    value="*.aadl"
                     property="org.eclipse.core.resources.name">
 		</test>
               </and>
-              <instanceof value="org.osate.aadl2.instance.SystemInstance"/>
+              <instanceof value="org.osate.aadl2.instance.impl.SystemInstance"/>
             </or>
           </iterate>
 	</with>

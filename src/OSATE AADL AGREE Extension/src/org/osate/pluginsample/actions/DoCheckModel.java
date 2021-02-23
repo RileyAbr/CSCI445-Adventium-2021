@@ -99,6 +99,20 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 			System.out.println("ccl owner=" + ccl.getOwner() );
 			System.out.println("ccl owner owner=" + ccl );
 			
+			//iterate through connections
+			for(int i = 0; i < si.getConnectionInstances().size(); i++) {
+				System.out.println("Connection=" + si.getConnectionInstances().get(i).getName());
+			}
+			
+			//iterate through sub systems
+			for(int i = 0; i < si.getAllComponentInstances().size(); i++) {
+				System.out.println("Component=" + si.getAllComponentInstances().get(i).getName());
+			}
+			
+			//iterate through data ports
+			for(int i = 0; i < si.getFeatureInstances().size(); i++) {
+				System.out.println("Feature=" + si.getFeatureInstances().get(i).getName());
+			}
 			
 			Dialog.showInfo("Analysis result", "done");
 		}
