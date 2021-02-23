@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import ParameterSelector from "../ParameterSelector";
+
 const Guarantees = ({ parameters, guarantees, symbols, modifyGuarantees }) => {
     const [addSelectedParameter, setAddSelectedParameter] = useState(parameters[0]);
     const [addSelectedComparator, setAddSelectedComparator] = useState(symbols[0]);
@@ -69,11 +71,15 @@ const Guarantees = ({ parameters, guarantees, symbols, modifyGuarantees }) => {
                             <option value={val}>{val}</option>
                         ))}
                     </select>
+
                     <select onChange={(event) => setAddSelectedComparator(event.target.value)}>
                         {symbols.map((symbol) => (
                             <option value={symbol}>{symbol}</option>
                         ))}
                     </select>
+
+                    <ParameterSelector parameters={parameters} />
+
                     <div style={{ width: "65%", display: "flex", flexFlow: "row nowrap" }}>
                         <input
                             type="number"
