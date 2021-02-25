@@ -3,10 +3,15 @@ import React, { useState } from "react";
 import ParameterSelector from "../ParameterSelector";
 
 const Guarantees = ({ parameters, guarantees, symbols, modifyGuarantees }) => {
-    const [addSelectedParameter, setAddSelectedParameter] = useState(parameters[0]);
+    const [selectedConditionalOperand, setSelectedConditionalOperand] = useState(parameters[0]);
+    const [selectedResultOperand, setSelectedResultOperand] = useState(parameters[0]);
     const [addSelectedComparator, setAddSelectedComparator] = useState(symbols[0]);
     const [addGuaranteeInput, setAddGuaranteeInput] = useState();
     const [removeGuaranteeInput, setRemoveGuaranteeInput] = useState();
+
+    const selectResultOperand = (resultValue) => {
+        setSelectedResultOperand(resultValue);
+    };
 
     const addGuarantee = (addValue) => {
         if (addValue) {
@@ -63,14 +68,19 @@ const Guarantees = ({ parameters, guarantees, symbols, modifyGuarantees }) => {
                         alignItems: "center",
                     }}
                 >
-                    <select
+                    {/* <select
                         style={{ width: "65%" }}
-                        onChange={(event) => setAddSelectedParameter(event.target.value)}
+                        onChange={(event) => setSelectedConditionalOperand(event.target.value)}
                     >
                         {parameters.map((val) => (
                             <option value={val}>{val}</option>
                         ))}
-                    </select>
+                    </select> */}
+
+                    <ParameterSelector
+                        parameters={parameters}
+                        selectParameter={setSelectedConditionalOperand}
+                    />
 
                     <select onChange={(event) => setAddSelectedComparator(event.target.value)}>
                         {symbols.map((symbol) => (
@@ -78,7 +88,10 @@ const Guarantees = ({ parameters, guarantees, symbols, modifyGuarantees }) => {
                         ))}
                     </select>
 
-                    <ParameterSelector parameters={parameters} />
+                    <ParameterSelector
+                        parameters={parameters}
+                        selectParameter={selectResultOperand}
+                    />
 
                     <div style={{ width: "65%", display: "flex", flexFlow: "row nowrap" }}>
                         <input
@@ -90,7 +103,7 @@ const Guarantees = ({ parameters, guarantees, symbols, modifyGuarantees }) => {
                             type="button"
                             onClick={() =>
                                 addGuarantee(
-                                    `${addSelectedParameter} ${addSelectedComparator} ${addGuaranteeInput}`
+                                    `${selectedConditionalOperand} ${addGuaranteeInput} ${addSelectedComparator} ${selectedResultOperand}`
                                 )
                             }
                         >
