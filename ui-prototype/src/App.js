@@ -1,43 +1,51 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 
 import NavButton from "./components/NavButton";
-import Parameters from "./components/Parameters";
+// import Parameters from "./components/Parameters";
 import Assumptions from "./components/Assumptions";
+import Guarantees from "./components/Guarantees";
 import Output from "./components/Output";
 
 import sampleParameters from "./data_files/sampleParameters.json";
 import assumptionComparators from "./data_files/assumptionComparators.json";
-// import guaranteeComparators from "./data_files/guaranteeComparators.json";
+import guaranteeComparators from "./data_files/guaranteeComparators.json";
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
 }
 
 function App() {
+    // eslint-disable-next-line no-unused-vars
     const [parameters, setParameters] = useState(sampleParameters);
     const [assumptions, setAssumptions] = useState(
-        sampleParameters
-            .slice(0, getRandomInt(sampleParameters.length - 1) + 1)
-            .map((val) => `${val} ${assumptionComparators[getRandomInt(5)]} ${getRandomInt(100)}`)
+        sampleParameters.slice(0, getRandomInt(sampleParameters.length - 1) + 1).map(
+            (val) =>
+                // prettier-ignore
+                `\tassume "Sample assumption" : \n\t\t(${val} ${assumptionComparators[getRandomInt(assumptionComparators.length - 1)]
+                } ${getRandomInt(100)})`
+        )
+    );
+    const [guarantees, setGuarantees] = useState(
+        sampleParameters.slice(0, getRandomInt(3) + 1).map(
+            (val) =>
+                // prettier-ignore
+                `\tguarantee "This is an example guarantee." : \n\t\t(${val} ${assumptionComparators[getRandomInt(assumptionComparators.length - 1)]} ${getRandomInt(100)}) ${guaranteeComparators[getRandomInt(guaranteeComparators.length - 1)]} ${sampleParameters[getRandomInt(sampleParameters.length - 1)]};`
+        )
     );
 
-    const modifyParameters = (newParameters) => {
-        setParameters(newParameters);
-    };
+    // const modifyParameters = (newParameters) => {
+    //     setParameters(newParameters);
+    // };
 
     const modifyAssumptions = (newAssumptions) => {
         setAssumptions(newAssumptions);
     };
 
-    useEffect(() => {
-        let validAssumptions = [...assumptions];
-        validAssumptions = validAssumptions.filter((item) =>
-            parameters.includes(item.split(" ")[0])
-        );
-        setAssumptions(validAssumptions);
-    }, [parameters]);
+    const modifyGuarantees = (newGuarantees) => {
+        setGuarantees(newGuarantees);
+    };
 
     return (
         <Router>
@@ -83,22 +91,32 @@ function App() {
                     <article style={{ flexGrow: 1 }}>
                         <Switch>
                             <Route path="/output">
-                                <Output assumptions={assumptions} />
+                                <Output assumptions={assumptions} guarantees={guarantees} />
                             </Route>
-                            <Route path="/assumptions">
-                                <Assumptions
+                            <Route path="/guarantees">
+                                <Guarantees
                                     parameters={parameters}
-                                    assumptions={assumptions}
-                                    symbols={assumptionComparators}
-                                    modifyAssumptions={modifyAssumptions}
+                                    guarantees={guarantees}
+                                    assumptionSymbols={assumptionComparators}
+                                    guaranteeSymbols={guaranteeComparators}
+                                    symbols={guaranteeComparators}
+                                    modifyGuarantees={modifyGuarantees}
                                 />
                             </Route>
                             <Route path="/">
+                                <Assumptions
+                                    parameters={parameters}
+                                    assumptions={assumptions}
+                                    assumptionSymbols={assumptionComparators}
+                                    modifyAssumptions={modifyAssumptions}
+                                />
+                            </Route>
+                            {/* <Route path="/">
                                 <Parameters
                                     parameters={parameters}
                                     modifyParameters={modifyParameters}
                                 />
-                            </Route>
+                            </Route> */}
                         </Switch>
                     </article>
                     <footer
@@ -113,17 +131,23 @@ function App() {
                     >
                         <Switch>
                             <Route path="/output">
-                                <NavButton to="assumptions">Back</NavButton>
-                                <NavButton>Finish</NavButton>
+                                <NavButton to="guarantees">Back</NavButton>
+                                <NavButton to="/">Finish</NavButton>
                             </Route>
-                            <Route path="/assumptions">
-                                <NavButton to="parameters">Back</NavButton>
+                            <Route path="/guarantees">
+                                <NavButton to="assumptions">Back</NavButton>
                                 <NavButton to="output">Next</NavButton>
                             </Route>
                             <Route path="/">
+                                <NavButton to="/" disabled>
+                                    Back
+                                </NavButton>
+                                <NavButton to="guarantees">Next</NavButton>
+                            </Route>
+                            {/* <Route path="/">
                                 <NavButton disabled>Back</NavButton>
                                 <NavButton to="assumptions">Next</NavButton>
-                            </Route>
+                            </Route> */}
                         </Switch>
                     </footer>
                 </main>
