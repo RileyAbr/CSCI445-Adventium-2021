@@ -5,11 +5,12 @@ import "./App.css";
 import NavButton from "./components/NavButton";
 import Parameters from "./components/Parameters";
 import Assumptions from "./components/Assumptions";
+import Guarantees from "./components/Guarantees";
 import Output from "./components/Output";
 
 import sampleParameters from "./data_files/sampleParameters.json";
 import assumptionComparators from "./data_files/assumptionComparators.json";
-// import guaranteeComparators from "./data_files/guaranteeComparators.json";
+import guaranteeComparators from "./data_files/guaranteeComparators.json";
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
@@ -22,6 +23,13 @@ function App() {
             .slice(0, getRandomInt(sampleParameters.length - 1) + 1)
             .map((val) => `${val} ${assumptionComparators[getRandomInt(5)]} ${getRandomInt(100)}`)
     );
+    const [guarantees, setGuarantees] = useState(
+        sampleParameters.slice(0, getRandomInt(sampleParameters.length - 1) + 1).map(
+            (val) =>
+                // prettier-ignore
+                `guarantee "This is an example guarantee." : \n (${val} ${assumptionComparators[getRandomInt(assumptionComparators.length - 1)]} ${getRandomInt(100)}) ${guaranteeComparators[getRandomInt(guaranteeComparators.length - 1)]} ${sampleParameters[getRandomInt(sampleParameters.length - 1)]};`
+        )
+    );
 
     const modifyParameters = (newParameters) => {
         setParameters(newParameters);
@@ -29,6 +37,10 @@ function App() {
 
     const modifyAssumptions = (newAssumptions) => {
         setAssumptions(newAssumptions);
+    };
+
+    const modifyGuarantees = (newGuarantees) => {
+        setGuarantees(newGuarantees);
     };
 
     useEffect(() => {
@@ -83,7 +95,17 @@ function App() {
                     <article style={{ flexGrow: 1 }}>
                         <Switch>
                             <Route path="/output">
-                                <Output assumptions={assumptions} />
+                                <Output guarantees={guarantees} />
+                            </Route>
+                            <Route path="/guarantees">
+                                <Guarantees
+                                    parameters={parameters}
+                                    guarantees={guarantees}
+                                    assumptionSymbols={assumptionComparators}
+                                    guaranteeSymbols={guaranteeComparators}
+                                    symbols={guaranteeComparators}
+                                    modifyGuarantees={modifyGuarantees}
+                                />
                             </Route>
                             <Route path="/assumptions">
                                 <Assumptions
@@ -113,12 +135,16 @@ function App() {
                     >
                         <Switch>
                             <Route path="/output">
-                                <NavButton to="assumptions">Back</NavButton>
+                                <NavButton to="guarantees">Back</NavButton>
                                 <NavButton>Finish</NavButton>
+                            </Route>
+                            <Route path="/guarantees">
+                                <NavButton to="assumptions">Back</NavButton>
+                                <NavButton to="output">Next</NavButton>
                             </Route>
                             <Route path="/assumptions">
                                 <NavButton to="parameters">Back</NavButton>
-                                <NavButton to="output">Next</NavButton>
+                                <NavButton to="guarantees">Next</NavButton>
                             </Route>
                             <Route path="/">
                                 <NavButton disabled>Back</NavButton>
