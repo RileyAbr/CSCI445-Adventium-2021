@@ -1,17 +1,21 @@
 import React, { useState } from "react";
 
 import ParameterSelector from "../ParameterSelector";
+import SymbolSelector from "../SymbolSelector";
 
-const Guarantees = ({ parameters, guarantees, symbols, modifyGuarantees }) => {
+const Guarantees = ({
+    parameters,
+    guarantees,
+    assumptionSymbols,
+    guaranteeSymbols,
+    modifyGuarantees,
+}) => {
     const [selectedConditionalOperand, setSelectedConditionalOperand] = useState(parameters[0]);
     const [selectedResultOperand, setSelectedResultOperand] = useState(parameters[0]);
-    const [addSelectedComparator, setAddSelectedComparator] = useState(symbols[0]);
-    const [addGuaranteeInput, setAddGuaranteeInput] = useState();
+    const [selectedAssumptionSymbol, setSelectedAssumptionSymbol] = useState(assumptionSymbols[0]);
+    const [selectedGuaranteeSymbol, setSelectedGuaranteeSymbol] = useState(guaranteeSymbols[0]);
+    const [selectAssumptionValue, setSelectAssumptionValue] = useState();
     const [removeGuaranteeInput, setRemoveGuaranteeInput] = useState();
-
-    const selectResultOperand = (resultValue) => {
-        setSelectedResultOperand(resultValue);
-    };
 
     const addGuarantee = (addValue) => {
         if (addValue) {
@@ -33,7 +37,7 @@ const Guarantees = ({ parameters, guarantees, symbols, modifyGuarantees }) => {
             <div
                 style={{
                     display: "flex",
-                    height: "50%",
+                    height: "55%",
                     flexFlow: "column nowrap",
                     justifyContent: "space-between",
                     alignItems: "center",
@@ -68,42 +72,37 @@ const Guarantees = ({ parameters, guarantees, symbols, modifyGuarantees }) => {
                         alignItems: "center",
                     }}
                 >
-                    {/* <select
-                        style={{ width: "65%" }}
-                        onChange={(event) => setSelectedConditionalOperand(event.target.value)}
-                    >
-                        {parameters.map((val) => (
-                            <option value={val}>{val}</option>
-                        ))}
-                    </select> */}
-
                     <ParameterSelector
                         parameters={parameters}
                         selectParameter={setSelectedConditionalOperand}
                     />
 
-                    <select onChange={(event) => setAddSelectedComparator(event.target.value)}>
-                        {symbols.map((symbol) => (
-                            <option value={symbol}>{symbol}</option>
-                        ))}
-                    </select>
+                    <SymbolSelector
+                        symbols={assumptionSymbols}
+                        selectSymbol={setSelectedAssumptionSymbol}
+                    />
 
-                    <ParameterSelector
-                        parameters={parameters}
-                        selectParameter={selectResultOperand}
+                    <input
+                        type="number"
+                        onChange={(event) => setSelectAssumptionValue(event.target.value)}
+                    />
+
+                    <SymbolSelector
+                        symbols={guaranteeSymbols}
+                        selectSymbol={setSelectedGuaranteeSymbol}
                     />
 
                     <div style={{ width: "65%", display: "flex", flexFlow: "row nowrap" }}>
-                        <input
-                            type="number"
-                            style={{ flexGrow: 1 }}
-                            onChange={(event) => setAddGuaranteeInput(event.target.value)}
+                        <ParameterSelector
+                            parameters={parameters}
+                            selectParameter={setSelectedResultOperand}
+                            width="100%"
                         />
                         <button
                             type="button"
                             onClick={() =>
                                 addGuarantee(
-                                    `${selectedConditionalOperand} ${addGuaranteeInput} ${addSelectedComparator} ${selectedResultOperand}`
+                                    `(${selectedConditionalOperand} ${selectedAssumptionSymbol} ${selectAssumptionValue}) ${selectedGuaranteeSymbol}  ${selectedResultOperand}`
                                 )
                             }
                         >

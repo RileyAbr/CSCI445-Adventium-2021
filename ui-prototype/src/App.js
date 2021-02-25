@@ -99,6 +99,8 @@ function App() {
                                 <Guarantees
                                     parameters={parameters}
                                     guarantees={guarantees}
+                                    assumptionSymbols={assumptionComparators}
+                                    guaranteeSymbols={guaranteeComparators}
                                     symbols={guaranteeComparators}
                                     modifyGuarantees={modifyGuarantees}
                                 />
