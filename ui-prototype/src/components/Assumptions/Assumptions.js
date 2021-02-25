@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 
+import AgreeDescInput from "../AgreeDescInput";
 import ParameterSelector from "../ParameterSelector";
 import SymbolSelector from "../SymbolSelector";
 
 const Assumptions = ({ parameters, assumptions, assumptionSymbols, modifyAssumptions }) => {
+    const [assumptionDescription, setAssumptionDescription] = useState("");
     const [selectedOperand, setSelectedOperand] = useState(parameters[0]);
     const [selectedAssumptionSymbol, setSelectedAssumptionSymbol] = useState(assumptionSymbols[0]);
     const [addAssumptionInput, setAddAssumptionInput] = useState();
@@ -64,6 +66,8 @@ const Assumptions = ({ parameters, assumptions, assumptionSymbols, modifyAssumpt
                         alignItems: "center",
                     }}
                 >
+                    <AgreeDescInput setDescription={setAssumptionDescription} />
+
                     <ParameterSelector
                         parameters={parameters}
                         selectParameter={setSelectedOperand}
@@ -84,7 +88,7 @@ const Assumptions = ({ parameters, assumptions, assumptionSymbols, modifyAssumpt
                             type="button"
                             onClick={() =>
                                 addAssumption(
-                                    `${selectedOperand} ${selectedAssumptionSymbol} ${addAssumptionInput}`
+                                    `assume "${assumptionDescription}" : \n (${selectedOperand} ${selectedAssumptionSymbol} ${addAssumptionInput})`
                                 )
                             }
                         >
