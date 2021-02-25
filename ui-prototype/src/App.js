@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 
@@ -17,17 +17,21 @@ function getRandomInt(max) {
 }
 
 function App() {
+    // eslint-disable-next-line no-unused-vars
     const [parameters, setParameters] = useState(sampleParameters);
     const [assumptions, setAssumptions] = useState(
-        sampleParameters
-            .slice(0, getRandomInt(sampleParameters.length - 1) + 1)
-            .map((val) => `${val} ${assumptionComparators[getRandomInt(5)]} ${getRandomInt(100)}`)
-    );
-    const [guarantees, setGuarantees] = useState(
         sampleParameters.slice(0, getRandomInt(sampleParameters.length - 1) + 1).map(
             (val) =>
                 // prettier-ignore
-                `guarantee "This is an example guarantee." : \n (${val} ${assumptionComparators[getRandomInt(assumptionComparators.length - 1)]} ${getRandomInt(100)}) ${guaranteeComparators[getRandomInt(guaranteeComparators.length - 1)]} ${sampleParameters[getRandomInt(sampleParameters.length - 1)]};`
+                `\tassume "Sample assumption" : \n\t\t(${val} ${assumptionComparators[getRandomInt(assumptionComparators.length - 1)]
+                } ${getRandomInt(100)})`
+        )
+    );
+    const [guarantees, setGuarantees] = useState(
+        sampleParameters.slice(0, getRandomInt(3) + 1).map(
+            (val) =>
+                // prettier-ignore
+                `\tguarantee "This is an example guarantee." : \n\t\t(${val} ${assumptionComparators[getRandomInt(assumptionComparators.length - 1)]} ${getRandomInt(100)}) ${guaranteeComparators[getRandomInt(guaranteeComparators.length - 1)]} ${sampleParameters[getRandomInt(sampleParameters.length - 1)]};`
         )
     );
 
@@ -42,14 +46,6 @@ function App() {
     const modifyGuarantees = (newGuarantees) => {
         setGuarantees(newGuarantees);
     };
-
-    useEffect(() => {
-        let validAssumptions = [...assumptions];
-        validAssumptions = validAssumptions.filter((item) =>
-            parameters.includes(item.split(" ")[0])
-        );
-        setAssumptions(validAssumptions);
-    }, [parameters]);
 
     return (
         <Router>
@@ -95,7 +91,7 @@ function App() {
                     <article style={{ flexGrow: 1 }}>
                         <Switch>
                             <Route path="/output">
-                                <Output guarantees={guarantees} />
+                                <Output assumptions={assumptions} guarantees={guarantees} />
                             </Route>
                             <Route path="/guarantees">
                                 <Guarantees
@@ -111,7 +107,7 @@ function App() {
                                 <Assumptions
                                     parameters={parameters}
                                     assumptions={assumptions}
-                                    symbols={assumptionComparators}
+                                    assumptionSymbols={assumptionComparators}
                                     modifyAssumptions={modifyAssumptions}
                                 />
                             </Route>
@@ -136,14 +132,16 @@ function App() {
                         <Switch>
                             <Route path="/output">
                                 <NavButton to="guarantees">Back</NavButton>
-                                <NavButton>Finish</NavButton>
+                                <NavButton to="/">Finish</NavButton>
                             </Route>
                             <Route path="/guarantees">
                                 <NavButton to="assumptions">Back</NavButton>
                                 <NavButton to="output">Next</NavButton>
                             </Route>
                             <Route path="/">
-                                <NavButton disabled>Back</NavButton>
+                                <NavButton to="/" disabled>
+                                    Back
+                                </NavButton>
                                 <NavButton to="guarantees">Next</NavButton>
                             </Route>
                             {/* <Route path="/">

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+import AgreeDescInput from "../AgreeDescInput";
 import ParameterSelector from "../ParameterSelector";
 import SymbolSelector from "../SymbolSelector";
 
@@ -78,11 +79,7 @@ const Guarantees = ({
                         alignItems: "center",
                     }}
                 >
-                    <input
-                        type="text"
-                        style={{ width: "100%" }}
-                        onChange={(event) => setGuaranteeDescription(event.target.value)}
-                    />
+                    <AgreeDescInput setDescription={setGuaranteeDescription} />
 
                     <ParameterSelector
                         parameters={parameters}
@@ -114,7 +111,7 @@ const Guarantees = ({
                             type="button"
                             onClick={() =>
                                 addGuarantee(
-                                    `guarantee "${guaranteeDescription}" : \n (${selectedConditionalOperand} ${selectedAssumptionSymbol} ${selectAssumptionValue}) ${selectedGuaranteeSymbol}  ${selectedResultOperand};`
+                                    `\tguarantee "${guaranteeDescription}" : \n\t\t(${selectedConditionalOperand} ${selectedAssumptionSymbol} ${selectAssumptionValue}) ${selectedGuaranteeSymbol}  ${selectedResultOperand};`
                                 )
                             }
                         >
