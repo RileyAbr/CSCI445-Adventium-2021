@@ -24,9 +24,11 @@ function App() {
             .map((val) => `${val} ${assumptionComparators[getRandomInt(5)]} ${getRandomInt(100)}`)
     );
     const [guarantees, setGuarantees] = useState(
-        sampleParameters
-            .slice(0, getRandomInt(sampleParameters.length - 1) + 1)
-            .map((val) => `${val} ${assumptionComparators[getRandomInt(5)]} ${getRandomInt(100)}`)
+        sampleParameters.slice(0, getRandomInt(sampleParameters.length - 1) + 1).map(
+            (val) =>
+                // prettier-ignore
+                `guarantee "This is an example guarantee." : \n (${val} ${assumptionComparators[getRandomInt(assumptionComparators.length - 1)]} ${getRandomInt(100)}) ${guaranteeComparators[getRandomInt(guaranteeComparators.length - 1)]} ${sampleParameters[getRandomInt(sampleParameters.length - 1)]};`
+        )
     );
 
     const modifyParameters = (newParameters) => {
@@ -93,7 +95,7 @@ function App() {
                     <article style={{ flexGrow: 1 }}>
                         <Switch>
                             <Route path="/output">
-                                <Output assumptions={assumptions} />
+                                <Output guarantees={guarantees} />
                             </Route>
                             <Route path="/guarantees">
                                 <Guarantees

@@ -114,7 +114,7 @@ const Guarantees = ({
                             type="button"
                             onClick={() =>
                                 addGuarantee(
-                                    `guarantee "${guaranteeDescription}" : (${selectedConditionalOperand} ${selectedAssumptionSymbol} ${selectAssumptionValue}) ${selectedGuaranteeSymbol}  ${selectedResultOperand};`
+                                    `guarantee "${guaranteeDescription}" : \n (${selectedConditionalOperand} ${selectedAssumptionSymbol} ${selectAssumptionValue}) ${selectedGuaranteeSymbol}  ${selectedResultOperand};`
                                 )
                             }
                         >
