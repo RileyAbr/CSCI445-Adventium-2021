@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 
 import NavButton from "./components/NavButton";
-import Parameters from "./components/Parameters";
+// import Parameters from "./components/Parameters";
 import Assumptions from "./components/Assumptions";
 import Guarantees from "./components/Guarantees";
 import Output from "./components/Output";
@@ -31,9 +31,9 @@ function App() {
         )
     );
 
-    const modifyParameters = (newParameters) => {
-        setParameters(newParameters);
-    };
+    // const modifyParameters = (newParameters) => {
+    //     setParameters(newParameters);
+    // };
 
     const modifyAssumptions = (newAssumptions) => {
         setAssumptions(newAssumptions);
@@ -107,7 +107,7 @@ function App() {
                                     modifyGuarantees={modifyGuarantees}
                                 />
                             </Route>
-                            <Route path="/assumptions">
+                            <Route path="/">
                                 <Assumptions
                                     parameters={parameters}
                                     assumptions={assumptions}
@@ -115,12 +115,12 @@ function App() {
                                     modifyAssumptions={modifyAssumptions}
                                 />
                             </Route>
-                            <Route path="/">
+                            {/* <Route path="/">
                                 <Parameters
                                     parameters={parameters}
                                     modifyParameters={modifyParameters}
                                 />
-                            </Route>
+                            </Route> */}
                         </Switch>
                     </article>
                     <footer
@@ -142,14 +142,14 @@ function App() {
                                 <NavButton to="assumptions">Back</NavButton>
                                 <NavButton to="output">Next</NavButton>
                             </Route>
-                            <Route path="/assumptions">
-                                <NavButton to="parameters">Back</NavButton>
-                                <NavButton to="guarantees">Next</NavButton>
-                            </Route>
                             <Route path="/">
                                 <NavButton disabled>Back</NavButton>
-                                <NavButton to="assumptions">Next</NavButton>
+                                <NavButton to="guarantees">Next</NavButton>
                             </Route>
+                            {/* <Route path="/">
+                                <NavButton disabled>Back</NavButton>
+                                <NavButton to="assumptions">Next</NavButton>
+                            </Route> */}
                         </Switch>
                     </footer>
                 </main>
