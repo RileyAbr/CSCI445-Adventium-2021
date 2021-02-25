@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 
-const Assumptions = ({ parameters, assumptions, symbols, modifyAssumptions }) => {
-    const [addSelectedParameter, setAddSelectedParameter] = useState(parameters[0]);
-    const [addSelectedComparator, setAddSelectedComparator] = useState(symbols[0]);
+import ParameterSelector from "../ParameterSelector";
+import SymbolSelector from "../SymbolSelector";
+
+const Assumptions = ({ parameters, assumptions, assumptionSymbols, modifyAssumptions }) => {
+    const [selectedOperand, setSelectedOperand] = useState(parameters[0]);
+    const [selectedAssumptionSymbol, setSelectedAssumptionSymbol] = useState(assumptionSymbols[0]);
     const [addAssumptionInput, setAddAssumptionInput] = useState();
     const [removeAssumptionInput, setRemoveAssumptionInput] = useState();
 
@@ -61,19 +64,16 @@ const Assumptions = ({ parameters, assumptions, symbols, modifyAssumptions }) =>
                         alignItems: "center",
                     }}
                 >
-                    <select
-                        style={{ width: "65%" }}
-                        onChange={(event) => setAddSelectedParameter(event.target.value)}
-                    >
-                        {parameters.map((val) => (
-                            <option value={val}>{val}</option>
-                        ))}
-                    </select>
-                    <select onChange={(event) => setAddSelectedComparator(event.target.value)}>
-                        {symbols.map((symbol) => (
-                            <option value={symbol}>{symbol}</option>
-                        ))}
-                    </select>
+                    <ParameterSelector
+                        parameters={parameters}
+                        selectParameter={setSelectedOperand}
+                    />
+
+                    <SymbolSelector
+                        symbols={assumptionSymbols}
+                        selectSymbol={setSelectedAssumptionSymbol}
+                    />
+
                     <div style={{ width: "65%", display: "flex", flexFlow: "row nowrap" }}>
                         <input
                             type="number"
@@ -84,7 +84,7 @@ const Assumptions = ({ parameters, assumptions, symbols, modifyAssumptions }) =>
                             type="button"
                             onClick={() =>
                                 addAssumption(
-                                    `${addSelectedParameter} ${addSelectedComparator} ${addAssumptionInput}`
+                                    `${selectedOperand} ${selectedAssumptionSymbol} ${addAssumptionInput}`
                                 )
                             }
                         >

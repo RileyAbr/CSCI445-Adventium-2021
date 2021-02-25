@@ -111,7 +111,7 @@ function App() {
                                 <Assumptions
                                     parameters={parameters}
                                     assumptions={assumptions}
-                                    symbols={assumptionComparators}
+                                    assumptionSymbols={assumptionComparators}
                                     modifyAssumptions={modifyAssumptions}
                                 />
                             </Route>
