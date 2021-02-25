@@ -88,7 +88,7 @@ const Assumptions = ({ parameters, assumptions, assumptionSymbols, modifyAssumpt
                             type="button"
                             onClick={() =>
                                 addAssumption(
-                                    `assume "${assumptionDescription}" : \n (${selectedOperand} ${selectedAssumptionSymbol} ${addAssumptionInput})`
+                                    `\tassume "${assumptionDescription}" : \n\t\t(${selectedOperand} ${selectedAssumptionSymbol} ${addAssumptionInput})`
                                 )
                             }
                         >

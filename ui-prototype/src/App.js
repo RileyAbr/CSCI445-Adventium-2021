@@ -22,15 +22,15 @@ function App() {
         sampleParameters.slice(0, getRandomInt(sampleParameters.length - 1) + 1).map(
             (val) =>
                 // prettier-ignore
-                `assume "Sample assumption" : \n (${val} ${assumptionComparators[getRandomInt(assumptionComparators.length - 1)]
+                `\tassume "Sample assumption" : \n\t\t(${val} ${assumptionComparators[getRandomInt(assumptionComparators.length - 1)]
                 } ${getRandomInt(100)})`
         )
     );
     const [guarantees, setGuarantees] = useState(
-        sampleParameters.slice(0, getRandomInt(sampleParameters.length - 1) + 1).map(
+        sampleParameters.slice(0, getRandomInt(3) + 1).map(
             (val) =>
                 // prettier-ignore
-                `guarantee "This is an example guarantee." : \n (${val} ${assumptionComparators[getRandomInt(assumptionComparators.length - 1)]} ${getRandomInt(100)}) ${guaranteeComparators[getRandomInt(guaranteeComparators.length - 1)]} ${sampleParameters[getRandomInt(sampleParameters.length - 1)]};`
+                `\tguarantee "This is an example guarantee." : \n\t\t(${val} ${assumptionComparators[getRandomInt(assumptionComparators.length - 1)]} ${getRandomInt(100)}) ${guaranteeComparators[getRandomInt(guaranteeComparators.length - 1)]} ${sampleParameters[getRandomInt(sampleParameters.length - 1)]};`
         )
     );
 
@@ -90,7 +90,7 @@ function App() {
                     <article style={{ flexGrow: 1 }}>
                         <Switch>
                             <Route path="/output">
-                                <Output guarantees={guarantees} />
+                                <Output assumptions={assumptions} guarantees={guarantees} />
                             </Route>
                             <Route path="/guarantees">
                                 <Guarantees
