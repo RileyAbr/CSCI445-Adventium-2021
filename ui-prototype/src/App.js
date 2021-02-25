@@ -31,9 +31,9 @@ function App() {
         )
     );
 
-    const modifyParameters = (newParameters) => {
-        setParameters(newParameters);
-    };
+    // const modifyParameters = (newParameters) => {
+    //     setParameters(newParameters);
+    // };
 
     const modifyAssumptions = (newAssumptions) => {
         setAssumptions(newAssumptions);
