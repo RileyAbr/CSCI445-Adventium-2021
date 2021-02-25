@@ -45,14 +45,19 @@ const Guarantees = ({
             >
                 <div
                     style={{
-                        width: "50%",
+                        width: "90%",
                         display: "flex",
                         flexFow: "row nowrap",
                         alignItems: "center",
                     }}
                 >
                     <select
-                        style={{ flexGrow: 1 }}
+                        style={{
+                            flexGrow: 1,
+                            maxWidth: "100%",
+                            whiteSpace: "normal",
+                            textOverflow: "ellipsis",
+                        }}
                         size="8"
                         onChange={(event) => setRemoveGuaranteeInput(event.target.value)}
                     >
@@ -102,7 +107,7 @@ const Guarantees = ({
                             type="button"
                             onClick={() =>
                                 addGuarantee(
-                                    `(${selectedConditionalOperand} ${selectedAssumptionSymbol} ${selectAssumptionValue}) ${selectedGuaranteeSymbol}  ${selectedResultOperand}`
+                                    `guarantee "temp" : \n (${selectedConditionalOperand} ${selectedAssumptionSymbol} ${selectAssumptionValue}) ${selectedGuaranteeSymbol}  ${selectedResultOperand};`
                                 )
                             }
                         >
