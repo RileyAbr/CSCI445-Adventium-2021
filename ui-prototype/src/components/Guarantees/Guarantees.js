@@ -10,6 +10,7 @@ const Guarantees = ({
     guaranteeSymbols,
     modifyGuarantees,
 }) => {
+    const [guaranteeDescription, setGuaranteeDescription] = useState("");
     const [selectedConditionalOperand, setSelectedConditionalOperand] = useState(parameters[0]);
     const [selectedResultOperand, setSelectedResultOperand] = useState(parameters[0]);
     const [selectedAssumptionSymbol, setSelectedAssumptionSymbol] = useState(assumptionSymbols[0]);
@@ -37,7 +38,7 @@ const Guarantees = ({
             <div
                 style={{
                     display: "flex",
-                    height: "55%",
+                    height: "60%",
                     flexFlow: "column nowrap",
                     justifyContent: "space-between",
                     alignItems: "center",
@@ -77,6 +78,12 @@ const Guarantees = ({
                         alignItems: "center",
                     }}
                 >
+                    <input
+                        type="text"
+                        style={{ width: "100%" }}
+                        onChange={(event) => setGuaranteeDescription(event.target.value)}
+                    />
+
                     <ParameterSelector
                         parameters={parameters}
                         selectParameter={setSelectedConditionalOperand}
@@ -107,7 +114,7 @@ const Guarantees = ({
                             type="button"
                             onClick={() =>
                                 addGuarantee(
-                                    `guarantee "temp" : \n (${selectedConditionalOperand} ${selectedAssumptionSymbol} ${selectAssumptionValue}) ${selectedGuaranteeSymbol}  ${selectedResultOperand};`
+                                    `guarantee "${guaranteeDescription}" : (${selectedConditionalOperand} ${selectedAssumptionSymbol} ${selectAssumptionValue}) ${selectedGuaranteeSymbol}  ${selectedResultOperand};`
                                 )
                             }
                         >
