@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 
@@ -17,6 +17,7 @@ function getRandomInt(max) {
 }
 
 function App() {
+    // eslint-disable-next-line no-unused-vars
     const [parameters, setParameters] = useState(sampleParameters);
     const [assumptions, setAssumptions] = useState(
         sampleParameters.slice(0, getRandomInt(sampleParameters.length - 1) + 1).map(
