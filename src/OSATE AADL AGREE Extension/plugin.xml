@@ -45,8 +45,8 @@
         locationURI="menu:org.eclipse.ui.main.menu?after=additions">
       <menu
           id="org.osate.plugin.SampleMenu"
-          label="Sample"
-          mnemonic="S">
+          label="Check Model"
+          mnemonic="C">
         <command
             commandId="org.osate.pluginsample.actions.DoCheckModel"
             id="org.osate.pluginsample.actions.DoCheckModel"

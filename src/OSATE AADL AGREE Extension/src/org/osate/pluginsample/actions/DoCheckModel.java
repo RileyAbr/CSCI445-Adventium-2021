@@ -184,9 +184,6 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 //			Dialog.showInfo("Analysis result", "Please choose an instance model");	
 		}
 		monitor.done();
-
-
-		
 	}
 }
  
