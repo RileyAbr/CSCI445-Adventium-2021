@@ -38,14 +38,17 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EContentsEList;
+import org.eclipse.xtext.nodemodel.impl.CompositeNodeWithSemanticElement;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Comment;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.PortCategory;
 import org.osate.aadl2.impl.AnnexSubclauseImpl;
 import org.osate.aadl2.impl.ConnectedElementImpl;
 import org.osate.aadl2.impl.DataPortImpl;
 import org.osate.aadl2.impl.DefaultAnnexSubclauseImpl;
+import org.osate.aadl2.impl.FeatureGroupImpl;
 import org.osate.aadl2.impl.PackageRenameImpl;
 import org.osate.aadl2.impl.PortConnectionImpl;
 import org.osate.aadl2.instance.InstanceObject;
@@ -90,7 +93,7 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 			}
 			else if(check instanceof DataPortImpl) {
 				DataPortImpl current = (DataPortImpl) check;
-				System.out.println("Feature: " + current.getName());
+				System.out.println("Feature: " + current.getName() + ": ");
 				searchComponents(current.eContents());
 			}
 			else if(check instanceof PortConnectionImpl) {
@@ -106,6 +109,16 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 			else if(check instanceof SystemImplementationImpl) {
 				SystemImplementationImpl current = (SystemImplementationImpl) check;
 				System.out.println("System Implementation: " + current.getName());
+				searchComponents(current.eContents());
+			}
+			else if(check instanceof DefaultAnnexSubclauseImpl) {
+				DefaultAnnexSubclauseImpl current = (DefaultAnnexSubclauseImpl) check;
+				System.out.println("Annex: " + current.getSourceText());
+				searchComponents(current.eContents());
+			}
+			else if(check instanceof DefaultAnnexSubclauseImpl) {
+				DefaultAnnexSubclauseImpl current = (DefaultAnnexSubclauseImpl) check;
+				System.out.println("Annex: " + current.getSourceText());
 				searchComponents(current.eContents());
 			}
 		}
@@ -136,6 +149,7 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 			si = null;
 		}
 		
+		// iterate through aaxl2 data
 		if (si != null) 
 		{
 
@@ -169,6 +183,7 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 			
 			Dialog.showInfo("Analysis result", "done");
 		}
+		// iterate through AADL data
 		else
 		{
 			if(api != null) {
