@@ -37,6 +37,8 @@ package org.osate.pluginsample.actions;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import org.osate.pluginsample.ui.GUMBOInterface;
+
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
@@ -108,14 +110,6 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 			}
 		}
 	}
-
-	private void showSampleModal(String test) {
-		JFrame frame = new JFrame("JoptionPane Test");
-		frame.setSize(200, 200);
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
-		JOptionPane.showMessageDialog(frame, test);
-	}
 	
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
 		SystemInstance si;
@@ -182,7 +176,7 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 				
 				searchComponents(baseContents);
 				
-				showSampleModal("Modal Loaded");
+				GUMBOInterface.createGUMBOWindow();
 			} else {
 				Dialog.showInfo("Analysis result", "Please choose an AADL model");	
 			}
