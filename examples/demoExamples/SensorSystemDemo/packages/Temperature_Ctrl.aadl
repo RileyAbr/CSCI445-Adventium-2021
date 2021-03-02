@@ -16,7 +16,7 @@ with constants;
 				env_temperature > 0 and env_temperature < 500;
 			
 			guarantee "If temp is over threshold, then we shut down.":
-				env_temperature > constants::TEMP_THRESHOLD +1 -> shutdown;
+				env_temperature > constants::TEMP_THRESHOLD -> shutdown;
 			
 		**};	
 	end Temperature_Ctrl;

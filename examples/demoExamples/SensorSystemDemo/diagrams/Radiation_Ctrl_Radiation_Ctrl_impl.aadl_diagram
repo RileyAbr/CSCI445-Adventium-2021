@@ -1,5 +1,73 @@
 <?xml version="1.0" encoding="ASCII"?>
 <diagram:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:diagram="http://osate.org/diagram" formatVersion="7">
+  <element uuid="05ad135a-af8f-419a-8d96-d7cf98aacef6" manual="true">
+    <element uuid="b0606244-83c5-4897-9bed-5865de9a857f" manual="true">
+      <element uuid="5f9d2793-7375-4bd5-b062-f7b6d4f603bc" manual="true">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>radiation_to_sensor</seg>
+      </bo>
+    </element>
+    <element uuid="fe6822be-7c68-4865-bf24-c262b0a59b20" manual="true">
+      <element uuid="c5b2d079-2cde-4101-b7fb-ce9cf323d39f" manual="true">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>shutdown_cmd</seg>
+      </bo>
+    </element>
+    <element uuid="c090f1bd-ab15-4f40-b978-544a3915e627" manual="true" dockArea="left">
+      <bo>
+        <seg>feature</seg>
+        <seg>env_radiation</seg>
+      </bo>
+      <position y="48.0"/>
+    </element>
+    <element uuid="b1e6c399-b40f-47dd-a89e-0d343a8db7a1" manual="true" dockArea="right">
+      <bo>
+        <seg>feature</seg>
+        <seg>shutdown</seg>
+      </bo>
+      <position x="514.0" y="48.0"/>
+    </element>
+    <element uuid="7a6e9171-c990-4f4c-a972-97af3161b792" manual="true">
+      <element uuid="6d255cd1-7614-493d-a271-2084689dd517" manual="true" dockArea="right">
+        <bo>
+          <seg>feature</seg>
+          <seg>high_indicator</seg>
+        </bo>
+        <position x="276.0" y="10.0"/>
+      </element>
+      <element uuid="e7d354e6-9411-4ee3-bb60-fc69157d27c8" manual="true" dockArea="left">
+        <bo>
+          <seg>feature</seg>
+          <seg>radiation</seg>
+        </bo>
+        <position y="10.0"/>
+      </element>
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>radiation_sensor</seg>
+      </bo>
+      <position x="117.0" y="38.0"/>
+      <size width="385.0" height="60.0"/>
+    </element>
+    <bo>
+      <seg>classifier</seg>
+      <seg>radiation_ctrl.impl</seg>
+    </bo>
+    <position x="12.0" y="12.0"/>
+    <size width="593.0" height="110.0"/>
+  </element>
   <config type="structure" connectionPrimaryLabelsVisible="false">
     <enabledAadlProperties/>
     <context>

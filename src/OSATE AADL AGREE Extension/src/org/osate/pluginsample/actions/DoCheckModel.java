@@ -35,13 +35,30 @@
 package org.osate.pluginsample.actions;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EContentsEList;
+import org.eclipse.xtext.nodemodel.impl.CompositeNodeWithSemanticElement;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Comment;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.PortCategory;
 import org.osate.aadl2.impl.AnnexSubclauseImpl;
+import org.osate.aadl2.impl.ConnectedElementImpl;
+import org.osate.aadl2.impl.DataPortImpl;
+import org.osate.aadl2.impl.DefaultAnnexSubclauseImpl;
+import org.osate.aadl2.impl.FeatureGroupImpl;
+import org.osate.aadl2.impl.PackageRenameImpl;
+import org.osate.aadl2.impl.PortConnectionImpl;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.impl.AadlPackageImpl;
+import org.osate.aadl2.impl.PublicPackageSectionImpl;
+import org.osate.aadl2.impl.RealizationImpl;
+import org.osate.aadl2.impl.SystemTypeImpl;
+import org.osate.aadl2.impl.SystemImplementationImpl;
+import org.osate.aadl2.impl.SystemSubcomponentImpl;
 import org.osate.pluginsample.Activator;
 import org.osate.pluginsample.CheckModel;
 import org.osate.ui.dialogs.Dialog;
@@ -63,11 +80,55 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 		return "Check the AADL model";
 	}
 
+	private void searchComponents(EList<EObject> contents) {
+		if(contents.size() == 0)
+			return;
 		
+		for(int i=0; i < contents.size(); i++) {
+			Object check = contents.get(i);
+			if(check instanceof SystemTypeImpl) {
+				SystemTypeImpl current = (SystemTypeImpl) check;
+				System.out.println("System: " + current.getName());
+				searchComponents(current.eContents());
+			}
+			else if(check instanceof DataPortImpl) {
+				DataPortImpl current = (DataPortImpl) check;
+				System.out.println("Feature: " + current.getName() + ": ");
+				searchComponents(current.eContents());
+			}
+			else if(check instanceof PortConnectionImpl) {
+				PortConnectionImpl current = (PortConnectionImpl) check;
+				System.out.println("Connection: " + current.getName());
+				searchComponents(current.eContents());
+			}
+			else if(check instanceof SystemSubcomponentImpl) {
+				SystemSubcomponentImpl current = (SystemSubcomponentImpl) check;
+				System.out.println("Subcomponent: " + current.getName());
+				searchComponents(current.eContents());
+			}
+			else if(check instanceof SystemImplementationImpl) {
+				SystemImplementationImpl current = (SystemImplementationImpl) check;
+				System.out.println("System Implementation: " + current.getName());
+				searchComponents(current.eContents());
+			}
+			else if(check instanceof DefaultAnnexSubclauseImpl) {
+				DefaultAnnexSubclauseImpl current = (DefaultAnnexSubclauseImpl) check;
+				System.out.println("Annex: " + current.getSourceText());
+				searchComponents(current.eContents());
+			}
+			else if(check instanceof DefaultAnnexSubclauseImpl) {
+				DefaultAnnexSubclauseImpl current = (DefaultAnnexSubclauseImpl) check;
+				System.out.println("Annex: " + current.getSourceText());
+				searchComponents(current.eContents());
+			}
+		}
+	}
 	
 	public void doAaxlAction(IProgressMonitor monitor, Element obj)
 	{
 		SystemInstance si;
+		AadlPackageImpl api = null;
+		
 		CheckModel validator;
 		
 		monitor.beginTask("Check the AADL model", IProgressMonitor.UNKNOWN);
@@ -78,11 +139,17 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 		{
 			si = ((InstanceObject)obj).getSystemInstance();
 		}
+		else if(obj instanceof AadlPackageImpl)
+		{
+			api = (AadlPackageImpl) obj;
+			si = null;
+		}
 		else
 		{
 			si = null;
 		}
-
+		
+		// iterate through aaxl2 data
 		if (si != null) 
 		{
 
@@ -99,12 +166,37 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 			System.out.println("ccl owner=" + ccl.getOwner() );
 			System.out.println("ccl owner owner=" + ccl );
 			
+			//iterate through connections
+			for(int i = 0; i < si.getConnectionInstances().size(); i++) {
+				System.out.println("Connection=" + si.getConnectionInstances().get(i).getName());
+			}
+			
+			//iterate through sub systems
+			for(int i = 0; i < si.getAllComponentInstances().size(); i++) {
+				System.out.println("Component=" + si.getAllComponentInstances().get(i).getName());
+			}
+			
+			//iterate through data ports
+			for(int i = 0; i < si.getFeatureInstances().size(); i++) {
+				System.out.println("Feature=" + si.getFeatureInstances().get(i).getName());
+			}
 			
 			Dialog.showInfo("Analysis result", "done");
 		}
+		// iterate through AADL data
 		else
 		{
-			Dialog.showInfo("Analysis result", "Please choose an instance model");	
+			if(api != null) {
+				PublicPackageSectionImpl base = (PublicPackageSectionImpl)api.eContents().get(0);
+				EList<EObject> baseContents = (EList<EObject>)base.eContents();
+				
+				searchComponents(baseContents);
+				
+				Dialog.showInfo("Analysis result", "done");
+			} else {
+				Dialog.showInfo("Analysis result", "Please choose an AADL model");	
+			}
+//			Dialog.showInfo("Analysis result", "Please choose an instance model");	
 		}
 		monitor.done();
 
