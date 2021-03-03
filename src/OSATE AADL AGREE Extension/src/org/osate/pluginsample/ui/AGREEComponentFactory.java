@@ -13,6 +13,10 @@ public class AGREEComponentFactory {
 		return parameters[rand.nextInt(parameters.length)];
 	}
 	
+	public static String[] getAllParameters() {
+		return parameters;
+	}
+	
 	public static int createComparisonValue() {
 		Random rand = new Random();
 		
@@ -25,9 +29,17 @@ public class AGREEComponentFactory {
 		return parameters[rand.nextInt(assumptionComparators.length)];
 	}
 	
+	public static String[] getAllAssumptionComparators() {
+		return assumptionComparators;
+	}
+	
 	public static String createGuaranteeComparators() {
 		Random rand = new Random();
 		
 		return parameters[rand.nextInt(guaranteeComparators.length)];
+	}
+	
+	public static String[] getAllGuaranteeComparators() {
+		return guaranteeComparators;
 	}
 }
