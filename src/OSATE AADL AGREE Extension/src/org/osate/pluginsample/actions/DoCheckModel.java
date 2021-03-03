@@ -34,9 +34,6 @@
  */
 package org.osate.pluginsample.actions;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
 import org.osate.pluginsample.ui.GUMBOInterface;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -191,7 +188,7 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 				
 				searchComponents(baseContents);
 				
-				GUMBOInterface.createGUMBOWindow();
+				new GUMBOInterface();
 			} else {
 				Dialog.showInfo("Analysis result", "Please choose an AADL model");	
 			}
