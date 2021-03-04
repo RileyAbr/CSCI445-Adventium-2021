@@ -68,6 +68,8 @@ import org.osgi.framework.Bundle;
 
 public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 	
+	private IterationResultObject iro = new IterationResultObject();
+	
 	protected Bundle getBundle() {
 		return Activator.getDefault().getBundle();
 	}
@@ -86,39 +88,40 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 		
 		for(int i=0; i < contents.size(); i++) {
 			Object check = contents.get(i);
+			
 			if(check instanceof SystemTypeImpl) {
 				SystemTypeImpl current = (SystemTypeImpl) check;
-				System.out.println("System: " + current.getName());
+				iro.add(current);
 				searchComponents(current.eContents());
 			}
 			else if(check instanceof DataPortImpl) {
 				DataPortImpl current = (DataPortImpl) check;
-				System.out.println("Feature: " + current.getName() + ": ");
+				iro.add(current);
 				searchComponents(current.eContents());
 			}
 			else if(check instanceof PortConnectionImpl) {
 				PortConnectionImpl current = (PortConnectionImpl) check;
-				System.out.println("Connection: " + current.getName());
+				iro.add(current);
 				searchComponents(current.eContents());
 			}
 			else if(check instanceof SystemSubcomponentImpl) {
 				SystemSubcomponentImpl current = (SystemSubcomponentImpl) check;
-				System.out.println("Subcomponent: " + current.getName());
+				iro.add(current);
 				searchComponents(current.eContents());
 			}
 			else if(check instanceof SystemImplementationImpl) {
 				SystemImplementationImpl current = (SystemImplementationImpl) check;
-				System.out.println("System Implementation: " + current.getName());
+				iro.add(current);
 				searchComponents(current.eContents());
 			}
 			else if(check instanceof DefaultAnnexSubclauseImpl) {
 				DefaultAnnexSubclauseImpl current = (DefaultAnnexSubclauseImpl) check;
-				System.out.println("Annex: " + current.getSourceText());
-				searchComponents(current.eContents());
-			}
-			else if(check instanceof DefaultAnnexSubclauseImpl) {
-				DefaultAnnexSubclauseImpl current = (DefaultAnnexSubclauseImpl) check;
-				System.out.println("Annex: " + current.getSourceText());
+				
+				String firstChars = current.getSourceText().substring(0, 3); 
+				if(firstChars.equals("{**")) {
+					iro.add(current);
+				}
+				
 				searchComponents(current.eContents());
 			}
 		}
@@ -135,10 +138,12 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 		
 		validator = new CheckModel (monitor,getErrorManager());
 		
+		// initialize aaxl2 data
 		if (obj instanceof InstanceObject)
 		{
 			si = ((InstanceObject)obj).getSystemInstance();
 		}
+		//initialize aadl data
 		else if(obj instanceof AadlPackageImpl)
 		{
 			api = (AadlPackageImpl) obj;
@@ -191,6 +196,8 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 				EList<EObject> baseContents = (EList<EObject>)base.eContents();
 				
 				searchComponents(baseContents);
+				
+				System.out.println(iro);
 				
 				Dialog.showInfo("Analysis result", "done");
 			} else {
