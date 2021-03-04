@@ -12,7 +12,9 @@ public class GUMBOInterface extends JFrame {
 	
 	private HeaderPanel headerPanel = new HeaderPanel();
 	
+	private ContentPanel contentPanel;
 	private AssumptionPanel assumptionPanel;
+	private GuaranteePanel guaranteePanel;
 	private OutputPanel outputPanel;
 	
 	private JButton backButton = new JButton(new BackAction("Back"));
@@ -28,18 +30,19 @@ public class GUMBOInterface extends JFrame {
 		headerPanel.setHeaderLabel(pages[currentPage]);
 		mainPanel.add(headerPanel);
 		
-	    JPanel contentPanel = new JPanel();
+//		Content Panel
+	    contentPanel = new ContentPanel();
 		   
 		assumptionPanel = new AssumptionPanel();
 		pagePanels[0] = assumptionPanel;
 		
-		assumptionPanel = new AssumptionPanel();
-		pagePanels[1] = assumptionPanel;
+		guaranteePanel = new GuaranteePanel();
+		pagePanels[1] = guaranteePanel;
 		
 		outputPanel = new OutputPanel();
 		pagePanels[2] = outputPanel;
 		
-		contentPanel.add(pagePanels[2]);
+		contentPanel.setInternalPanel(pagePanels[0]);
 		
         mainPanel.add(contentPanel);
         
@@ -61,6 +64,11 @@ public class GUMBOInterface extends JFrame {
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setVisible(true);
+	}
+	
+	private void updatePage(int currentPage) {
+		headerPanel.setHeaderLabel(pages[currentPage]);
+		contentPanel.setInternalPanel(pagePanels[currentPage]);
 	}
 	
 	private class BackAction extends AbstractAction {
@@ -92,9 +100,9 @@ public class GUMBOInterface extends JFrame {
             }
             nextButton.setText("Next");
             nextButton.setEnabled(true);
-            
-//          Update Heading
-        	headerPanel.setHeaderLabel(pages[currentPage]);
+           
+//        	Update Page
+        	updatePage(currentPage);
         }
 	}
 	
@@ -129,8 +137,8 @@ public class GUMBOInterface extends JFrame {
             }
             backButton.setEnabled(true);
             
-//          Update Heading
-        	headerPanel.setHeaderLabel(pages[currentPage]);
+//        	Update Page
+        	updatePage(currentPage);
         }
     }
 	
@@ -149,6 +157,18 @@ class HeaderPanel extends JPanel {
 	
 	public void setHeaderLabel(String newLabel) {
 		headerLabel.setText(newLabel.substring(0, 1).toUpperCase() + newLabel.substring(1));
+	}
+}
+
+class ContentPanel extends JPanel {
+	public ContentPanel() {
+	}
+	
+	public void setInternalPanel(JPanel newJPanel) {
+		removeAll();
+		revalidate();
+		repaint();
+		add(newJPanel);
 	}
 }
 
@@ -192,6 +212,14 @@ class AssumptionPanel extends JPanel {
         inputsPanel.add(addAssumptionButton);
         
         add(inputsPanel);
+	}
+}
+
+class GuaranteePanel extends JPanel {
+	public GuaranteePanel() {
+		JLabel guaranteeTest = new JLabel("guarantee test");
+		
+		add(guaranteeTest);
 	}
 }
 
