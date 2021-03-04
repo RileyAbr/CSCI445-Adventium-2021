@@ -109,6 +109,7 @@ public class GUMBOInterface extends JFrame {
             else {
             	backButton.setEnabled(true);
             }
+            nextButton.setText("Next");
             nextButton.setEnabled(true);
             
 //          Update Heading
@@ -128,7 +129,8 @@ public class GUMBOInterface extends JFrame {
         public void actionPerformed(ActionEvent e) {
 //        	Check Page Number
             if(currentPage >= pages.length - 1) {
-            	currentPage = pages.length - 1;
+//            	currentPage = pages.length - 1;
+            	dispose();
             }
             else if(currentPage < 0) {
             	currentPage = 1;
@@ -139,7 +141,7 @@ public class GUMBOInterface extends JFrame {
             
 //          Set Button Statuses
             if(currentPage >= pages.length - 1) {
-            	nextButton.setEnabled(false);
+            	nextButton.setText("Finish");
             }
             else {
             	nextButton.setEnabled(true);
@@ -147,7 +149,6 @@ public class GUMBOInterface extends JFrame {
             backButton.setEnabled(true);
             
 //          Update Heading
-
         	headerPanel.setHeaderLabel(pages[currentPage]);
         }
     }
