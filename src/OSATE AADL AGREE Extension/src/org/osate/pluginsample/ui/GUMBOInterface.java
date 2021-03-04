@@ -17,7 +17,8 @@ public class GUMBOInterface extends JFrame {
 	    JPanel contentPanel = new JPanel();
 		contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.PAGE_AXIS));
 		
-//		Header Panel		
+//		Header Panel
+		headerPanel.setHeaderLabel(pages[currentPage]);
 		contentPanel.add(headerPanel);
 		
 //		List Panel
@@ -63,20 +64,42 @@ public class GUMBOInterface extends JFrame {
         JPanel paginationPanel = new JPanel();
         paginationPanel.setLayout(new FlowLayout());
         
-        JButton backButton = new JButton("Back");
+        JButton backButton = new JButton(new BackAction("Back"));
         paginationPanel.add(backButton);
-        
         JButton nextButton = new JButton(new NextAction("Next"));
         paginationPanel.add(nextButton);
         
         contentPanel.add(paginationPanel);
         
+//      Add Entire Content Panel
         add(contentPanel);     
 	    
 	    setSize(750, 600);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setVisible(true);
+	}
+	
+	private class BackAction extends AbstractAction {
+		public BackAction(String name) {
+            super(name);
+            int mnemonic = (int) name.charAt(0);
+            putValue(MNEMONIC_KEY, mnemonic);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(currentPage <= 0) {
+            	currentPage = 0;
+            }
+            else if(currentPage >= pages.length - 1) {
+            	currentPage = pages.length - 2;
+            }
+            else {
+            	currentPage--;
+            }
+        	headerPanel.setHeaderLabel(pages[currentPage]);
+        }
 	}
 	
     private class NextAction extends AbstractAction {
@@ -89,17 +112,16 @@ public class GUMBOInterface extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-//            if(currentPage >= pages.length) {
-//            	currentPage = pages.length;
-//            }
-//            else if(currentPage < 0) {
-//            	currentPage = 1;
-//            }
-//            else {
-//            	currentPage++;
-//            }
-        	headerPanel.setHeaderLabel("tempo");
-//        	System.out.println(currentPage);
+            if(currentPage >= pages.length - 1) {
+            	currentPage = pages.length - 1;
+            }
+            else if(currentPage < 0) {
+            	currentPage = 1;
+            }
+            else {
+            	currentPage++;
+            }
+        	headerPanel.setHeaderLabel(pages[currentPage]);
         }
     }
 	
@@ -112,11 +134,11 @@ class HeaderPanel extends JPanel {
 	private JLabel headerLabel = new JLabel();
 	
 	public HeaderPanel() {
-		setHeaderLabel("test");
+		headerLabel.setFont(new java.awt.Font("Arial", Font.PLAIN, 32));
 		add(headerLabel);
 	}
 	
 	public void setHeaderLabel(String newLabel) {
-		headerLabel.setText(newLabel);
+		headerLabel.setText(newLabel.substring(0, 1).toUpperCase() + newLabel.substring(1));
 	}
 }
