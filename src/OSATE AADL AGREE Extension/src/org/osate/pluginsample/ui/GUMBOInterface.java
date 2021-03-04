@@ -17,12 +17,16 @@ public class GUMBOInterface extends JFrame {
 	public GUMBOInterface() {
 	    super("AGREE Creator");
 	 
+	    JPanel mainPanel = new JPanel();
+	    mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
+	    
 	    JPanel contentPanel = new JPanel();
-		contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.PAGE_AXIS));
+//		contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.PAGE_AXIS));
+	    contentPanel.setLayout(new FlowLayout());
 		
 //		Header Panel
 		headerPanel.setHeaderLabel(pages[currentPage]);
-		contentPanel.add(headerPanel);
+		mainPanel.add(headerPanel);
 		
 //		List Panel
 		JPanel listPanel = new JPanel();
@@ -63,6 +67,8 @@ public class GUMBOInterface extends JFrame {
         
         contentPanel.add(inputsPanel);
         
+        mainPanel.add(contentPanel);
+        
 //		Pagination Panel
         JPanel paginationPanel = new JPanel();
         paginationPanel.setLayout(new FlowLayout());
@@ -71,10 +77,11 @@ public class GUMBOInterface extends JFrame {
         paginationPanel.add(backButton);
         paginationPanel.add(nextButton);
         
-        contentPanel.add(paginationPanel);
+        mainPanel.add(paginationPanel);
         
 //      Add Entire Content Panel
-        add(contentPanel);     
+        
+        add(mainPanel);     
 	    
 	    setSize(750, 600);
 		setLocationRelativeTo(null);
