@@ -42,20 +42,6 @@
   <extension
       point="org.eclipse.ui.menus">
     <menuContribution
-        locationURI="menu:org.eclipse.ui.main.menu?after=additions">
-      <menu
-          id="org.osate.plugin.SampleMenu"
-          label="Sample"
-          mnemonic="S">
-        <command
-            commandId="org.osate.pluginsample.actions.DoCheckModel"
-            id="org.osate.pluginsample.actions.DoCheckModel"
-            mnemonic="C"
-            label="Check Model">
-        </command>
-      </menu>
-    </menuContribution>
-    <menuContribution
         locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
       <toolbar
           id="org.osate.pluginsample.Toolbar">

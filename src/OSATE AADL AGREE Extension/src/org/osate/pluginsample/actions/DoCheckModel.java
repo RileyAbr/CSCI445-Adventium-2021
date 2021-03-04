@@ -34,6 +34,8 @@
  */
 package org.osate.pluginsample.actions;
 
+import org.osate.pluginsample.ui.GUMBOInterface;
+
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
@@ -65,7 +67,6 @@ import org.osate.ui.dialogs.Dialog;
 import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
 import org.osgi.framework.Bundle;
 
-
 public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 	
 	private IterationResultObject iro = new IterationResultObject();
@@ -83,33 +84,28 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 	}
 
 	private void searchComponents(EList<EObject> contents) {
-		if(contents.size() == 0)
+		if (contents.size() == 0)
 			return;
-		
-		for(int i=0; i < contents.size(); i++) {
+
+		for (int i = 0; i < contents.size(); i++) {
 			Object check = contents.get(i);
-			
-			if(check instanceof SystemTypeImpl) {
+			if (check instanceof SystemTypeImpl) {
 				SystemTypeImpl current = (SystemTypeImpl) check;
 				iro.add(current);
 				searchComponents(current.eContents());
-			}
-			else if(check instanceof DataPortImpl) {
+			} else if (check instanceof DataPortImpl) {
 				DataPortImpl current = (DataPortImpl) check;
 				iro.add(current);
 				searchComponents(current.eContents());
-			}
-			else if(check instanceof PortConnectionImpl) {
+			} else if (check instanceof PortConnectionImpl) {
 				PortConnectionImpl current = (PortConnectionImpl) check;
 				iro.add(current);
 				searchComponents(current.eContents());
-			}
-			else if(check instanceof SystemSubcomponentImpl) {
+			} else if (check instanceof SystemSubcomponentImpl) {
 				SystemSubcomponentImpl current = (SystemSubcomponentImpl) check;
 				iro.add(current);
 				searchComponents(current.eContents());
-			}
-			else if(check instanceof SystemImplementationImpl) {
+			} else if (check instanceof SystemImplementationImpl) {
 				SystemImplementationImpl current = (SystemImplementationImpl) check;
 				iro.add(current);
 				searchComponents(current.eContents());
@@ -127,8 +123,7 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 		}
 	}
 	
-	public void doAaxlAction(IProgressMonitor monitor, Element obj)
-	{
+	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
 		SystemInstance si;
 		AadlPackageImpl api = null;
 		
@@ -200,15 +195,12 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 				System.out.println(iro);
 				
 				Dialog.showInfo("Analysis result", "done");
+				new GUMBOInterface();
 			} else {
 				Dialog.showInfo("Analysis result", "Please choose an AADL model");	
 			}
 //			Dialog.showInfo("Analysis result", "Please choose an instance model");	
 		}
 		monitor.done();
-
-
-		
 	}
 }
- 
