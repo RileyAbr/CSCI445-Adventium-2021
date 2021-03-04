@@ -8,10 +8,12 @@ import java.awt.event.*;
 public class GUMBOInterface extends JFrame {
 	private int currentPage = 0;
 	private String[] pages = {"assumptions", "guarantees", "output"};
+	private JPanel[] pagePanels = new JPanel[pages.length];
 	
 	private HeaderPanel headerPanel = new HeaderPanel();
 	
 	private AssumptionPanel assumptionPanel;
+	private OutputPanel outputPanel;
 	
 	private JButton backButton = new JButton(new BackAction("Back"));
 	private JButton nextButton = new JButton(new NextAction("Next"));
@@ -29,7 +31,15 @@ public class GUMBOInterface extends JFrame {
 	    JPanel contentPanel = new JPanel();
 		   
 		assumptionPanel = new AssumptionPanel();
-		contentPanel.add(assumptionPanel);
+		pagePanels[0] = assumptionPanel;
+		
+		assumptionPanel = new AssumptionPanel();
+		pagePanels[1] = assumptionPanel;
+		
+		outputPanel = new OutputPanel();
+		pagePanels[2] = outputPanel;
+		
+		contentPanel.add(pagePanels[2]);
 		
         mainPanel.add(contentPanel);
         
@@ -182,5 +192,13 @@ class AssumptionPanel extends JPanel {
         inputsPanel.add(addAssumptionButton);
         
         add(inputsPanel);
+	}
+}
+
+class OutputPanel extends JPanel {
+	public OutputPanel() {
+		JLabel outputTest = new JLabel("output test");
+		
+		add(outputTest);
 	}
 }
