@@ -5,6 +5,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+import java.awt.datatransfer.StringSelection;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+
 public class GUMBOInterface extends JFrame {
 	private int currentPage = 0;
 	private String[] pages = {"assumptions", "guarantees", "output"};
@@ -182,7 +186,7 @@ class AssumptionPanel extends JPanel {
         DefaultListModel<String> listModel = new DefaultListModel<>();
         for (int i = 0; i < 4; i++) {
         	listModel.addElement(
-        			String.format("assume \"Sample assumption\" : (%s < %d)", AGREEComponentFactory.createParameter(), 300)
+        			String.format("assume \"Sample assumption\" : (%s %s %d)", AGREEComponentFactory.createParameter(), AGREEComponentFactory.createAssumptionComparator(), AGREEComponentFactory.createComparisonValue())
 					);
 		}
         JList<String> assumptionList = new JList<>(listModel); 
@@ -217,16 +221,89 @@ class AssumptionPanel extends JPanel {
 
 class GuaranteePanel extends JPanel {
 	public GuaranteePanel() {
-		JLabel guaranteeTest = new JLabel("guarantee test");
+setLayout(new FlowLayout());
 		
-		add(guaranteeTest);
+		JPanel listPanel = new JPanel();
+		listPanel.setLayout(new FlowLayout());
+		
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+        for (int i = 0; i < 4; i++) {
+        	listModel.addElement(
+        			String.format("guarntee \"Example guarantee\" : (%s %s %d) %s %s", AGREEComponentFactory.createParameter(), AGREEComponentFactory.createAssumptionComparator(), AGREEComponentFactory.createComparisonValue(), AGREEComponentFactory.createGuaranteeComparator(), AGREEComponentFactory.createParameter())
+					);
+		}
+        JList<String> guaranteeList = new JList<>(listModel); 
+        listPanel.add(guaranteeList);
+        
+        JButton removeGuaranteeButton = new JButton("-");
+        listPanel.add(removeGuaranteeButton);
+        
+		add(listPanel);
+        
+        JPanel inputsPanel = new JPanel();
+        inputsPanel.setLayout(new BoxLayout(inputsPanel, BoxLayout.PAGE_AXIS));
+        
+        JTextField agreeDescriptionTextField = new JTextField();
+        inputsPanel.add(agreeDescriptionTextField);
+        
+        JComboBox<String> conditionalOperandList = new JComboBox<>(AGREEComponentFactory.getAllParameters());
+        inputsPanel.add(conditionalOperandList);
+        
+        JComboBox<String> assumptionComparatorList = new JComboBox<>(AGREEComponentFactory.getAllAssumptionComparators());
+        inputsPanel.add(assumptionComparatorList);
+        
+        JTextField assumptionValueTextField = new JTextField();
+        inputsPanel.add(assumptionValueTextField);
+        
+        JComboBox<String> guaranteeComparatorList = new JComboBox<>(AGREEComponentFactory.getAllGuaranteeComparators());
+        inputsPanel.add(guaranteeComparatorList);
+        
+        JComboBox<String> guaranteeOperandList = new JComboBox<>(AGREEComponentFactory.getAllParameters());
+        inputsPanel.add(guaranteeOperandList);
+        
+        JButton addGuaranteeButton = new JButton("+");
+        inputsPanel.add(addGuaranteeButton);
+        
+        add(inputsPanel);
 	}
 }
 
 class OutputPanel extends JPanel {
+	private JTextArea outputTextArea = new JTextArea(20, 45);
+	private String outputValue = "";
+	
 	public OutputPanel() {
-		JLabel outputTest = new JLabel("output test");
+		JPanel outputPanel = new JPanel();
+		outputPanel.setLayout(new BoxLayout(outputPanel, BoxLayout.PAGE_AXIS));
 		
-		add(outputTest);
+		outputTextArea.setEditable(false);
+		
+		outputValue += "annex agree{** \n";
+		outputValue += "\n";
+		outputValue += "\"**};";
+		
+		outputTextArea.setText(outputValue);
+		outputPanel.add(outputTextArea);
+		
+		JButton copyToClipboardButton = new JButton(new CopyToClipboardAction("Copy to Clipboard"));
+		outputPanel.add(copyToClipboardButton);
+		
+		add(outputPanel);
 	}
+	
+	private class CopyToClipboardAction extends AbstractAction {
+
+        public CopyToClipboardAction(String name) {
+            super(name);
+            int mnemonic = (int) name.charAt(0);
+            putValue(MNEMONIC_KEY, mnemonic);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+        	StringSelection stringSelection = new StringSelection(outputValue);
+    		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+    		clipboard.setContents(stringSelection, null);
+        }
+    }
 }

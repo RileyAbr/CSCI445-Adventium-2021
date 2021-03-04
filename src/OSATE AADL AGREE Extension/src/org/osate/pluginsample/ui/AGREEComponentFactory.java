@@ -20,23 +20,23 @@ public class AGREEComponentFactory {
 	public static int createComparisonValue() {
 		Random rand = new Random();
 		
-		return rand.nextInt(9) * 10 * (10 * rand.nextInt(1));
+		return (rand.nextInt(9) + 1) * 10 * (10 / (rand.nextInt(1) + 1));
 	}
 	
 	public static String createAssumptionComparator() {
 		Random rand = new Random();
 		
-		return parameters[rand.nextInt(assumptionComparators.length)];
+		return assumptionComparators[rand.nextInt(assumptionComparators.length)];
 	}
 	
 	public static String[] getAllAssumptionComparators() {
 		return assumptionComparators;
 	}
 	
-	public static String createGuaranteeComparators() {
+	public static String createGuaranteeComparator() {
 		Random rand = new Random();
 		
-		return parameters[rand.nextInt(guaranteeComparators.length)];
+		return guaranteeComparators[rand.nextInt(guaranteeComparators.length)];
 	}
 	
 	public static String[] getAllGuaranteeComparators() {
