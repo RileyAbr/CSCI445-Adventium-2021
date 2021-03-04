@@ -20,7 +20,7 @@ public class AssumptionPanel extends JPanel {
         DefaultListModel<String> listModel = new DefaultListModel<>();
         for (int i = 0; i < 4; i++) {
         	listModel.addElement(
-        			String.format("assume \"Sample assumption\" : (%s %s %d)", AGREEComponentFactory.createParameter(), AGREEComponentFactory.createAssumptionComparator(), AGREEComponentFactory.createComparisonValue())
+        			String.format("assume \"Sample assumption\" : (%s %s %d)", AGREEComponentFactory.getMockAssumptionParameter(), AGREEComponentFactory.getMockAssumptionComparator(), AGREEComponentFactory.getMockComparisonValue())
 					);
 		}
         JList<String> assumptionList = new JList<>(listModel); 
@@ -37,7 +37,7 @@ public class AssumptionPanel extends JPanel {
         JTextField agreeDescriptionTextField = new JTextField();
         inputsPanel.add(agreeDescriptionTextField);
         
-        JComboBox<String> assumptionOperandList = new JComboBox<>(AGREEComponentFactory.getAllParameters());
+        JComboBox<String> assumptionOperandList = new JComboBox<>(AGREEComponentFactory.getAllMockAssumptionParameters());
         inputsPanel.add(assumptionOperandList);
         
         JComboBox<String> assumptionComparatorList = new JComboBox<>(AGREEComponentFactory.getAllAssumptionComparators());

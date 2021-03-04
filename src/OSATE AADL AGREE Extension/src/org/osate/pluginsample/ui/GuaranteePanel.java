@@ -20,7 +20,7 @@ public class GuaranteePanel extends JPanel {
         DefaultListModel<String> listModel = new DefaultListModel<>();
         for (int i = 0; i < 4; i++) {
         	listModel.addElement(
-        			String.format("guarntee \"Example guarantee\" : (%s %s %d) %s %s", AGREEComponentFactory.createParameter(), AGREEComponentFactory.createAssumptionComparator(), AGREEComponentFactory.createComparisonValue(), AGREEComponentFactory.createGuaranteeComparator(), AGREEComponentFactory.createParameter())
+        			String.format("guarntee \"Example guarantee\" : (%s %s %d) %s %s", AGREEComponentFactory.getMockAssumptionParameter(), AGREEComponentFactory.getMockAssumptionComparator(), AGREEComponentFactory.getMockComparisonValue(), AGREEComponentFactory.getMockGuaranteeComparator(), AGREEComponentFactory.getMockGuaranteeParameter())
 					);
 		}
         JList<String> guaranteeList = new JList<>(listModel); 
@@ -37,7 +37,7 @@ public class GuaranteePanel extends JPanel {
         JTextField agreeDescriptionTextField = new JTextField();
         inputsPanel.add(agreeDescriptionTextField);
         
-        JComboBox<String> conditionalOperandList = new JComboBox<>(AGREEComponentFactory.getAllParameters());
+        JComboBox<String> conditionalOperandList = new JComboBox<>(AGREEComponentFactory.getAllMockAssumptionParameters());
         inputsPanel.add(conditionalOperandList);
         
         JComboBox<String> assumptionComparatorList = new JComboBox<>(AGREEComponentFactory.getAllAssumptionComparators());
@@ -49,7 +49,7 @@ public class GuaranteePanel extends JPanel {
         JComboBox<String> guaranteeComparatorList = new JComboBox<>(AGREEComponentFactory.getAllGuaranteeComparators());
         inputsPanel.add(guaranteeComparatorList);
         
-        JComboBox<String> guaranteeOperandList = new JComboBox<>(AGREEComponentFactory.getAllParameters());
+        JComboBox<String> guaranteeOperandList = new JComboBox<>(AGREEComponentFactory.getAllMockGuaranteeParameters());
         inputsPanel.add(guaranteeOperandList);
         
         JButton addGuaranteeButton = new JButton("+");
