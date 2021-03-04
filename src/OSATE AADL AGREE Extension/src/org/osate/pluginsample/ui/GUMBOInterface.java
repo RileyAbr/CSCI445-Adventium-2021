@@ -129,7 +129,7 @@ public class GUMBOInterface extends JFrame {
         public void actionPerformed(ActionEvent e) {
 //        	Check Page Number
             if(currentPage >= pages.length - 1) {
-//            	currentPage = pages.length - 1;
+            	setVisible(false);
             	dispose();
             }
             else if(currentPage < 0) {
