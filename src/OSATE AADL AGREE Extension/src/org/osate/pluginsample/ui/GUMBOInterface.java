@@ -11,6 +11,8 @@ public class GUMBOInterface extends JFrame {
 	
 	private HeaderPanel headerPanel = new HeaderPanel();
 	
+	private AssumptionPanel assumptionPanel;
+	
 	private JButton backButton = new JButton(new BackAction("Back"));
 	private JButton nextButton = new JButton(new NextAction("Next"));
 	
@@ -19,54 +21,16 @@ public class GUMBOInterface extends JFrame {
 	 
 	    JPanel mainPanel = new JPanel();
 	    mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
-	    
-	    JPanel contentPanel = new JPanel();
-//		contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.PAGE_AXIS));
-	    contentPanel.setLayout(new FlowLayout());
-		
+	  	
 //		Header Panel
 		headerPanel.setHeaderLabel(pages[currentPage]);
 		mainPanel.add(headerPanel);
 		
-//		List Panel
-		JPanel listPanel = new JPanel();
-		listPanel.setLayout(new FlowLayout());
+	    JPanel contentPanel = new JPanel();
+		   
+		assumptionPanel = new AssumptionPanel();
+		contentPanel.add(assumptionPanel);
 		
-        DefaultListModel<String> listModel = new DefaultListModel<>();
-        for (int i = 0; i < 4; i++) {
-        	listModel.addElement(
-        			String.format("assume \"Sample assumption\" : (%s < %d)", AGREEComponentFactory.createParameter(), 300)
-					);
-		}
-        JList<String> countryList = new JList<>(listModel); 
-        listPanel.add(countryList);
-        
-        JButton removeAssumptionButton = new JButton("-");
-        listPanel.add(removeAssumptionButton);
-        
-		contentPanel.add(listPanel);
-		
-//		Inputs Panel
-        JPanel inputsPanel = new JPanel();
-        inputsPanel.setLayout(new BoxLayout(inputsPanel, BoxLayout.PAGE_AXIS));
-        
-        JTextField agreeDescriptionTextField = new JTextField();
-        inputsPanel.add(agreeDescriptionTextField);
-        
-        JComboBox<String> assumptionOperandList = new JComboBox<>(AGREEComponentFactory.getAllParameters());
-        inputsPanel.add(assumptionOperandList);
-        
-        JComboBox<String> assumptionComparatorList = new JComboBox<>(AGREEComponentFactory.getAllAssumptionComparators());
-        inputsPanel.add(assumptionComparatorList);
-        
-        JTextField assumptionValueTextField = new JTextField();
-        inputsPanel.add(assumptionValueTextField);
-        
-        JButton addAssumptionButton = new JButton("+");
-        inputsPanel.add(addAssumptionButton);
-        
-        contentPanel.add(inputsPanel);
-        
         mainPanel.add(contentPanel);
         
 //		Pagination Panel
@@ -175,5 +139,48 @@ class HeaderPanel extends JPanel {
 	
 	public void setHeaderLabel(String newLabel) {
 		headerLabel.setText(newLabel.substring(0, 1).toUpperCase() + newLabel.substring(1));
+	}
+}
+
+class AssumptionPanel extends JPanel {
+	public AssumptionPanel() {
+		setLayout(new FlowLayout());
+		
+		JPanel listPanel = new JPanel();
+		listPanel.setLayout(new FlowLayout());
+		
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+        for (int i = 0; i < 4; i++) {
+        	listModel.addElement(
+        			String.format("assume \"Sample assumption\" : (%s < %d)", AGREEComponentFactory.createParameter(), 300)
+					);
+		}
+        JList<String> assumptionList = new JList<>(listModel); 
+        listPanel.add(assumptionList);
+        
+        JButton removeAssumptionButton = new JButton("-");
+        listPanel.add(removeAssumptionButton);
+        
+		add(listPanel);
+        
+        JPanel inputsPanel = new JPanel();
+        inputsPanel.setLayout(new BoxLayout(inputsPanel, BoxLayout.PAGE_AXIS));
+        
+        JTextField agreeDescriptionTextField = new JTextField();
+        inputsPanel.add(agreeDescriptionTextField);
+        
+        JComboBox<String> assumptionOperandList = new JComboBox<>(AGREEComponentFactory.getAllParameters());
+        inputsPanel.add(assumptionOperandList);
+        
+        JComboBox<String> assumptionComparatorList = new JComboBox<>(AGREEComponentFactory.getAllAssumptionComparators());
+        inputsPanel.add(assumptionComparatorList);
+        
+        JTextField assumptionValueTextField = new JTextField();
+        inputsPanel.add(assumptionValueTextField);
+        
+        JButton addAssumptionButton = new JButton("+");
+        inputsPanel.add(addAssumptionButton);
+        
+        add(inputsPanel);
 	}
 }
