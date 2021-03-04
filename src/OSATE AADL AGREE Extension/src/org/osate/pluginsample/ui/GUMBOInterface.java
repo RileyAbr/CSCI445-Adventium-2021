@@ -1,10 +1,8 @@
 package org.osate.pluginsample.ui;
 
 import javax.swing.*;
-
 import java.awt.*;
 import java.awt.event.*;
-
 import java.awt.datatransfer.StringSelection;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
@@ -61,7 +59,6 @@ public class GUMBOInterface extends JFrame {
         mainPanel.add(paginationPanel);
         
 //      Add Entire Content Panel
-        
         add(mainPanel);     
 	    
 	    setSize(750, 600);
@@ -151,19 +148,6 @@ public class GUMBOInterface extends JFrame {
     }
 }
 
-class HeaderPanel extends JPanel {
-	private JLabel headerLabel = new JLabel();
-	
-	public HeaderPanel() {
-		headerLabel.setFont(new java.awt.Font("Arial", Font.PLAIN, 32));
-		add(headerLabel);
-	}
-	
-	public void setHeaderLabel(String newLabel) {
-		headerLabel.setText(newLabel.substring(0, 1).toUpperCase() + newLabel.substring(1));
-	}
-}
-
 class ContentPanel extends JPanel {
 	public ContentPanel() {
 	}
@@ -174,136 +158,4 @@ class ContentPanel extends JPanel {
 		repaint();
 		add(newJPanel);
 	}
-}
-
-class AssumptionPanel extends JPanel {
-	public AssumptionPanel() {
-		setLayout(new FlowLayout());
-		
-		JPanel listPanel = new JPanel();
-		listPanel.setLayout(new FlowLayout());
-		
-        DefaultListModel<String> listModel = new DefaultListModel<>();
-        for (int i = 0; i < 4; i++) {
-        	listModel.addElement(
-        			String.format("assume \"Sample assumption\" : (%s %s %d)", AGREEComponentFactory.createParameter(), AGREEComponentFactory.createAssumptionComparator(), AGREEComponentFactory.createComparisonValue())
-					);
-		}
-        JList<String> assumptionList = new JList<>(listModel); 
-        listPanel.add(assumptionList);
-        
-        JButton removeAssumptionButton = new JButton("-");
-        listPanel.add(removeAssumptionButton);
-        
-		add(listPanel);
-        
-        JPanel inputsPanel = new JPanel();
-        inputsPanel.setLayout(new BoxLayout(inputsPanel, BoxLayout.PAGE_AXIS));
-        
-        JTextField agreeDescriptionTextField = new JTextField();
-        inputsPanel.add(agreeDescriptionTextField);
-        
-        JComboBox<String> assumptionOperandList = new JComboBox<>(AGREEComponentFactory.getAllParameters());
-        inputsPanel.add(assumptionOperandList);
-        
-        JComboBox<String> assumptionComparatorList = new JComboBox<>(AGREEComponentFactory.getAllAssumptionComparators());
-        inputsPanel.add(assumptionComparatorList);
-        
-        JTextField assumptionValueTextField = new JTextField();
-        inputsPanel.add(assumptionValueTextField);
-        
-        JButton addAssumptionButton = new JButton("+");
-        inputsPanel.add(addAssumptionButton);
-        
-        add(inputsPanel);
-	}
-}
-
-class GuaranteePanel extends JPanel {
-	public GuaranteePanel() {
-setLayout(new FlowLayout());
-		
-		JPanel listPanel = new JPanel();
-		listPanel.setLayout(new FlowLayout());
-		
-        DefaultListModel<String> listModel = new DefaultListModel<>();
-        for (int i = 0; i < 4; i++) {
-        	listModel.addElement(
-        			String.format("guarntee \"Example guarantee\" : (%s %s %d) %s %s", AGREEComponentFactory.createParameter(), AGREEComponentFactory.createAssumptionComparator(), AGREEComponentFactory.createComparisonValue(), AGREEComponentFactory.createGuaranteeComparator(), AGREEComponentFactory.createParameter())
-					);
-		}
-        JList<String> guaranteeList = new JList<>(listModel); 
-        listPanel.add(guaranteeList);
-        
-        JButton removeGuaranteeButton = new JButton("-");
-        listPanel.add(removeGuaranteeButton);
-        
-		add(listPanel);
-        
-        JPanel inputsPanel = new JPanel();
-        inputsPanel.setLayout(new BoxLayout(inputsPanel, BoxLayout.PAGE_AXIS));
-        
-        JTextField agreeDescriptionTextField = new JTextField();
-        inputsPanel.add(agreeDescriptionTextField);
-        
-        JComboBox<String> conditionalOperandList = new JComboBox<>(AGREEComponentFactory.getAllParameters());
-        inputsPanel.add(conditionalOperandList);
-        
-        JComboBox<String> assumptionComparatorList = new JComboBox<>(AGREEComponentFactory.getAllAssumptionComparators());
-        inputsPanel.add(assumptionComparatorList);
-        
-        JTextField assumptionValueTextField = new JTextField();
-        inputsPanel.add(assumptionValueTextField);
-        
-        JComboBox<String> guaranteeComparatorList = new JComboBox<>(AGREEComponentFactory.getAllGuaranteeComparators());
-        inputsPanel.add(guaranteeComparatorList);
-        
-        JComboBox<String> guaranteeOperandList = new JComboBox<>(AGREEComponentFactory.getAllParameters());
-        inputsPanel.add(guaranteeOperandList);
-        
-        JButton addGuaranteeButton = new JButton("+");
-        inputsPanel.add(addGuaranteeButton);
-        
-        add(inputsPanel);
-	}
-}
-
-class OutputPanel extends JPanel {
-	private JTextArea outputTextArea = new JTextArea(20, 45);
-	private String outputValue = "";
-	
-	public OutputPanel() {
-		JPanel outputPanel = new JPanel();
-		outputPanel.setLayout(new BoxLayout(outputPanel, BoxLayout.PAGE_AXIS));
-		
-		outputTextArea.setEditable(false);
-		
-		outputValue += "annex agree{** \n";
-		outputValue += "\n";
-		outputValue += "\"**};";
-		
-		outputTextArea.setText(outputValue);
-		outputPanel.add(outputTextArea);
-		
-		JButton copyToClipboardButton = new JButton(new CopyToClipboardAction("Copy to Clipboard"));
-		outputPanel.add(copyToClipboardButton);
-		
-		add(outputPanel);
-	}
-	
-	private class CopyToClipboardAction extends AbstractAction {
-
-        public CopyToClipboardAction(String name) {
-            super(name);
-            int mnemonic = (int) name.charAt(0);
-            putValue(MNEMONIC_KEY, mnemonic);
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-        	StringSelection stringSelection = new StringSelection(outputValue);
-    		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-    		clipboard.setContents(stringSelection, null);
-        }
-    }
 }
