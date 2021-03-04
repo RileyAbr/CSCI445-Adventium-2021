@@ -11,6 +11,9 @@ public class GUMBOInterface extends JFrame {
 	
 	private HeaderPanel headerPanel = new HeaderPanel();
 	
+	private JButton backButton = new JButton(new BackAction("Back"));
+	private JButton nextButton = new JButton(new NextAction("Next"));
+	
 	public GUMBOInterface() {
 	    super("AGREE Creator");
 	 
@@ -64,9 +67,8 @@ public class GUMBOInterface extends JFrame {
         JPanel paginationPanel = new JPanel();
         paginationPanel.setLayout(new FlowLayout());
         
-        JButton backButton = new JButton(new BackAction("Back"));
+        backButton.setEnabled(false);
         paginationPanel.add(backButton);
-        JButton nextButton = new JButton(new NextAction("Next"));
         paginationPanel.add(nextButton);
         
         contentPanel.add(paginationPanel);
@@ -89,6 +91,7 @@ public class GUMBOInterface extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+//        	Check Page Number
             if(currentPage <= 0) {
             	currentPage = 0;
             }
@@ -98,6 +101,17 @@ public class GUMBOInterface extends JFrame {
             else {
             	currentPage--;
             }
+            
+//          Set Button Statuses
+            if(currentPage <= 0) {
+            	backButton.setEnabled(false);
+            }
+            else {
+            	backButton.setEnabled(true);
+            }
+            nextButton.setEnabled(true);
+            
+//          Update Heading
         	headerPanel.setHeaderLabel(pages[currentPage]);
         }
 	}
@@ -112,6 +126,7 @@ public class GUMBOInterface extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+//        	Check Page Number
             if(currentPage >= pages.length - 1) {
             	currentPage = pages.length - 1;
             }
@@ -121,6 +136,18 @@ public class GUMBOInterface extends JFrame {
             else {
             	currentPage++;
             }
+            
+//          Set Button Statuses
+            if(currentPage >= pages.length - 1) {
+            	nextButton.setEnabled(false);
+            }
+            else {
+            	nextButton.setEnabled(true);
+            }
+            backButton.setEnabled(true);
+            
+//          Update Heading
+
         	headerPanel.setHeaderLabel(pages[currentPage]);
         }
     }
