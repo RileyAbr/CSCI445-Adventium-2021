@@ -19,6 +19,8 @@ public class OutputPanel extends JPanel {
 		JPanel outputPanel = new JPanel();
 		outputPanel.setLayout(new BoxLayout(outputPanel, BoxLayout.PAGE_AXIS));
 		
+//		Output Box Panel
+		JPanel outputBoxPanel = new JPanel();
 		outputTextArea.setEditable(false);
 		
 		outputValue += "annex agree{** \n";
@@ -26,10 +28,16 @@ public class OutputPanel extends JPanel {
 		outputValue += "\"**};";
 		
 		outputTextArea.setText(outputValue);
-		outputPanel.add(outputTextArea);
+		outputBoxPanel.add(outputTextArea);
+		outputPanel.add(outputBoxPanel);
+		
+//		Copy Button Panel
+		JPanel copyButtonPanel = new JPanel();
 		
 		JButton copyToClipboardButton = new JButton(new CopyToClipboardAction("Copy to Clipboard"));
-		outputPanel.add(copyToClipboardButton);
+		copyButtonPanel.add(copyToClipboardButton);
+		
+		outputPanel.add(copyButtonPanel);
 		
 		add(outputPanel);
 	}
