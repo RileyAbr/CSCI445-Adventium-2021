@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.datatransfer.StringSelection;
-import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 
 public class GUMBOInterface extends JFrame {
@@ -26,11 +25,12 @@ public class GUMBOInterface extends JFrame {
 	    super("AGREE Creator");
 	 
 	    JPanel mainPanel = new JPanel();
-	    mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
+//	    mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
+	    mainPanel.setLayout(new BorderLayout());
 	  	
 //		Header Panel
 		headerPanel.setHeaderLabel(pages[currentPage]);
-		mainPanel.add(headerPanel);
+		mainPanel.add(headerPanel, BorderLayout.PAGE_START);
 		
 //		Content Panel
 	    contentPanel = new ContentPanel();
@@ -46,7 +46,7 @@ public class GUMBOInterface extends JFrame {
 		
 		contentPanel.setInternalPanel(pagePanels[0]);
 		
-        mainPanel.add(contentPanel);
+        mainPanel.add(contentPanel, BorderLayout.CENTER);
         
 //		Pagination Panel
         JPanel paginationPanel = new JPanel();
@@ -56,12 +56,12 @@ public class GUMBOInterface extends JFrame {
         paginationPanel.add(backButton);
         paginationPanel.add(nextButton);
         
-        mainPanel.add(paginationPanel);
+        mainPanel.add(paginationPanel, BorderLayout.PAGE_END);
         
 //      Add Entire Content Panel
         add(mainPanel);     
 	    
-	    setSize(750, 600);
+	    setSize(600, 500);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setVisible(true);

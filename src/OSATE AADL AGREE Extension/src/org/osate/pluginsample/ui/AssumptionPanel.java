@@ -1,5 +1,6 @@
 package org.osate.pluginsample.ui;
 
+import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
 import javax.swing.BoxLayout;
@@ -12,7 +13,8 @@ import javax.swing.JTextField;
 
 public class AssumptionPanel extends JPanel {
 	public AssumptionPanel() {
-		setLayout(new FlowLayout());
+//		setLayout(new FlowLayout());
+		setLayout(new BorderLayout());
 		
 		JPanel listPanel = new JPanel();
 		listPanel.setLayout(new FlowLayout());
@@ -29,7 +31,7 @@ public class AssumptionPanel extends JPanel {
         JButton removeAssumptionButton = new JButton("-");
         listPanel.add(removeAssumptionButton);
         
-		add(listPanel);
+		add(listPanel, BorderLayout.PAGE_START);
         
         JPanel inputsPanel = new JPanel();
         inputsPanel.setLayout(new BoxLayout(inputsPanel, BoxLayout.PAGE_AXIS));
@@ -43,11 +45,18 @@ public class AssumptionPanel extends JPanel {
         JComboBox<String> assumptionComparatorList = new JComboBox<>(AGREEComponentFactory.getAllAssumptionComparators());
         inputsPanel.add(assumptionComparatorList);
         
-        JTextField assumptionValueTextField = new JTextField();
-        inputsPanel.add(assumptionValueTextField);
+        assumptionComparatorList.setMaximumSize( assumptionComparatorList.getPreferredSize() );
+        
+        JPanel addButtonPanel = new JPanel();
+        
+        JTextField assumptionValueTextField = new JTextField("", 20);
+//        inputsPanel.add(assumptionValueTextField);
+        addButtonPanel.add(assumptionValueTextField);
         
         JButton addAssumptionButton = new JButton("+");
-        inputsPanel.add(addAssumptionButton);
+        addButtonPanel.add(addAssumptionButton);
+        
+        inputsPanel.add(addButtonPanel);
         
         add(inputsPanel);
 	}
