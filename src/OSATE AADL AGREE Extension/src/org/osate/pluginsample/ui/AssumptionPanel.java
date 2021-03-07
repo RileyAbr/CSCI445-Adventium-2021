@@ -9,9 +9,9 @@ import javax.swing.*;
 
 public class AssumptionPanel extends JPanel {
 	public AssumptionPanel() {
-//		setLayout(new FlowLayout());
 		setLayout(new BorderLayout());
 		
+//		List Panel
 		JPanel listPanel = new JPanel();
 		listPanel.setLayout(new FlowLayout());
 		
@@ -29,6 +29,7 @@ public class AssumptionPanel extends JPanel {
         
 		add(listPanel, BorderLayout.PAGE_START);
         
+//		Inputs Panel
         JPanel inputsPanel = new JPanel();
         inputsPanel.setLayout(new BoxLayout(inputsPanel, BoxLayout.PAGE_AXIS));
         
@@ -38,14 +39,16 @@ public class AssumptionPanel extends JPanel {
         JComboBox<String> assumptionOperandList = new JComboBox<>(AGREEComponentFactory.getAllMockAssumptionParameters());
         inputsPanel.add(assumptionOperandList);
         
+//      Comparator Panel
         JPanel assumptionComparatorPanel = new JPanel();
         
         JComboBox<String> assumptionComparatorList = new JComboBox<>(AGREEComponentFactory.getAllAssumptionComparators());
-        assumptionComparatorList.setMaximumSize( assumptionComparatorList.getPreferredSize() );
+        assumptionComparatorList.setMaximumSize( assumptionComparatorList.getPreferredSize());
         assumptionComparatorPanel.add(assumptionComparatorList);
         
         inputsPanel.add(assumptionComparatorPanel);
         
+//      + Button Panel
         JPanel addButtonPanel = new JPanel();
         
         JTextField assumptionValueTextField = new JTextField("", 20);

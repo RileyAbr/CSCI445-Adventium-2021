@@ -1,19 +1,15 @@
 package org.osate.pluginsample.ui;
 
+import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
-import javax.swing.BoxLayout;
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 public class GuaranteePanel extends JPanel {
 	public GuaranteePanel() {
-		setLayout(new FlowLayout());
+		setLayout(new BorderLayout());
 		
+//		List Panel
 		JPanel listPanel = new JPanel();
 		listPanel.setLayout(new FlowLayout());
 		
@@ -24,13 +20,15 @@ public class GuaranteePanel extends JPanel {
 					);
 		}
         JList<String> guaranteeList = new JList<>(listModel); 
-        listPanel.add(guaranteeList);
+        JScrollPane guaranteeListScrollPane = new JScrollPane(new JList<>(listModel));
+        listPanel.add(guaranteeListScrollPane);
         
         JButton removeGuaranteeButton = new JButton("-");
         listPanel.add(removeGuaranteeButton);
         
-		add(listPanel);
+		add(listPanel, BorderLayout.PAGE_START);
         
+//		Inputs Panel
         JPanel inputsPanel = new JPanel();
         inputsPanel.setLayout(new BoxLayout(inputsPanel, BoxLayout.PAGE_AXIS));
         
@@ -40,20 +38,37 @@ public class GuaranteePanel extends JPanel {
         JComboBox<String> conditionalOperandList = new JComboBox<>(AGREEComponentFactory.getAllMockAssumptionParameters());
         inputsPanel.add(conditionalOperandList);
         
+//      1st Comparator Panel
+        JPanel assumptionComparatorPanel = new JPanel();
+        
         JComboBox<String> assumptionComparatorList = new JComboBox<>(AGREEComponentFactory.getAllAssumptionComparators());
-        inputsPanel.add(assumptionComparatorList);
+        assumptionComparatorList.setMaximumSize( assumptionComparatorList.getPreferredSize());
+        assumptionComparatorPanel.add(assumptionComparatorList);
+        
+        inputsPanel.add(assumptionComparatorPanel);
         
         JTextField assumptionValueTextField = new JTextField();
         inputsPanel.add(assumptionValueTextField);
         
+//      2nd Comparator Panel
+        JPanel guaranteeComparatorPanel = new JPanel();
+        
         JComboBox<String> guaranteeComparatorList = new JComboBox<>(AGREEComponentFactory.getAllGuaranteeComparators());
-        inputsPanel.add(guaranteeComparatorList);
+        guaranteeComparatorList.setMaximumSize( guaranteeComparatorList.getPreferredSize());
+        guaranteeComparatorPanel.add(guaranteeComparatorList);
+        
+        inputsPanel.add(guaranteeComparatorPanel);
+        
+//      + Button Panel
+        JPanel addButtonPanel = new JPanel();
         
         JComboBox<String> guaranteeOperandList = new JComboBox<>(AGREEComponentFactory.getAllMockGuaranteeParameters());
-        inputsPanel.add(guaranteeOperandList);
+        addButtonPanel.add(guaranteeOperandList);
         
         JButton addGuaranteeButton = new JButton("+");
-        inputsPanel.add(addGuaranteeButton);
+        addButtonPanel.add(addGuaranteeButton);
+        
+        inputsPanel.add(addButtonPanel);
         
         add(inputsPanel);
 	}
