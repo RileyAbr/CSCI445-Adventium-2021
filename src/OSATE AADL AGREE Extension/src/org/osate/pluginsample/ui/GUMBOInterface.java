@@ -61,7 +61,7 @@ public class GUMBOInterface extends JFrame {
 //      Add Entire Content Panel
         add(mainPanel);     
 	    
-	    setSize(600, 500);
+	    setSize(575, 500);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setVisible(true);
