@@ -16,7 +16,7 @@ public class AssumptionPanel extends JPanel {
 		listPanel.setLayout(new FlowLayout());
 		
         DefaultListModel<String> listModel = new DefaultListModel<>();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 3; i++) {
         	listModel.addElement(
         			String.format("assume \"Sample assumption\" : (%s %s %d)", AGREEComponentFactory.getMockAssumptionParameter(), AGREEComponentFactory.getMockAssumptionComparator(), AGREEComponentFactory.getMockComparisonValue())
 					);
@@ -33,18 +33,18 @@ public class AssumptionPanel extends JPanel {
         inputsPanel.setLayout(new BoxLayout(inputsPanel, BoxLayout.PAGE_AXIS));
         
         JTextField agreeDescriptionTextField = new JTextField();
-        PlaceholderTextField tf = new PlaceholderTextField("");
-        tf.setColumns(20);
-        tf.setPlaceholder("All your base are belong to us!");
         inputsPanel.add(agreeDescriptionTextField);
         
         JComboBox<String> assumptionOperandList = new JComboBox<>(AGREEComponentFactory.getAllMockAssumptionParameters());
         inputsPanel.add(assumptionOperandList);
         
-        JComboBox<String> assumptionComparatorList = new JComboBox<>(AGREEComponentFactory.getAllAssumptionComparators());
-        inputsPanel.add(assumptionComparatorList);
+        JPanel assumptionComparatorPanel = new JPanel();
         
+        JComboBox<String> assumptionComparatorList = new JComboBox<>(AGREEComponentFactory.getAllAssumptionComparators());
         assumptionComparatorList.setMaximumSize( assumptionComparatorList.getPreferredSize() );
+        assumptionComparatorPanel.add(assumptionComparatorList);
+        
+        inputsPanel.add(assumptionComparatorPanel);
         
         JPanel addButtonPanel = new JPanel();
         
