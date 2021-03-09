@@ -4,28 +4,37 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import javax.swing.*;
 
 public class AssumptionPanel extends JPanel {
-	public AssumptionPanel() {
+	private ArrayList<String> assumptionStatements;
+	private JPanel listPanel;
+	private JScrollPane assumptionListScrollPane;
+	private JButton removeAssumptionButton;
+	
+	public AssumptionPanel(ArrayList<String> inputAssumptionStatements) {
 		setLayout(new BorderLayout());
 		
 //		List Panel
-		JPanel listPanel = new JPanel();
+		listPanel = new JPanel();
 		listPanel.setLayout(new FlowLayout());
 		
-        DefaultListModel<String> listModel = new DefaultListModel<>();
-        for (int i = 0; i < 3; i++) {
-        	listModel.addElement(
-        			String.format("assume \"Sample assumption\" : (%s %s %d)", AGREEComponentFactory.getMockAssumptionParameter(), AGREEComponentFactory.getMockAssumptionComparator(), AGREEComponentFactory.getMockComparisonValue())
-					);
-		}
-        JScrollPane assumptionListScrollPane = new JScrollPane(new JList<>(listModel));
-        listPanel.add(assumptionListScrollPane);
+		assumptionStatements = inputAssumptionStatements;
+//        DefaultListModel<String> listModel = new DefaultListModel<>();
+//        for (String statement : assumptionStatements) {
+//        	listModel.addElement(statement);
+//		}
+//        
+//        assumptionListScrollPane = new JScrollPane(new JList<>(listModel));
+		
+//        listPanel.add(assumptionListScrollPane);
+//        
+        removeAssumptionButton = new JButton(new RemoveAssumptionAction("-"));
+//        listPanel.add(removeAssumptionButton);
         
-        JButton removeAssumptionButton = new JButton("-");
-        listPanel.add(removeAssumptionButton);
+        updateListPane();
         
 		add(listPanel, BorderLayout.PAGE_START);
         
@@ -61,4 +70,44 @@ public class AssumptionPanel extends JPanel {
         
         add(inputsPanel);
 	}
+	
+	private void updateListPane() {
+		if(assumptionListScrollPane != null) {
+			listPanel.remove(assumptionListScrollPane);
+		}
+		if(removeAssumptionButton != null) {
+			listPanel.remove(removeAssumptionButton);
+		}
+		
+		DefaultListModel<String> listModel = new DefaultListModel<>();
+        for (String statement : assumptionStatements) {
+        	listModel.addElement(statement);
+		}
+        
+        assumptionListScrollPane = new JScrollPane(new JList<>(listModel));
+        
+        listPanel.add(assumptionListScrollPane);
+        listPanel.add(removeAssumptionButton);
+        
+        revalidate();
+		repaint();
+	}
+	
+	private class RemoveAssumptionAction extends AbstractAction {
+
+        public RemoveAssumptionAction(String name) {
+            super(name);
+            int mnemonic = (int) name.charAt(0);
+            putValue(MNEMONIC_KEY, mnemonic);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+        	assumptionStatements.remove(0);
+        	System.out.println(assumptionStatements);
+        	updateListPane();
+        }
+    }
+	
+	
 }
