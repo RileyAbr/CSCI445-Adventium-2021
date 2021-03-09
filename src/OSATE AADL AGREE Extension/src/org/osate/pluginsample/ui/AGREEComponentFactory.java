@@ -53,4 +53,26 @@ public class AGREEComponentFactory {
 	public static String[] getAllGuaranteeComparators() {
 		return guaranteeComparators;
 	}
+	
+	public static String[] getMockAssumptionStatements() {
+		int mockAssumptionCount = 3;
+		String[] mockAssumptions = new String[mockAssumptionCount];
+		
+		for (int i = 0; i < mockAssumptionCount; i++) {
+			mockAssumptions[i] = String.format("assume \"Sample assumption\" : (%s %s %d)", AGREEComponentFactory.getMockAssumptionParameter(), AGREEComponentFactory.getMockAssumptionComparator(), AGREEComponentFactory.getMockComparisonValue());		
+		}
+		
+		return mockAssumptions;
+	}
+	
+	public static String[] getMockGuaranteeStatements() {
+		int mockGuaranteeCount = 4;
+		String[] mockGuarantees = new String[mockGuaranteeCount];
+		
+		for (int i = 0; i < mockGuaranteeCount; i++) {
+        	mockGuarantees[i] = String.format("guarntee \"Example guarantee\" : (%s %s %d) %s %s", AGREEComponentFactory.getMockAssumptionParameter(), AGREEComponentFactory.getMockAssumptionComparator(), AGREEComponentFactory.getMockComparisonValue(), AGREEComponentFactory.getMockGuaranteeComparator(), AGREEComponentFactory.getMockGuaranteeParameter());
+		}
+		
+		return mockGuarantees;
+	}
 }
