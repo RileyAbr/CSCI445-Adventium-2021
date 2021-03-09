@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Clipboard;
+import java.util.ArrayList;
 
 public class GUMBOInterface extends JFrame {
 	private int currentPage = 0;
@@ -18,12 +19,18 @@ public class GUMBOInterface extends JFrame {
 	private GuaranteePanel guaranteePanel;
 	private OutputPanel outputPanel;
 	
+	private ArrayList<String> assumptions;
+	private ArrayList<String> guarantees;
+	
 	private JButton backButton = new JButton(new BackAction("Back"));
 	private JButton nextButton = new JButton(new NextAction("Next"));
 	
 	public GUMBOInterface() {
 	    super("AGREE Creator");
 	 
+//	    Assumptions and Guarantees are currently done via mocks, but will be read from an input file/the iteration eventually
+	    assumptions = AGREEComponentFactory.getMockAssumptionStatements();
+	    
 	    JPanel mainPanel = new JPanel();
 //	    mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
 	    mainPanel.setLayout(new BorderLayout());
@@ -35,7 +42,7 @@ public class GUMBOInterface extends JFrame {
 //		Content Panel
 	    contentPanel = new ContentPanel();
 		   
-		assumptionPanel = new AssumptionPanel();
+		assumptionPanel = new AssumptionPanel(assumptions);
 		pagePanels[0] = assumptionPanel;
 		
 		guaranteePanel = new GuaranteePanel();
