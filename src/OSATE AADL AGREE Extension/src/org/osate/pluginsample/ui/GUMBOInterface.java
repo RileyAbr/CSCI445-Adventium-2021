@@ -428,13 +428,6 @@ public class GUMBOInterface extends JFrame {
     		
     		@Override
             public void actionPerformed(ActionEvent e) {
-    			/*
-    	    	private JComboBox<String> assumptionComparatorList;
-    	    	private JFormattedTextField assumptionValueTextField;
-    	    	private JComboBox<String> guaranteeComparatorList;
-    	    	private JComboBox<String> guaranteeOperandList;
-    			*/
-    			
     			String descValue = agreeDescriptionTextField.getText();
     			String conditionalParameterValue = conditionalOperandList.getSelectedItem().toString();
     			String conditionalComparatorValue = assumptionComparatorList.getSelectedItem().toString();
