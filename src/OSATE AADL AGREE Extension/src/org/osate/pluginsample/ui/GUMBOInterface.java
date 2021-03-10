@@ -1,6 +1,7 @@
 package org.osate.pluginsample.ui;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.datatransfer.StringSelection;
@@ -42,7 +43,7 @@ public class GUMBOInterface extends JFrame {
 //		Content Panel
 	    contentPanel = new ContentPanel();
 		   
-		assumptionPanel = new AssumptionPanel(assumptions);
+		assumptionPanel = new AssumptionPanel();
 		pagePanels[0] = assumptionPanel;
 		
 		guaranteePanel = new GuaranteePanel();
@@ -150,6 +151,110 @@ public class GUMBOInterface extends JFrame {
         }
     }
 	
+    private class AssumptionPanel extends JPanel {
+    	private JPanel listPanel;
+    	private JScrollPane assumptionListScrollPane;
+    	private JButton removeAssumptionButton;
+    	
+    	public AssumptionPanel() {
+    		setLayout(new BorderLayout());
+    		
+//    		List Panel
+    		listPanel = new JPanel();
+    		listPanel.setLayout(new FlowLayout());
+    		
+            removeAssumptionButton = new JButton(new RemoveAssumptionAction("-"));
+            
+            updateListPane();
+            
+    		add(listPanel, BorderLayout.PAGE_START);
+            
+//    		Inputs Panel
+            JPanel inputsPanel = new JPanel();
+            inputsPanel.setLayout(new BoxLayout(inputsPanel, BoxLayout.PAGE_AXIS));
+            
+            JTextField agreeDescriptionTextField = new JTextField();
+            inputsPanel.add(agreeDescriptionTextField);
+            
+            JComboBox<String> assumptionOperandList = new JComboBox<>(AGREEComponentFactory.getAllMockAssumptionParameters());
+            inputsPanel.add(assumptionOperandList);
+            
+//          Comparator Panel
+            JPanel assumptionComparatorPanel = new JPanel();
+            
+            JComboBox<String> assumptionComparatorList = new JComboBox<>(AGREEComponentFactory.getAllAssumptionComparators());
+            assumptionComparatorList.setMaximumSize( assumptionComparatorList.getPreferredSize());
+            assumptionComparatorPanel.add(assumptionComparatorList);
+            
+            inputsPanel.add(assumptionComparatorPanel);
+            
+//          + Button Panel
+            JPanel addButtonPanel = new JPanel();
+            
+            JTextField assumptionValueTextField = new JTextField("", 20);
+            addButtonPanel.add(assumptionValueTextField);
+            
+            JButton addAssumptionButton = new JButton(new AddAssumptionAction("+"));
+            addButtonPanel.add(addAssumptionButton);
+            
+            inputsPanel.add(addButtonPanel);
+            
+            add(inputsPanel);
+    	}
+    	
+    	private void updateListPane() {
+//    		if(assumptionListScrollPane)
+    		
+    		if(assumptionListScrollPane != null) {
+    			listPanel.remove(assumptionListScrollPane);
+    		}
+    		if(removeAssumptionButton != null) {
+    			listPanel.remove(removeAssumptionButton);
+    		}
+    		
+    		DefaultListModel<String> listModel = new DefaultListModel<>();
+            for (String statement : assumptions) {
+            	listModel.addElement(statement);
+    		}
+            
+            assumptionListScrollPane = new JScrollPane(new JList<>(listModel));
+            
+            listPanel.add(assumptionListScrollPane);
+            listPanel.add(removeAssumptionButton);
+            
+            revalidate();
+    		repaint();
+    	}
+    	
+    	private class RemoveAssumptionAction extends AbstractAction {
+            public RemoveAssumptionAction(String name) {
+                super(name);
+                int mnemonic = (int) name.charAt(0);
+                putValue(MNEMONIC_KEY, mnemonic);
+            }
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	assumptions.remove(0);
+            	updateListPane();
+            }
+        }
+    	
+    	private class AddAssumptionAction extends AbstractAction {
+    		public AddAssumptionAction(String name) {
+    			super(name);
+                int mnemonic = (int) name.charAt(0);
+                putValue(MNEMONIC_KEY, mnemonic);
+    		}
+    		
+    		@Override
+            public void actionPerformed(ActionEvent e) {
+            	assumptions.add("test");
+            	updateListPane();
+            }
+    	}
+    }
+    
 	public static void main(String[] args) {
         new GUMBOInterface().setVisible(true);
     }

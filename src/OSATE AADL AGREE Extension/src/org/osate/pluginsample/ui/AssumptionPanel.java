@@ -22,17 +22,7 @@ public class AssumptionPanel extends JPanel {
 		listPanel.setLayout(new FlowLayout());
 		
 		assumptionStatements = inputAssumptionStatements;
-//        DefaultListModel<String> listModel = new DefaultListModel<>();
-//        for (String statement : assumptionStatements) {
-//        	listModel.addElement(statement);
-//		}
-//        
-//        assumptionListScrollPane = new JScrollPane(new JList<>(listModel));
-		
-//        listPanel.add(assumptionListScrollPane);
-//        
         removeAssumptionButton = new JButton(new RemoveAssumptionAction("-"));
-//        listPanel.add(removeAssumptionButton);
         
         updateListPane();
         
@@ -72,6 +62,8 @@ public class AssumptionPanel extends JPanel {
 	}
 	
 	private void updateListPane() {
+//		if(assumptionListScrollPane)
+		
 		if(assumptionListScrollPane != null) {
 			listPanel.remove(assumptionListScrollPane);
 		}
@@ -108,6 +100,4 @@ public class AssumptionPanel extends JPanel {
         	updateListPane();
         }
     }
-	
-	
 }
