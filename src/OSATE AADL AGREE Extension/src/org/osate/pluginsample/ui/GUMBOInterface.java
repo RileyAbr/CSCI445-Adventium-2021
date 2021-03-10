@@ -1,9 +1,16 @@
 package org.osate.pluginsample.ui;
 
 import javax.swing.*;
+import javax.swing.text.NumberFormatter;
+
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Clipboard;
 import java.util.ArrayList;
@@ -155,6 +162,11 @@ public class GUMBOInterface extends JFrame {
     	private JPanel listPanel;
     	private JScrollPane assumptionListScrollPane;
     	private JButton removeAssumptionButton;
+    	private JTextField agreeDescriptionTextField;
+    	private JComboBox<String> assumptionOperandList;
+    	private JComboBox<String> assumptionComparatorList;
+//    	private JTextField assumptionValueTextField;
+    	private JFormattedTextField assumptionValueTextField;
     	
     	public AssumptionPanel() {
     		setLayout(new BorderLayout());
@@ -173,16 +185,16 @@ public class GUMBOInterface extends JFrame {
             JPanel inputsPanel = new JPanel();
             inputsPanel.setLayout(new BoxLayout(inputsPanel, BoxLayout.PAGE_AXIS));
             
-            JTextField agreeDescriptionTextField = new JTextField();
+            agreeDescriptionTextField = new JTextField();
             inputsPanel.add(agreeDescriptionTextField);
             
-            JComboBox<String> assumptionOperandList = new JComboBox<>(AGREEComponentFactory.getAllMockAssumptionParameters());
+            assumptionOperandList = new JComboBox<>(AGREEComponentFactory.getAllMockAssumptionParameters());
             inputsPanel.add(assumptionOperandList);
             
 //          Comparator Panel
             JPanel assumptionComparatorPanel = new JPanel();
             
-            JComboBox<String> assumptionComparatorList = new JComboBox<>(AGREEComponentFactory.getAllAssumptionComparators());
+            assumptionComparatorList = new JComboBox<>(AGREEComponentFactory.getAllAssumptionComparators());
             assumptionComparatorList.setMaximumSize( assumptionComparatorList.getPreferredSize());
             assumptionComparatorPanel.add(assumptionComparatorList);
             
@@ -191,7 +203,17 @@ public class GUMBOInterface extends JFrame {
 //          + Button Panel
             JPanel addButtonPanel = new JPanel();
             
-            JTextField assumptionValueTextField = new JTextField("", 20);
+            NumberFormat longFormat = new DecimalFormat("#0.00"); ;
+
+            NumberFormatter numberFormatter = new NumberFormatter(longFormat);
+            numberFormatter.setValueClass(Long.class);
+            numberFormatter.setAllowsInvalid(false);
+            numberFormatter.setMinimum(0l);
+
+            assumptionValueTextField = new JFormattedTextField(numberFormatter);
+            assumptionValueTextField.setColumns(20);
+            assumptionValueTextField.setText("0");
+            
             addButtonPanel.add(assumptionValueTextField);
             
             JButton addAssumptionButton = new JButton(new AddAssumptionAction("+"));
@@ -249,8 +271,22 @@ public class GUMBOInterface extends JFrame {
     		
     		@Override
             public void actionPerformed(ActionEvent e) {
-            	assumptions.add("test");
-            	updateListPane();
+    			String descValue = agreeDescriptionTextField.getText();
+    			String parameterValue = assumptionOperandList.getSelectedItem().toString();
+    			String comparatorValue = assumptionComparatorList.getSelectedItem().toString();
+    			String assumptionValue = assumptionValueTextField.getText();
+    			if(!descValue.isEmpty()
+    				&& !parameterValue.isEmpty()
+    				&& !comparatorValue.isEmpty()
+					&& !assumptionValue.isEmpty()) {
+	            	assumptions.add(String.format("assume \"%s\" : (%s %s %s)", descValue, parameterValue, comparatorValue, assumptionValue));
+	            	updateListPane();
+	            	
+	            	agreeDescriptionTextField.setText("");
+	            	assumptionValueTextField.setText("0");
+    			} else {
+    				
+    			}
             }
     	}
     }
