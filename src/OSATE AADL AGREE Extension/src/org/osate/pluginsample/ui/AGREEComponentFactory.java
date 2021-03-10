@@ -1,6 +1,7 @@
 package org.osate.pluginsample.ui;
 
 import java.util.Random;
+import java.util.ArrayList;
 
 public class AGREEComponentFactory {
 	private static String[] mockAssumptionParameters = {"temperature", "degrees", "weight", "height", "PSI" };
@@ -52,5 +53,27 @@ public class AGREEComponentFactory {
 	
 	public static String[] getAllGuaranteeComparators() {
 		return guaranteeComparators;
+	}
+	
+	public static ArrayList<String> getMockAssumptionStatements() {
+		int mockAssumptionCount = 3;
+		ArrayList<String> mockAssumptions = new ArrayList<String>();
+		
+		for (int i = 0; i < mockAssumptionCount; i++) {
+			mockAssumptions.add(String.format("assume \"Sample assumption\" : (%s %s %d)", AGREEComponentFactory.getMockAssumptionParameter(), AGREEComponentFactory.getMockAssumptionComparator(), AGREEComponentFactory.getMockComparisonValue()));		
+		}
+		
+		return mockAssumptions;
+	}
+	
+	public static ArrayList<String> getMockGuaranteeStatements() {
+		int mockGuaranteeCount = 4;
+		ArrayList<String> mockGuarantees = new ArrayList<String>();
+		
+		for (int i = 0; i < mockGuaranteeCount; i++) {
+        	mockGuarantees.add(String.format("guarntee \"Example guarantee\" : (%s %s %d) %s %s", AGREEComponentFactory.getMockAssumptionParameter(), AGREEComponentFactory.getMockAssumptionComparator(), AGREEComponentFactory.getMockComparisonValue(), AGREEComponentFactory.getMockGuaranteeComparator(), AGREEComponentFactory.getMockGuaranteeParameter()));
+		}
+		
+		return mockGuarantees;
 	}
 }
