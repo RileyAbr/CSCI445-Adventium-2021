@@ -57,7 +57,7 @@ public class GUMBOInterface extends JFrame {
 		guaranteePanel = new GuaranteePanel();
 		pagePanels[1] = guaranteePanel;
 		
-		outputPanel = new OutputPanel();
+		outputPanel = new OutputPanel(assumptions, guarantees);
 		pagePanels[2] = outputPanel;
 		
 		contentPanel.setInternalPanel(pagePanels[0]);
@@ -86,6 +86,24 @@ public class GUMBOInterface extends JFrame {
 	private void updatePage(int currentPage) {
 		headerPanel.setHeaderLabel(pages[currentPage]);
 		contentPanel.setInternalPanel(pagePanels[currentPage]);
+		
+		revalidate();
+		repaint();
+	}
+	
+	private void updateOutputPanel() {
+		outputPanel = new OutputPanel(assumptions, guarantees);
+		pagePanels[2] = outputPanel;
+	}
+	
+//	This method is called when the UI is closed. All end-of-life code should be processed here.
+	private void endGUMBOInterface() {
+		System.out.println("--INTERFACE CLOSED--");
+		System.out.println(assumptions);
+		System.out.println(guarantees);
+		System.out.println("--INTERFACE CLOSED--");
+		setVisible(false);
+    	dispose();
 	}
 	
 	private class BackAction extends AbstractAction {
@@ -135,8 +153,7 @@ public class GUMBOInterface extends JFrame {
         public void actionPerformed(ActionEvent e) {
 //        	Check Page Number
             if(currentPage >= pages.length - 1) {
-            	setVisible(false);
-            	dispose();
+            	endGUMBOInterface();
             }
             else if(currentPage < 0) {
             	currentPage = 1;
@@ -147,6 +164,7 @@ public class GUMBOInterface extends JFrame {
             
 //          Set Button Statuses
             if(currentPage >= pages.length - 1) {
+            	updateOutputPanel();
             	nextButton.setText("Finish");
             }
             else {
