@@ -38,6 +38,7 @@ public class GUMBOInterface extends JFrame {
 	 
 //	    Assumptions and Guarantees are currently done via mocks, but will be read from an input file/the iteration eventually
 	    assumptions = AGREEComponentFactory.getMockAssumptionStatements();
+	    guarantees = AGREEComponentFactory.getMockGuaranteeStatements();
 	    
 	    JPanel mainPanel = new JPanel();
 //	    mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
@@ -288,6 +289,167 @@ public class GUMBOInterface extends JFrame {
 	            	
 	            	agreeDescriptionTextField.setText("");
 	            	assumptionValueTextField.setText("0");
+    			} else {
+    				
+    			}
+            }
+    	}
+    }
+    
+    private class GuaranteePanel extends JPanel {
+    	private JPanel listPanel;
+    	private JList guaranteeList;
+    	private JScrollPane guaranteeListScrollPane;
+    	private JButton removeGuaranteeButton;
+    	private JTextField agreeDescriptionTextField;
+    	private JComboBox<String> conditionalOperandList;
+    	private JComboBox<String> assumptionComparatorList;
+    	private JFormattedTextField conditionalValueTextField;
+    	private JComboBox<String> guaranteeComparatorList;
+    	private JComboBox<String> guaranteeOperandList;
+    	private JButton addGuaranteeButton;
+    	
+    	public GuaranteePanel() {
+    		setLayout(new BorderLayout());
+    		
+//    		List Panel
+    		listPanel = new JPanel();
+    		listPanel.setLayout(new FlowLayout());
+    		
+    		removeGuaranteeButton = new JButton(new RemoveGuaranteeAction("-"));
+            
+            updateListPane();
+            
+    		add(listPanel, BorderLayout.PAGE_START);
+    		
+//    		Inputs Panel
+            JPanel inputsPanel = new JPanel();
+            inputsPanel.setLayout(new BoxLayout(inputsPanel, BoxLayout.PAGE_AXIS));
+            
+            agreeDescriptionTextField = new JTextField();
+            inputsPanel.add(agreeDescriptionTextField);
+            
+            conditionalOperandList = new JComboBox<>(AGREEComponentFactory.getAllMockAssumptionParameters());
+            inputsPanel.add(conditionalOperandList);
+            
+//          1st Comparator Panel
+            JPanel assumptionComparatorPanel = new JPanel();
+            
+            assumptionComparatorList = new JComboBox<>(AGREEComponentFactory.getAllAssumptionComparators());
+            assumptionComparatorList.setMaximumSize( assumptionComparatorList.getPreferredSize());
+            assumptionComparatorPanel.add(assumptionComparatorList);
+            
+            inputsPanel.add(assumptionComparatorPanel);
+            
+            NumberFormat longFormat = new DecimalFormat("#0.00"); ;
+
+            NumberFormatter numberFormatter = new NumberFormatter(longFormat);
+            numberFormatter.setValueClass(Long.class);
+            numberFormatter.setAllowsInvalid(false);
+            numberFormatter.setMinimum(0l);
+
+            conditionalValueTextField = new JFormattedTextField(numberFormatter);
+            conditionalValueTextField.setColumns(20);
+            conditionalValueTextField.setText("0");
+            
+            inputsPanel.add(conditionalValueTextField);
+            
+//          2nd Comparator Panel
+            JPanel guaranteeComparatorPanel = new JPanel();
+            
+            guaranteeComparatorList = new JComboBox<>(AGREEComponentFactory.getAllGuaranteeComparators());
+            guaranteeComparatorList.setMaximumSize( guaranteeComparatorList.getPreferredSize());
+            guaranteeComparatorPanel.add(guaranteeComparatorList);
+            
+            inputsPanel.add(guaranteeComparatorPanel);
+            
+//          + Button Panel
+            JPanel addButtonPanel = new JPanel();
+            
+            guaranteeOperandList = new JComboBox<>(AGREEComponentFactory.getAllMockGuaranteeParameters());
+            addButtonPanel.add(guaranteeOperandList);
+            
+            addGuaranteeButton = new JButton(new AddGuaranteeAction("+"));
+            addButtonPanel.add(addGuaranteeButton);
+            
+            inputsPanel.add(addButtonPanel);
+            
+            add(inputsPanel);
+    	}
+    	
+    	private void updateListPane() {
+    		if(guaranteeListScrollPane != null) {
+    			listPanel.remove(guaranteeListScrollPane);
+    		}
+    		if(removeGuaranteeButton != null) {
+    			listPanel.remove(removeGuaranteeButton);
+    		}
+    		
+    		DefaultListModel<String> listModel = new DefaultListModel<>();
+            for (String statement : guarantees) {
+            	listModel.addElement(statement);
+    		}
+            
+            guaranteeList = new JList<>(listModel);
+            guaranteeListScrollPane = new JScrollPane(guaranteeList);
+            
+            listPanel.add(guaranteeListScrollPane);
+            listPanel.add(removeGuaranteeButton);
+            
+            revalidate();
+    		repaint();
+    	}
+    	
+    	private class RemoveGuaranteeAction extends AbstractAction {
+            public RemoveGuaranteeAction(String name) {
+                super(name);
+                int mnemonic = (int) name.charAt(0);
+                putValue(MNEMONIC_KEY, mnemonic);
+            }
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	int currentSelection = guaranteeList.getSelectedIndex();
+            	
+            	if(guaranteeList.getModel().getSize() > 0
+            		&& currentSelection > -1) {
+	            	guarantees.remove(currentSelection);
+	            	updateListPane();
+            	}
+            }
+        }
+    	
+    	private class AddGuaranteeAction extends AbstractAction {
+    		public AddGuaranteeAction(String name) {
+    			super(name);
+                int mnemonic = (int) name.charAt(0);
+                putValue(MNEMONIC_KEY, mnemonic);
+    		}
+    		
+    		@Override
+            public void actionPerformed(ActionEvent e) {
+    			/*
+    	    	private JComboBox<String> assumptionComparatorList;
+    	    	private JFormattedTextField assumptionValueTextField;
+    	    	private JComboBox<String> guaranteeComparatorList;
+    	    	private JComboBox<String> guaranteeOperandList;
+    			*/
+    			
+    			String descValue = agreeDescriptionTextField.getText();
+    			String conditionalParameterValue = conditionalOperandList.getSelectedItem().toString();
+    			String conditioanlComparatorValue = assumptionComparatorList.getSelectedItem().toString();
+    			String parameterValue = guaranteeOperandList.getSelectedItem().toString();
+    			String comparatorValue = guaranteeComparatorList.getSelectedItem().toString();
+    			String assumptionValue = conditionalValueTextField.getText();
+    			if(!descValue.isEmpty()
+    				&& !parameterValue.isEmpty()
+    				&& !comparatorValue.isEmpty()
+					&& !assumptionValue.isEmpty()) {
+	            	guarantees.add(String.format("guarantee \"%s\" : (%s %s %s) %s %s", descValue, conditionalParameterValue, conditioanlComparatorValue, parameterValue, comparatorValue, assumptionValue));
+	            	updateListPane();
+	            	
+	            	agreeDescriptionTextField.setText("");
+	            	conditionalValueTextField.setText("0");
     			} else {
     				
     			}
