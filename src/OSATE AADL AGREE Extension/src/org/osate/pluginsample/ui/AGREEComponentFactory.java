@@ -71,7 +71,7 @@ public class AGREEComponentFactory {
 		ArrayList<String> mockGuarantees = new ArrayList<String>();
 		
 		for (int i = 0; i < mockGuaranteeCount; i++) {
-        	mockGuarantees.add(String.format("guarntee \"Example guarantee\" : (%s %s %d) %s %s", AGREEComponentFactory.getMockAssumptionParameter(), AGREEComponentFactory.getMockAssumptionComparator(), AGREEComponentFactory.getMockComparisonValue(), AGREEComponentFactory.getMockGuaranteeComparator(), AGREEComponentFactory.getMockGuaranteeParameter()));
+        	mockGuarantees.add(String.format("guarantee \"Example guarantee\" : (%s %s %d) %s %s", AGREEComponentFactory.getMockAssumptionParameter(), AGREEComponentFactory.getMockAssumptionComparator(), AGREEComponentFactory.getMockComparisonValue(), AGREEComponentFactory.getMockGuaranteeComparator(), AGREEComponentFactory.getMockGuaranteeParameter()));
 		}
 		
 		return mockGuarantees;

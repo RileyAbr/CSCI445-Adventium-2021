@@ -38,6 +38,7 @@ public class GUMBOInterface extends JFrame {
 	 
 //	    Assumptions and Guarantees are currently done via mocks, but will be read from an input file/the iteration eventually
 	    assumptions = AGREEComponentFactory.getMockAssumptionStatements();
+	    guarantees = AGREEComponentFactory.getMockGuaranteeStatements();
 	    
 	    JPanel mainPanel = new JPanel();
 //	    mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
@@ -296,28 +297,28 @@ public class GUMBOInterface extends JFrame {
     }
     
     private class GuaranteePanel extends JPanel {
+    	private JPanel listPanel;
+    	private JList guaranteeList;
+    	private JScrollPane guaranteeListScrollPane;
+    	private JButton removeGuaranteeButton;
+    	private JTextField agreeDescriptionTextField;
+    	private JComboBox<String> guaranteeOperandList;
+    	private JComboBox<String> guaranteeComparatorList;
+    	private JFormattedTextField guaranteeValueTextField;
+    	
     	public GuaranteePanel() {
     		setLayout(new BorderLayout());
     		
 //    		List Panel
-    		JPanel listPanel = new JPanel();
+    		listPanel = new JPanel();
     		listPanel.setLayout(new FlowLayout());
     		
-            DefaultListModel<String> listModel = new DefaultListModel<>();
-            for (int i = 0; i < 4; i++) {
-            	listModel.addElement(
-            			String.format("guarntee \"Example guarantee\" : (%s %s %d) %s %s", AGREEComponentFactory.getMockAssumptionParameter(), AGREEComponentFactory.getMockAssumptionComparator(), AGREEComponentFactory.getMockComparisonValue(), AGREEComponentFactory.getMockGuaranteeComparator(), AGREEComponentFactory.getMockGuaranteeParameter())
-    					);
-    		}
-            JList<String> guaranteeList = new JList<>(listModel); 
-            JScrollPane guaranteeListScrollPane = new JScrollPane(new JList<>(listModel));
-            listPanel.add(guaranteeListScrollPane);
+    		removeGuaranteeButton = new JButton(new RemoveGuaranteeAction("-"));
             
-            JButton removeGuaranteeButton = new JButton("-");
-            listPanel.add(removeGuaranteeButton);
+            updateListPane();
             
     		add(listPanel, BorderLayout.PAGE_START);
-            
+    		
 //    		Inputs Panel
             JPanel inputsPanel = new JPanel();
             inputsPanel.setLayout(new BoxLayout(inputsPanel, BoxLayout.PAGE_AXIS));
@@ -364,23 +365,23 @@ public class GUMBOInterface extends JFrame {
     	}
     	
     	private void updateListPane() {
-//    		if(assumptionListScrollPane != null) {
-//    			listPanel.remove(assumptionListScrollPane);
-//    		}
-//    		if(removeAssumptionButton != null) {
-//    			listPanel.remove(removeAssumptionButton);
-//    		}
-//    		
-//    		DefaultListModel<String> listModel = new DefaultListModel<>();
-//            for (String statement : assumptions) {
-//            	listModel.addElement(statement);
-//    		}
-//            
-//            assumptionList = new JList<>(listModel);
-//            assumptionListScrollPane = new JScrollPane(assumptionList);
-//            
-//            listPanel.add(assumptionListScrollPane);
-//            listPanel.add(removeAssumptionButton);
+    		if(guaranteeListScrollPane != null) {
+    			listPanel.remove(guaranteeListScrollPane);
+    		}
+    		if(removeGuaranteeButton != null) {
+    			listPanel.remove(removeGuaranteeButton);
+    		}
+    		
+    		DefaultListModel<String> listModel = new DefaultListModel<>();
+            for (String statement : guarantees) {
+            	listModel.addElement(statement);
+    		}
+            
+            guaranteeList = new JList<>(listModel);
+            guaranteeListScrollPane = new JScrollPane(guaranteeList);
+            
+            listPanel.add(guaranteeListScrollPane);
+            listPanel.add(removeGuaranteeButton);
             
             revalidate();
     		repaint();
@@ -395,13 +396,13 @@ public class GUMBOInterface extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-//            	int currentSelection = assumptionList.getSelectedIndex();
-//            	
-//            	if(assumptionList.getModel().getSize() > 0
-//            		&& currentSelection > -1) {
-//	            	assumptions.remove(currentSelection);
-//	            	updateListPane();
-//            	}
+            	int currentSelection = guaranteeList.getSelectedIndex();
+            	
+            	if(guaranteeList.getModel().getSize() > 0
+            		&& currentSelection > -1) {
+	            	guarantees.remove(currentSelection);
+	            	updateListPane();
+            	}
             }
         }
     	
