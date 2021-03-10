@@ -3,16 +3,10 @@ package org.osate.pluginsample.ui;
 import javax.swing.*;
 import javax.swing.text.NumberFormatter;
 
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.awt.datatransfer.StringSelection;
-import java.awt.datatransfer.Clipboard;
 import java.util.ArrayList;
 
 public class GUMBOInterface extends JFrame {
