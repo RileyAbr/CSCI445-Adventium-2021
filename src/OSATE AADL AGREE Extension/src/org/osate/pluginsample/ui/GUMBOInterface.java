@@ -302,9 +302,12 @@ public class GUMBOInterface extends JFrame {
     	private JScrollPane guaranteeListScrollPane;
     	private JButton removeGuaranteeButton;
     	private JTextField agreeDescriptionTextField;
-    	private JComboBox<String> guaranteeOperandList;
+    	private JComboBox<String> conditionalOperandList;
+    	private JComboBox<String> assumptionComparatorList;
+    	private JFormattedTextField conditionalValueTextField;
     	private JComboBox<String> guaranteeComparatorList;
-    	private JFormattedTextField guaranteeValueTextField;
+    	private JComboBox<String> guaranteeOperandList;
+    	private JButton addGuaranteeButton;
     	
     	public GuaranteePanel() {
     		setLayout(new BorderLayout());
@@ -323,28 +326,38 @@ public class GUMBOInterface extends JFrame {
             JPanel inputsPanel = new JPanel();
             inputsPanel.setLayout(new BoxLayout(inputsPanel, BoxLayout.PAGE_AXIS));
             
-            JTextField agreeDescriptionTextField = new JTextField();
+            agreeDescriptionTextField = new JTextField();
             inputsPanel.add(agreeDescriptionTextField);
             
-            JComboBox<String> conditionalOperandList = new JComboBox<>(AGREEComponentFactory.getAllMockAssumptionParameters());
+            conditionalOperandList = new JComboBox<>(AGREEComponentFactory.getAllMockAssumptionParameters());
             inputsPanel.add(conditionalOperandList);
             
 //          1st Comparator Panel
             JPanel assumptionComparatorPanel = new JPanel();
             
-            JComboBox<String> assumptionComparatorList = new JComboBox<>(AGREEComponentFactory.getAllAssumptionComparators());
+            assumptionComparatorList = new JComboBox<>(AGREEComponentFactory.getAllAssumptionComparators());
             assumptionComparatorList.setMaximumSize( assumptionComparatorList.getPreferredSize());
             assumptionComparatorPanel.add(assumptionComparatorList);
             
             inputsPanel.add(assumptionComparatorPanel);
             
-            JTextField assumptionValueTextField = new JTextField();
-            inputsPanel.add(assumptionValueTextField);
+            NumberFormat longFormat = new DecimalFormat("#0.00"); ;
+
+            NumberFormatter numberFormatter = new NumberFormatter(longFormat);
+            numberFormatter.setValueClass(Long.class);
+            numberFormatter.setAllowsInvalid(false);
+            numberFormatter.setMinimum(0l);
+
+            conditionalValueTextField = new JFormattedTextField(numberFormatter);
+            conditionalValueTextField.setColumns(20);
+            conditionalValueTextField.setText("0");
+            
+            inputsPanel.add(conditionalValueTextField);
             
 //          2nd Comparator Panel
             JPanel guaranteeComparatorPanel = new JPanel();
             
-            JComboBox<String> guaranteeComparatorList = new JComboBox<>(AGREEComponentFactory.getAllGuaranteeComparators());
+            guaranteeComparatorList = new JComboBox<>(AGREEComponentFactory.getAllGuaranteeComparators());
             guaranteeComparatorList.setMaximumSize( guaranteeComparatorList.getPreferredSize());
             guaranteeComparatorPanel.add(guaranteeComparatorList);
             
@@ -353,10 +366,10 @@ public class GUMBOInterface extends JFrame {
 //          + Button Panel
             JPanel addButtonPanel = new JPanel();
             
-            JComboBox<String> guaranteeOperandList = new JComboBox<>(AGREEComponentFactory.getAllMockGuaranteeParameters());
+            guaranteeOperandList = new JComboBox<>(AGREEComponentFactory.getAllMockGuaranteeParameters());
             addButtonPanel.add(guaranteeOperandList);
             
-            JButton addGuaranteeButton = new JButton("+");
+            addGuaranteeButton = new JButton(new AddGuaranteeAction("+"));
             addButtonPanel.add(addGuaranteeButton);
             
             inputsPanel.add(addButtonPanel);
@@ -415,22 +428,31 @@ public class GUMBOInterface extends JFrame {
     		
     		@Override
             public void actionPerformed(ActionEvent e) {
-//    			String descValue = agreeDescriptionTextField.getText();
-//    			String parameterValue = assumptionOperandList.getSelectedItem().toString();
-//    			String comparatorValue = assumptionComparatorList.getSelectedItem().toString();
-//    			String assumptionValue = assumptionValueTextField.getText();
-//    			if(!descValue.isEmpty()
-//    				&& !parameterValue.isEmpty()
-//    				&& !comparatorValue.isEmpty()
-//					&& !assumptionValue.isEmpty()) {
-//	            	assumptions.add(String.format("assume \"%s\" : (%s %s %s)", descValue, parameterValue, comparatorValue, assumptionValue));
-//	            	updateListPane();
-//	            	
-//	            	agreeDescriptionTextField.setText("");
-//	            	assumptionValueTextField.setText("0");
-//    			} else {
-//    				
-//    			}
+    			/*
+    	    	private JComboBox<String> assumptionComparatorList;
+    	    	private JFormattedTextField assumptionValueTextField;
+    	    	private JComboBox<String> guaranteeComparatorList;
+    	    	private JComboBox<String> guaranteeOperandList;
+    			*/
+    			
+    			String descValue = agreeDescriptionTextField.getText();
+    			String conditionalParameterValue = conditionalOperandList.getSelectedItem().toString();
+    			String conditioanlComparatorValue = assumptionComparatorList.getSelectedItem().toString();
+    			String parameterValue = guaranteeOperandList.getSelectedItem().toString();
+    			String comparatorValue = guaranteeComparatorList.getSelectedItem().toString();
+    			String assumptionValue = conditionalValueTextField.getText();
+    			if(!descValue.isEmpty()
+    				&& !parameterValue.isEmpty()
+    				&& !comparatorValue.isEmpty()
+					&& !assumptionValue.isEmpty()) {
+	            	guarantees.add(String.format("guarantee \"%s\" : (%s %s %s) %s %s", descValue, conditionalParameterValue, conditioanlComparatorValue, parameterValue, comparatorValue, assumptionValue));
+	            	updateListPane();
+	            	
+	            	agreeDescriptionTextField.setText("");
+	            	conditionalValueTextField.setText("0");
+    			} else {
+    				
+    			}
             }
     	}
     }
