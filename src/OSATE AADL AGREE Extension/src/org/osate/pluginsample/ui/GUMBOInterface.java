@@ -160,12 +160,12 @@ public class GUMBOInterface extends JFrame {
 	
     private class AssumptionPanel extends JPanel {
     	private JPanel listPanel;
+    	private JList assumptionList;
     	private JScrollPane assumptionListScrollPane;
     	private JButton removeAssumptionButton;
     	private JTextField agreeDescriptionTextField;
     	private JComboBox<String> assumptionOperandList;
     	private JComboBox<String> assumptionComparatorList;
-//    	private JTextField assumptionValueTextField;
     	private JFormattedTextField assumptionValueTextField;
     	
     	public AssumptionPanel() {
@@ -225,8 +225,6 @@ public class GUMBOInterface extends JFrame {
     	}
     	
     	private void updateListPane() {
-//    		if(assumptionListScrollPane)
-    		
     		if(assumptionListScrollPane != null) {
     			listPanel.remove(assumptionListScrollPane);
     		}
@@ -239,7 +237,8 @@ public class GUMBOInterface extends JFrame {
             	listModel.addElement(statement);
     		}
             
-            assumptionListScrollPane = new JScrollPane(new JList<>(listModel));
+            assumptionList = new JList<>(listModel);
+            assumptionListScrollPane = new JScrollPane(assumptionList);
             
             listPanel.add(assumptionListScrollPane);
             listPanel.add(removeAssumptionButton);
@@ -257,8 +256,13 @@ public class GUMBOInterface extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-            	assumptions.remove(0);
-            	updateListPane();
+            	int currentSelection = assumptionList.getSelectedIndex();
+            	
+            	if(assumptionList.getModel().getSize() > 0
+            		&& currentSelection > -1) {
+	            	assumptions.remove(currentSelection);
+	            	updateListPane();
+            	}
             }
         }
     	
