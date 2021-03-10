@@ -4,6 +4,7 @@ import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 import javax.swing.AbstractAction;
 import javax.swing.BoxLayout;
@@ -15,7 +16,7 @@ public class OutputPanel extends JPanel {
 	private JTextArea outputTextArea = new JTextArea(20, 45);
 	private String outputValue = "";
 	
-	public OutputPanel() {
+	public OutputPanel(ArrayList<String> assumptions, ArrayList<String> guarantees) {
 		JPanel outputPanel = new JPanel();
 		outputPanel.setLayout(new BoxLayout(outputPanel, BoxLayout.PAGE_AXIS));
 		
@@ -24,7 +25,17 @@ public class OutputPanel extends JPanel {
 		outputTextArea.setEditable(false);
 		
 		outputValue += "annex agree{** \n";
-		outputValue += "\n";
+		
+//		Assumptions
+		for (String assumption : assumptions) {
+        	outputValue += "\t" + assumption + "\n";
+		}
+		
+//		Guarantees
+		for (String guarantee : guarantees) {
+        	outputValue += "\t" + guarantee + "\n";
+		}
+		
 		outputValue += "\"**};";
 		
 		outputTextArea.setText(outputValue);

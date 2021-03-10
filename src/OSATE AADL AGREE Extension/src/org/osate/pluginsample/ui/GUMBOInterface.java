@@ -3,16 +3,10 @@ package org.osate.pluginsample.ui;
 import javax.swing.*;
 import javax.swing.text.NumberFormatter;
 
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.awt.datatransfer.StringSelection;
-import java.awt.datatransfer.Clipboard;
 import java.util.ArrayList;
 
 public class GUMBOInterface extends JFrame {
@@ -57,7 +51,7 @@ public class GUMBOInterface extends JFrame {
 		guaranteePanel = new GuaranteePanel();
 		pagePanels[1] = guaranteePanel;
 		
-		outputPanel = new OutputPanel();
+		outputPanel = new OutputPanel(assumptions, guarantees);
 		pagePanels[2] = outputPanel;
 		
 		contentPanel.setInternalPanel(pagePanels[0]);
@@ -86,6 +80,24 @@ public class GUMBOInterface extends JFrame {
 	private void updatePage(int currentPage) {
 		headerPanel.setHeaderLabel(pages[currentPage]);
 		contentPanel.setInternalPanel(pagePanels[currentPage]);
+		
+		revalidate();
+		repaint();
+	}
+	
+	private void updateOutputPanel() {
+		outputPanel = new OutputPanel(assumptions, guarantees);
+		pagePanels[2] = outputPanel;
+	}
+	
+//	This method is called when the UI is closed. All end-of-life code should be processed here.
+	private void endGUMBOInterface() {
+		System.out.println("--INTERFACE CLOSED--");
+		System.out.println(assumptions);
+		System.out.println(guarantees);
+		System.out.println("--INTERFACE CLOSED--");
+		setVisible(false);
+    	dispose();
 	}
 	
 	private class BackAction extends AbstractAction {
@@ -135,8 +147,7 @@ public class GUMBOInterface extends JFrame {
         public void actionPerformed(ActionEvent e) {
 //        	Check Page Number
             if(currentPage >= pages.length - 1) {
-            	setVisible(false);
-            	dispose();
+            	endGUMBOInterface();
             }
             else if(currentPage < 0) {
             	currentPage = 1;
@@ -147,6 +158,7 @@ public class GUMBOInterface extends JFrame {
             
 //          Set Button Statuses
             if(currentPage >= pages.length - 1) {
+            	updateOutputPanel();
             	nextButton.setText("Finish");
             }
             else {
@@ -428,24 +440,19 @@ public class GUMBOInterface extends JFrame {
     		
     		@Override
             public void actionPerformed(ActionEvent e) {
-    			/*
-    	    	private JComboBox<String> assumptionComparatorList;
-    	    	private JFormattedTextField assumptionValueTextField;
-    	    	private JComboBox<String> guaranteeComparatorList;
-    	    	private JComboBox<String> guaranteeOperandList;
-    			*/
-    			
     			String descValue = agreeDescriptionTextField.getText();
     			String conditionalParameterValue = conditionalOperandList.getSelectedItem().toString();
-    			String conditioanlComparatorValue = assumptionComparatorList.getSelectedItem().toString();
+    			String conditionalComparatorValue = assumptionComparatorList.getSelectedItem().toString();
     			String parameterValue = guaranteeOperandList.getSelectedItem().toString();
     			String comparatorValue = guaranteeComparatorList.getSelectedItem().toString();
     			String assumptionValue = conditionalValueTextField.getText();
     			if(!descValue.isEmpty()
+    				&& !conditionalParameterValue.isEmpty()
+    				&& !conditionalComparatorValue.isEmpty()
     				&& !parameterValue.isEmpty()
     				&& !comparatorValue.isEmpty()
 					&& !assumptionValue.isEmpty()) {
-	            	guarantees.add(String.format("guarantee \"%s\" : (%s %s %s) %s %s", descValue, conditionalParameterValue, conditioanlComparatorValue, parameterValue, comparatorValue, assumptionValue));
+	            	guarantees.add(String.format("guarantee \"%s\" : (%s %s %s) %s %s", descValue, conditionalParameterValue, conditionalComparatorValue, parameterValue, comparatorValue, assumptionValue));
 	            	updateListPane();
 	            	
 	            	agreeDescriptionTextField.setText("");
