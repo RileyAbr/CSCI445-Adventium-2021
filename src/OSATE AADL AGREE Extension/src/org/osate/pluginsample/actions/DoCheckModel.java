@@ -51,6 +51,7 @@ import org.osate.aadl2.impl.ConnectedElementImpl;
 import org.osate.aadl2.impl.DataPortImpl;
 import org.osate.aadl2.impl.DefaultAnnexSubclauseImpl;
 import org.osate.aadl2.impl.FeatureGroupImpl;
+import org.osate.aadl2.impl.FeatureImpl;
 import org.osate.aadl2.impl.PackageRenameImpl;
 import org.osate.aadl2.impl.PortConnectionImpl;
 import org.osate.aadl2.instance.InstanceObject;
@@ -95,6 +96,7 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 				searchComponents(current.eContents());
 			} else if (check instanceof DataPortImpl) {
 				DataPortImpl current = (DataPortImpl) check;
+				FeatureImpl currentFeature = (FeatureImpl) current;
 				iro.add(current);
 				searchComponents(current.eContents());
 			} else if (check instanceof PortConnectionImpl) {
