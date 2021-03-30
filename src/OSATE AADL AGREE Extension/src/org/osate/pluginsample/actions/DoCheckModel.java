@@ -37,6 +37,7 @@ package org.osate.pluginsample.actions;
 import org.osate.pluginsample.ui.GUMBOInterface;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EContentsEList;
@@ -44,12 +45,16 @@ import org.eclipse.xtext.nodemodel.impl.CompositeNodeWithSemanticElement;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Comment;
 import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.DataPort;
+import org.osate.aadl2.DataSubcomponentType;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.Feature;
 import org.osate.aadl2.PortCategory;
 import org.osate.aadl2.impl.AnnexSubclauseImpl;
 import org.osate.aadl2.impl.ConnectedElementImpl;
 import org.osate.aadl2.impl.DataPortImpl;
 import org.osate.aadl2.impl.DefaultAnnexSubclauseImpl;
+import org.osate.aadl2.impl.FeatureClassifierImpl;
 import org.osate.aadl2.impl.FeatureGroupImpl;
 import org.osate.aadl2.impl.FeatureImpl;
 import org.osate.aadl2.impl.PackageRenameImpl;
@@ -57,6 +62,7 @@ import org.osate.aadl2.impl.PortConnectionImpl;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.impl.AadlPackageImpl;
+import org.osate.aadl2.impl.AbstractTypeImpl;
 import org.osate.aadl2.impl.PublicPackageSectionImpl;
 import org.osate.aadl2.impl.RealizationImpl;
 import org.osate.aadl2.impl.SystemTypeImpl;
@@ -96,7 +102,6 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 				searchComponents(current.eContents());
 			} else if (check instanceof DataPortImpl) {
 				DataPortImpl current = (DataPortImpl) check;
-				FeatureImpl currentFeature = (FeatureImpl) current;
 				iro.add(current);
 				searchComponents(current.eContents());
 			} else if (check instanceof PortConnectionImpl) {

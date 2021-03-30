@@ -213,6 +213,10 @@ public class IterationResultObject {
 		return implementationNames;
 	}
 	
+	public String getPortType(DataPortImpl port) {
+		return port.getDataFeatureClassifier().getName();
+	}
+	
 	@Override
 	public String toString() {
 		String result = "";
@@ -222,11 +226,12 @@ public class IterationResultObject {
 		}
 		
 		for(DataPortImpl feature : inputFeatures) {
-			result += "Input Feature: " + feature.getName() + "\n";
+			result += "Input Feature: " + feature.getName() + ", " + feature.getDataFeatureClassifier().getName() + "\n";
 		}
 		
 		for(DataPortImpl feature : outputFeatures) {
-			result += "Output Feature: " + feature.getName() + "\n";
+			result += "Output Feature: " + feature.getName() + ", " 
+					+ feature.getDataFeatureClassifier().getName() + "\n";
 		}
 		
 		for(PortConnectionImpl connection : connections) {
