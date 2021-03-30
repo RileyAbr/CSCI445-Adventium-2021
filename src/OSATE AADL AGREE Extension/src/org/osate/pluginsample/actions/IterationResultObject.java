@@ -10,14 +10,16 @@ import org.osate.aadl2.impl.DefaultAnnexSubclauseImpl;
 
 public class IterationResultObject {
 	private ArrayList<SystemTypeImpl> systems;
-	private ArrayList<DataPortImpl> features;
+	private ArrayList<DataPortImpl> inputFeatures;
+	private ArrayList<DataPortImpl> outputFeatures;
 	private ArrayList<PortConnectionImpl> connections;
 	private ArrayList<SystemSubcomponentImpl> subcomponents;
 	private ArrayList<SystemImplementationImpl> implementations;
 	private ArrayList<DefaultAnnexSubclauseImpl> annexes;
 	
 	private ArrayList<String> systemNames;
-	private ArrayList<String> featureNames;
+	private ArrayList<String> inputFeatureNames;
+	private ArrayList<String> outputFeatureNames;
 	private ArrayList<String> connectionNames;
 	private ArrayList<String> subcomponentNames;
 	private ArrayList<String> implementationNames;
@@ -25,14 +27,16 @@ public class IterationResultObject {
 	
 	public IterationResultObject() {
 		systems = new ArrayList<>();
-		features = new ArrayList<>();
+		inputFeatures = new ArrayList<>();
+		outputFeatures = new ArrayList<>();
 		connections = new ArrayList<>();
 		subcomponents = new ArrayList<>();
 		implementations = new ArrayList<>();
 		annexes = new ArrayList<>();
 		
 		systemNames = new ArrayList<>();
-		featureNames = new ArrayList<>();
+		inputFeatureNames = new ArrayList<>();
+		outputFeatureNames = new ArrayList<>();
 		connectionNames = new ArrayList<>();
 		subcomponentNames = new ArrayList<>();
 		implementationNames = new ArrayList<>();
@@ -51,8 +55,13 @@ public class IterationResultObject {
 	public boolean add(DataPortImpl feature) {
 		boolean result = false;
 		
-		result = features.add(feature);
-		result = featureNames.add(feature.getName());
+		if(feature.isIn()) {
+			result = inputFeatures.add(feature);
+			result = inputFeatureNames.add(feature.getName());
+		} else {
+			result = outputFeatures.add(feature);
+			result = outputFeatureNames.add(feature.getName());
+		}
 		
 		return result;
 	}
@@ -105,8 +114,13 @@ public class IterationResultObject {
 	public boolean remove(DataPortImpl feature) {
 		boolean result = false;
 		
-		result = features.remove(feature);
-		result = featureNames.remove(feature.getName());
+		if(feature.isIn()) {
+			result = inputFeatures.remove(feature);
+			result = inputFeatureNames.remove(feature.getName());
+		} else {
+			result = outputFeatures.remove(feature);
+			result = outputFeatureNames.remove(feature.getName());
+		}
 		
 		return result;
 	}
@@ -151,8 +165,12 @@ public class IterationResultObject {
 		return systems.get(index);
 	}
 	
-	public DataPortImpl getFeature(int index) {
-		return features.get(index);
+	public DataPortImpl getInputFeature(int index) {
+		return inputFeatures.get(index);
+	}
+	
+	public DataPortImpl getOutputFeature(int index) {
+		return outputFeatures.get(index);
 	}
 	
 	public PortConnectionImpl getConnection(int index) {
@@ -175,8 +193,12 @@ public class IterationResultObject {
 		return systemNames;
 	}
 	
-	public ArrayList<String> getFeatureNames() {
-		return featureNames;
+	public ArrayList<String> getInputFeatureNames() {
+		return inputFeatureNames;
+	}
+	
+	public ArrayList<String> getOutputFeatureNames() {
+		return outputFeatureNames;
 	}
 	
 	public ArrayList<String> getConnectionNames() {
@@ -191,6 +213,10 @@ public class IterationResultObject {
 		return implementationNames;
 	}
 	
+	public String getPortType(DataPortImpl port) {
+		return port.getDataFeatureClassifier().getName();
+	}
+	
 	@Override
 	public String toString() {
 		String result = "";
@@ -199,8 +225,13 @@ public class IterationResultObject {
 			result += "System: " + system.getName() + "\n";
 		}
 		
-		for(DataPortImpl feature : features) {
-			result += "Feature: " + feature.getName() + "\n";
+		for(DataPortImpl feature : inputFeatures) {
+			result += "Input Feature: " + feature.getName() + ", " + feature.getDataFeatureClassifier().getName() + "\n";
+		}
+		
+		for(DataPortImpl feature : outputFeatures) {
+			result += "Output Feature: " + feature.getName() + ", " 
+					+ feature.getDataFeatureClassifier().getName() + "\n";
 		}
 		
 		for(PortConnectionImpl connection : connections) {
