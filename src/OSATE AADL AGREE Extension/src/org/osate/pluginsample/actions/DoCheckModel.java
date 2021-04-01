@@ -206,10 +206,12 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 				
 				Dialog.showInfo("Analysis result", "done");
 				
-//			    Assumptions and Guarantees are currently done via mocks, but will be read from an input file/the iteration eventually
+//			    These are just data mocks, but will be read from an input file/the iteration eventually
+			    String[] mockInputFeatures = AGREEComponentFactory.getAllMockAssumptionParameters();
+			    String[] mockOutputFeatures = AGREEComponentFactory.getAllMockGuaranteeParameters();
 			    ArrayList<String> mockAssumptions = AGREEComponentFactory.getMockAssumptionStatements();
 			    ArrayList<String> mockGuarantees = AGREEComponentFactory.getMockGuaranteeStatements();
-				new GUMBOInterface(mockAssumptions, mockGuarantees);
+				new GUMBOInterface(mockInputFeatures, mockOutputFeatures, mockAssumptions, mockGuarantees);
 			} else {
 				Dialog.showInfo("Analysis result", "Please choose an AADL model");	
 			}

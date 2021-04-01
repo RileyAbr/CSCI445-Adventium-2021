@@ -21,15 +21,19 @@ public class GUMBOInterface extends JFrame {
 	private GuaranteePanel guaranteePanel;
 	private OutputPanel outputPanel;
 	
+	private String[] inputFeatures;
+	private String[] outputFeatures;
 	private ArrayList<String> assumptions;
 	private ArrayList<String> guarantees;
 	
 	private JButton backButton = new JButton(new BackAction("Back"));
 	private JButton nextButton = new JButton(new NextAction("Next"));
 	
-	public GUMBOInterface(ArrayList<String> incomingAssumptions, ArrayList<String> incomingGuarantees) {
+	public GUMBOInterface(String[] incomingInputFeatures, String[] incomingOutputFeatures, ArrayList<String> incomingAssumptions, ArrayList<String> incomingGuarantees) {
 	    super("AGREE Creator");
 	 
+	    inputFeatures = incomingInputFeatures;
+	    outputFeatures = incomingOutputFeatures;
 	    assumptions = incomingAssumptions;
 	    guarantees = incomingGuarantees;
 	    
@@ -200,7 +204,7 @@ public class GUMBOInterface extends JFrame {
             agreeDescriptionTextField = new JTextField();
             inputsPanel.add(agreeDescriptionTextField);
             
-            assumptionOperandList = new JComboBox<>(AGREEComponentFactory.getAllMockAssumptionParameters());
+            assumptionOperandList = new JComboBox<>(inputFeatures);
             inputsPanel.add(assumptionOperandList);
             
 //          Comparator Panel
@@ -340,7 +344,7 @@ public class GUMBOInterface extends JFrame {
             agreeDescriptionTextField = new JTextField();
             inputsPanel.add(agreeDescriptionTextField);
             
-            conditionalOperandList = new JComboBox<>(AGREEComponentFactory.getAllMockAssumptionParameters());
+            conditionalOperandList = new JComboBox<>(inputFeatures);
             inputsPanel.add(conditionalOperandList);
             
 //          1st Comparator Panel
@@ -377,7 +381,7 @@ public class GUMBOInterface extends JFrame {
 //          + Button Panel
             JPanel addButtonPanel = new JPanel();
             
-            guaranteeOperandList = new JComboBox<>(AGREEComponentFactory.getAllMockGuaranteeParameters());
+            guaranteeOperandList = new JComboBox<>(outputFeatures);
             addButtonPanel.add(guaranteeOperandList);
             
             addGuaranteeButton = new JButton(new AddGuaranteeAction("+"));
