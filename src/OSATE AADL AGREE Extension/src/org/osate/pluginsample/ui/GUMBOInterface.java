@@ -27,12 +27,11 @@ public class GUMBOInterface extends JFrame {
 	private JButton backButton = new JButton(new BackAction("Back"));
 	private JButton nextButton = new JButton(new NextAction("Next"));
 	
-	public GUMBOInterface() {
+	public GUMBOInterface(ArrayList<String> incomingAssumptions, ArrayList<String> incomingGuarantees) {
 	    super("AGREE Creator");
 	 
-//	    Assumptions and Guarantees are currently done via mocks, but will be read from an input file/the iteration eventually
-	    assumptions = AGREEComponentFactory.getMockAssumptionStatements();
-	    guarantees = AGREEComponentFactory.getMockGuaranteeStatements();
+	    assumptions = incomingAssumptions;
+	    guarantees = incomingGuarantees;
 	    
 	    JPanel mainPanel = new JPanel();
 //	    mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
@@ -462,10 +461,6 @@ public class GUMBOInterface extends JFrame {
     			}
             }
     	}
-    }
-    
-	public static void main(String[] args) {
-        new GUMBOInterface().setVisible(true);
     }
 }
 

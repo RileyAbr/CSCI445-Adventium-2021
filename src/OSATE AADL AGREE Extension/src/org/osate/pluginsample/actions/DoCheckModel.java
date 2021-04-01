@@ -34,7 +34,10 @@
  */
 package org.osate.pluginsample.actions;
 
+import org.osate.pluginsample.ui.AGREEComponentFactory;
 import org.osate.pluginsample.ui.GUMBOInterface;
+
+import java.util.ArrayList;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -202,7 +205,11 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 				System.out.println(iro);
 				
 				Dialog.showInfo("Analysis result", "done");
-				new GUMBOInterface();
+				
+//			    Assumptions and Guarantees are currently done via mocks, but will be read from an input file/the iteration eventually
+			    ArrayList<String> mockAssumptions = AGREEComponentFactory.getMockAssumptionStatements();
+			    ArrayList<String> mockGuarantees = AGREEComponentFactory.getMockGuaranteeStatements();
+				new GUMBOInterface(mockAssumptions, mockGuarantees);
 			} else {
 				Dialog.showInfo("Analysis result", "Please choose an AADL model");	
 			}
