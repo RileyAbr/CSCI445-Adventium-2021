@@ -202,13 +202,6 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 				
 				searchComponents(baseContents);
 				
-				System.out.println(iro.getInputFeatureNames());
-				System.out.println(iro.getInputFeature(0));
-				System.out.println(iro.getPortType(iro.getInputFeature(0)));
-				System.out.println(iro.getOutputFeatureNames());
-				
-				Dialog.showInfo("Analysis result", "done");
-				
 				String[] inputFeatures = iro.getInputFeatureNames().toArray(new String[0]);
 				String[] outputFeatures = iro.getOutputFeatureNames().toArray(new String[0]);
 				
