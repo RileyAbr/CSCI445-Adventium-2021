@@ -212,7 +212,7 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 				String[] inputFeatures = iro.getInputFeatureNames().toArray(new String[0]);
 				String[] outputFeatures = iro.getOutputFeatureNames().toArray(new String[0]);
 				
-//			    These are just data mocks, but will be read from an input file/the iteration eventually
+//			    These are examples of how to work with interface utilizing mock data
 //			    String[] mockInputFeatures = AGREEComponentFactory.getAllMockAssumptionParameters();
 //			    String[] mockOutputFeatures = AGREEComponentFactory.getAllMockGuaranteeParameters();
 			    ArrayList<String> mockAssumptions = AGREEComponentFactory.getMockAssumptionStatements();
