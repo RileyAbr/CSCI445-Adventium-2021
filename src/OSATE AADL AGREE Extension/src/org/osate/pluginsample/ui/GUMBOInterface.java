@@ -210,7 +210,7 @@ public class GUMBOInterface extends JFrame {
 //          Comparator Panel
             JPanel assumptionComparatorPanel = new JPanel();
             
-            assumptionComparatorList = new JComboBox<>(AGREEComponentFactory.getAllAssumptionComparators());
+            assumptionComparatorList = new JComboBox<>(AGREEComponentFactory.getInputIntegerComparators());
             assumptionComparatorList.setMaximumSize( assumptionComparatorList.getPreferredSize());
             assumptionComparatorPanel.add(assumptionComparatorList);
             
@@ -350,7 +350,7 @@ public class GUMBOInterface extends JFrame {
 //          1st Comparator Panel
             JPanel assumptionComparatorPanel = new JPanel();
             
-            assumptionComparatorList = new JComboBox<>(AGREEComponentFactory.getAllAssumptionComparators());
+            assumptionComparatorList = new JComboBox<>(AGREEComponentFactory.getInputIntegerComparators());
             assumptionComparatorList.setMaximumSize( assumptionComparatorList.getPreferredSize());
             assumptionComparatorPanel.add(assumptionComparatorList);
             
