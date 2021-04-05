@@ -209,12 +209,15 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 				
 				Dialog.showInfo("Analysis result", "done");
 				
+				String[] inputFeatures = iro.getInputFeatureNames().toArray(new String[0]);
+				String[] outputFeatures = iro.getOutputFeatureNames().toArray(new String[0]);
+				
 //			    These are just data mocks, but will be read from an input file/the iteration eventually
-			    String[] mockInputFeatures = AGREEComponentFactory.getAllMockAssumptionParameters();
-			    String[] mockOutputFeatures = AGREEComponentFactory.getAllMockGuaranteeParameters();
+//			    String[] mockInputFeatures = AGREEComponentFactory.getAllMockAssumptionParameters();
+//			    String[] mockOutputFeatures = AGREEComponentFactory.getAllMockGuaranteeParameters();
 			    ArrayList<String> mockAssumptions = AGREEComponentFactory.getMockAssumptionStatements();
 			    ArrayList<String> mockGuarantees = AGREEComponentFactory.getMockGuaranteeStatements();
-//				new GUMBOInterface(mockInputFeatures, mockOutputFeatures, mockAssumptions, mockGuarantees);
+				new GUMBOInterface(inputFeatures, outputFeatures, mockAssumptions, mockGuarantees);
 			} else {
 				Dialog.showInfo("Analysis result", "Please choose an AADL model");	
 			}
