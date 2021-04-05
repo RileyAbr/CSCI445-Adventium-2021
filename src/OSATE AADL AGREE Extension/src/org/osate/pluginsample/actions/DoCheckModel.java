@@ -202,7 +202,10 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 				
 				searchComponents(baseContents);
 				
-				System.out.println(iro);
+				System.out.println(iro.getInputFeatureNames());
+				System.out.println(iro.getInputFeature(0));
+				System.out.println(iro.getPortType(iro.getInputFeature(0)));
+				System.out.println(iro.getOutputFeatureNames());
 				
 				Dialog.showInfo("Analysis result", "done");
 				
@@ -211,7 +214,7 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 			    String[] mockOutputFeatures = AGREEComponentFactory.getAllMockGuaranteeParameters();
 			    ArrayList<String> mockAssumptions = AGREEComponentFactory.getMockAssumptionStatements();
 			    ArrayList<String> mockGuarantees = AGREEComponentFactory.getMockGuaranteeStatements();
-				new GUMBOInterface(mockInputFeatures, mockOutputFeatures, mockAssumptions, mockGuarantees);
+//				new GUMBOInterface(mockInputFeatures, mockOutputFeatures, mockAssumptions, mockGuarantees);
 			} else {
 				Dialog.showInfo("Analysis result", "Please choose an AADL model");	
 			}
