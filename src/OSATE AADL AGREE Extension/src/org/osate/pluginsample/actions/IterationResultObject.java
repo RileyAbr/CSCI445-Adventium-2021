@@ -62,11 +62,11 @@ public class IterationResultObject {
 		
 		if(feature.isIn()) {
 			result = inputFeatures.add(feature);
-			result = inputFeatureTypes.add(getPortType(feature));
+			result = inputFeatureTypes.add(feature.getDataFeatureClassifier().getName());
 			result = inputFeatureNames.add(feature.getName());
 		} else {
 			result = outputFeatures.add(feature);
-			result = outputFeatureTypes.add(getPortType(feature));
+			result = outputFeatureTypes.add(feature.getDataFeatureClassifier().getName());
 			result = outputFeatureNames.add(feature.getName());
 		}
 		
@@ -123,11 +123,11 @@ public class IterationResultObject {
 		
 		if(feature.isIn()) {
 			result = inputFeatures.remove(feature);
-			result = inputFeatureTypes.remove(getPortType(feature));
+			result = inputFeatureTypes.remove(feature.getDataFeatureClassifier().getName());
 			result = inputFeatureNames.remove(feature.getName());
 		} else {
 			result = outputFeatures.remove(feature);
-			result = outputFeatureTypes.remove(getPortType(feature));
+			result = outputFeatureTypes.remove(feature.getDataFeatureClassifier().getName());
 			result = outputFeatureNames.remove(feature.getName());
 		}
 		

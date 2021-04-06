@@ -79,7 +79,7 @@ import org.osgi.framework.Bundle;
 
 public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 	
-	private IterationResultObject iro = new IterationResultObject();
+	private IterationResultObject iro;
 	
 	protected Bundle getBundle() {
 		return Activator.getDefault().getBundle();
@@ -136,6 +136,8 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
 		SystemInstance si;
 		AadlPackageImpl api = null;
+		
+		iro = new IterationResultObject();
 		
 		CheckModel validator;
 		
