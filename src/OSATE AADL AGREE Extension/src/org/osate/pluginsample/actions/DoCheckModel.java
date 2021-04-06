@@ -203,14 +203,25 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 				searchComponents(baseContents);
 				
 				String[] inputFeatures = iro.getInputFeatureNames().toArray(new String[0]);
-				String[] outputFeatures = iro.getOutputFeatureNames().toArray(new String[0]);
+				String[] inputFeaturesTypes = iro.getInputFeatureTypes().toArray(new String[0]);
+				String[] outputFeatures = iro.getOutputFeatureNames().toArray(new String[0]);	
+				String[] outputFeaturesTypes = iro.getOutputFeatureTypes().toArray(new String[0]);
 				
-//			    These are examples of how to work with interface utilizing mock data
+				for (int i = 0; i < inputFeatures.length; i++) {
+					System.out.println(inputFeatures[i]);
+					
+				}
+				
+				for (int i = 0; i < inputFeaturesTypes.length; i++) {
+					System.out.println(inputFeaturesTypes[i]);
+				}
+				
+//			    These are examples of how to work with the interface utilizing mock data
 //			    String[] mockInputFeatures = AGREEComponentFactory.getAllMockAssumptionParameters();
 //			    String[] mockOutputFeatures = AGREEComponentFactory.getAllMockGuaranteeParameters();
 			    ArrayList<String> mockAssumptions = AGREEComponentFactory.getMockAssumptionStatements();
 			    ArrayList<String> mockGuarantees = AGREEComponentFactory.getMockGuaranteeStatements();
-				new GUMBOInterface(inputFeatures, outputFeatures, mockAssumptions, mockGuarantees);
+				new GUMBOInterface(inputFeatures, inputFeaturesTypes, outputFeatures, outputFeaturesTypes, mockAssumptions, mockGuarantees);
 			} else {
 				Dialog.showInfo("Analysis result", "Please choose an AADL model");	
 			}

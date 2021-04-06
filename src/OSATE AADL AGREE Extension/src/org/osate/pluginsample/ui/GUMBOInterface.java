@@ -22,18 +22,24 @@ public class GUMBOInterface extends JFrame {
 	private OutputPanel outputPanel;
 	
 	private String[] inputFeatures;
+	private String[] inputFeaturesTypes;
 	private String[] outputFeatures;
+	private String[] outputFeaturesTypes;
 	private ArrayList<String> assumptions;
 	private ArrayList<String> guarantees;
 	
 	private JButton backButton = new JButton(new BackAction("Back"));
 	private JButton nextButton = new JButton(new NextAction("Next"));
 	
-	public GUMBOInterface(String[] incomingInputFeatures, String[] incomingOutputFeatures, ArrayList<String> incomingAssumptions, ArrayList<String> incomingGuarantees) {
+	public GUMBOInterface(String[] incomingInputFeatures, String[] incomingInputFeaturesTypes,
+						String[] incomingOutputFeatures, String[] incomingOutputFeaturesTypes,
+						ArrayList<String> incomingAssumptions, ArrayList<String> incomingGuarantees) {
 	    super("AGREE Creator");
 	 
 	    inputFeatures = incomingInputFeatures;
+	    inputFeaturesTypes = incomingInputFeaturesTypes;
 	    outputFeatures = incomingOutputFeatures;
+	    outputFeaturesTypes = incomingOutputFeaturesTypes;
 	    assumptions = incomingAssumptions;
 	    guarantees = incomingGuarantees;
 	    
@@ -95,10 +101,6 @@ public class GUMBOInterface extends JFrame {
 	
 //	This method is called when the UI is closed. All end-of-life code should be processed here.
 	private void endGUMBOInterface() {
-		System.out.println("--INTERFACE CLOSED--");
-		System.out.println(assumptions);
-		System.out.println(guarantees);
-		System.out.println("--INTERFACE CLOSED--");
 		setVisible(false);
     	dispose();
 	}
@@ -181,6 +183,7 @@ public class GUMBOInterface extends JFrame {
     	private JButton removeAssumptionButton;
     	private JTextField agreeDescriptionTextField;
     	private JComboBox<String> assumptionOperandList;
+    	private String[] assumptionComparatorListValues;
     	private JComboBox<String> assumptionComparatorList;
     	private JFormattedTextField assumptionValueTextField;
     	
@@ -210,7 +213,16 @@ public class GUMBOInterface extends JFrame {
 //          Comparator Panel
             JPanel assumptionComparatorPanel = new JPanel();
             
-            assumptionComparatorList = new JComboBox<>(AGREEComponentFactory.getInputIntegerComparators());
+            switch (inputFeaturesTypes[0]) {
+			case "Integer":
+				assumptionComparatorListValues = AGREEComponentFactory.getInputIntegerComparators();
+				break;
+			case "Boolean":	
+			default:
+				assumptionComparatorListValues = AGREEComponentFactory.getInputBooleanComparators();
+				break;
+			}
+            assumptionComparatorList = new JComboBox<>(assumptionComparatorListValues);
             assumptionComparatorList.setMaximumSize( assumptionComparatorList.getPreferredSize());
             assumptionComparatorPanel.add(assumptionComparatorList);
             
@@ -318,6 +330,7 @@ public class GUMBOInterface extends JFrame {
     	private JButton removeGuaranteeButton;
     	private JTextField agreeDescriptionTextField;
     	private JComboBox<String> conditionalOperandList;
+    	private String[] assumptionComparatorListValues;
     	private JComboBox<String> assumptionComparatorList;
     	private JFormattedTextField conditionalValueTextField;
     	private JComboBox<String> guaranteeComparatorList;
@@ -350,7 +363,16 @@ public class GUMBOInterface extends JFrame {
 //          1st Comparator Panel
             JPanel assumptionComparatorPanel = new JPanel();
             
-            assumptionComparatorList = new JComboBox<>(AGREEComponentFactory.getInputIntegerComparators());
+            switch (inputFeaturesTypes[0]) {
+			case "Integer":
+				assumptionComparatorListValues = AGREEComponentFactory.getInputIntegerComparators();
+				break;
+			case "Boolean":	
+			default:
+				assumptionComparatorListValues = AGREEComponentFactory.getInputBooleanComparators();
+				break;
+			}
+            assumptionComparatorList = new JComboBox<>(assumptionComparatorListValues);
             assumptionComparatorList.setMaximumSize( assumptionComparatorList.getPreferredSize());
             assumptionComparatorPanel.add(assumptionComparatorList);
             

@@ -18,7 +18,9 @@ public class IterationResultObject {
 	private ArrayList<DefaultAnnexSubclauseImpl> annexes;
 	
 	private ArrayList<String> systemNames;
+	private ArrayList<String> inputFeatureTypes;
 	private ArrayList<String> inputFeatureNames;
+	private ArrayList<String> outputFeatureTypes;
 	private ArrayList<String> outputFeatureNames;
 	private ArrayList<String> connectionNames;
 	private ArrayList<String> subcomponentNames;
@@ -35,7 +37,10 @@ public class IterationResultObject {
 		annexes = new ArrayList<>();
 		
 		systemNames = new ArrayList<>();
+
+		inputFeatureTypes = new ArrayList<>();
 		inputFeatureNames = new ArrayList<>();
+		outputFeatureTypes = new ArrayList<>();
 		outputFeatureNames = new ArrayList<>();
 		connectionNames = new ArrayList<>();
 		subcomponentNames = new ArrayList<>();
@@ -57,9 +62,11 @@ public class IterationResultObject {
 		
 		if(feature.isIn()) {
 			result = inputFeatures.add(feature);
+			result = inputFeatureTypes.add(getPortType(feature));
 			result = inputFeatureNames.add(feature.getName());
 		} else {
 			result = outputFeatures.add(feature);
+			result = outputFeatureTypes.add(getPortType(feature));
 			result = outputFeatureNames.add(feature.getName());
 		}
 		
@@ -116,9 +123,11 @@ public class IterationResultObject {
 		
 		if(feature.isIn()) {
 			result = inputFeatures.remove(feature);
+			result = inputFeatureTypes.remove(getPortType(feature));
 			result = inputFeatureNames.remove(feature.getName());
 		} else {
 			result = outputFeatures.remove(feature);
+			result = outputFeatureTypes.remove(getPortType(feature));
 			result = outputFeatureNames.remove(feature.getName());
 		}
 		
@@ -193,8 +202,16 @@ public class IterationResultObject {
 		return systemNames;
 	}
 	
+	public ArrayList<String> getInputFeatureTypes() {
+		return inputFeatureTypes;
+	}
+	
 	public ArrayList<String> getInputFeatureNames() {
 		return inputFeatureNames;
+	}
+	
+	public ArrayList<String> getOutputFeatureTypes() {
+		return outputFeatureTypes;
 	}
 	
 	public ArrayList<String> getOutputFeatureNames() {
