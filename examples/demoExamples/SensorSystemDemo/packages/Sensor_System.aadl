@@ -9,7 +9,7 @@ with constants;
 	
 	system SensorSys
 		features
-			env_radiation: in data port Integer;
+			env_radiation: in data port Boolean;
 			env_pressure : in data port Integer;
 			env_temperature : in data port Integer;
 			

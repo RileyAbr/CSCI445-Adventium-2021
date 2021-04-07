@@ -79,7 +79,7 @@ import org.osgi.framework.Bundle;
 
 public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 	
-	private IterationResultObject iro = new IterationResultObject();
+	private IterationResultObject iro;
 	
 	protected Bundle getBundle() {
 		return Activator.getDefault().getBundle();
@@ -136,6 +136,8 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
 		SystemInstance si;
 		AadlPackageImpl api = null;
+		
+		iro = new IterationResultObject();
 		
 		CheckModel validator;
 		
@@ -203,14 +205,16 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 				searchComponents(baseContents);
 				
 				String[] inputFeatures = iro.getInputFeatureNames().toArray(new String[0]);
-				String[] outputFeatures = iro.getOutputFeatureNames().toArray(new String[0]);
+				String[] inputFeaturesTypes = iro.getInputFeatureTypes().toArray(new String[0]);
+				String[] outputFeatures = iro.getOutputFeatureNames().toArray(new String[0]);	
+				String[] outputFeaturesTypes = iro.getOutputFeatureTypes().toArray(new String[0]);
 				
-//			    These are examples of how to work with interface utilizing mock data
+//			    These are examples of how to work with the interface utilizing mock data
 //			    String[] mockInputFeatures = AGREEComponentFactory.getAllMockAssumptionParameters();
 //			    String[] mockOutputFeatures = AGREEComponentFactory.getAllMockGuaranteeParameters();
 			    ArrayList<String> mockAssumptions = AGREEComponentFactory.getMockAssumptionStatements();
 			    ArrayList<String> mockGuarantees = AGREEComponentFactory.getMockGuaranteeStatements();
-				new GUMBOInterface(inputFeatures, outputFeatures, mockAssumptions, mockGuarantees);
+				new GUMBOInterface(inputFeatures, inputFeaturesTypes, outputFeatures, outputFeaturesTypes, mockAssumptions, mockGuarantees);
 			} else {
 				Dialog.showInfo("Analysis result", "Please choose an AADL model");	
 			}
