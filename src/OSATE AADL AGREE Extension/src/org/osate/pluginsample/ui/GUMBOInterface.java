@@ -356,6 +356,8 @@ public class GUMBOInterface extends JFrame {
     	private JScrollPane guaranteeListScrollPane;
     	private JButton removeGuaranteeButton;
     	private JTextField agreeDescriptionTextField;
+    	private int selectedConditionalOperandIndex;
+    	private JPanel assumptionComparatorPanel;
     	private JComboBox<String> conditionalOperandList;
     	private String[] assumptionComparatorListValues;
     	private JComboBox<String> assumptionComparatorList;
@@ -366,6 +368,8 @@ public class GUMBOInterface extends JFrame {
     	
     	public GuaranteePanel() {
     		setLayout(new BorderLayout());
+    		
+    		selectedConditionalOperandIndex = 0;
     		
 //    		List Panel
     		listPanel = new JPanel();
@@ -385,23 +389,21 @@ public class GUMBOInterface extends JFrame {
             inputsPanel.add(agreeDescriptionTextField);
             
             conditionalOperandList = new JComboBox<>(inputFeatures);
+            conditionalOperandList.addItemListener(new ItemListener(){
+            	public void itemStateChanged(ItemEvent ie)
+            	{
+            	   if(ie.getStateChange() == ItemEvent.SELECTED)
+            	   {
+            	      selectedConditionalOperandIndex = conditionalOperandList.getSelectedIndex();
+            	      updateConditionalComparatorList();
+            	   }
+            	}});
             inputsPanel.add(conditionalOperandList);
             
 //          1st Comparator Panel
-            JPanel assumptionComparatorPanel = new JPanel();
+            assumptionComparatorPanel = new JPanel();
             
-            switch (inputFeaturesTypes[0]) {
-			case "Integer":
-				assumptionComparatorListValues = AGREEComponentFactory.getInputIntegerComparators();
-				break;
-			case "Boolean":	
-			default:
-				assumptionComparatorListValues = AGREEComponentFactory.getInputBooleanComparators();
-				break;
-			}
-            assumptionComparatorList = new JComboBox<>(assumptionComparatorListValues);
-            assumptionComparatorList.setMaximumSize( assumptionComparatorList.getPreferredSize());
-            assumptionComparatorPanel.add(assumptionComparatorList);
+            updateConditionalComparatorList();
             
             inputsPanel.add(assumptionComparatorPanel);
             
@@ -439,6 +441,29 @@ public class GUMBOInterface extends JFrame {
             inputsPanel.add(addButtonPanel);
             
             add(inputsPanel);
+    	}
+    	
+    	private void updateConditionalComparatorList() {
+    		if(assumptionComparatorList != null) {
+    			assumptionComparatorPanel.remove(assumptionComparatorList);
+    		}
+            
+            switch (inputFeaturesTypes[selectedConditionalOperandIndex]) {
+			case "Integer":
+			case "Float":
+				assumptionComparatorListValues = AGREEComponentFactory.getInputIntegerComparators();
+				break;
+			case "Boolean":	
+			default:
+				assumptionComparatorListValues = AGREEComponentFactory.getInputBooleanComparators();
+				break;
+			}
+            assumptionComparatorList = new JComboBox<>(assumptionComparatorListValues);
+            assumptionComparatorList.setMaximumSize( assumptionComparatorList.getPreferredSize());
+            assumptionComparatorPanel.add(assumptionComparatorList);
+            
+            revalidate();
+    		repaint();
     	}
     	
     	private void updateListPane() {
