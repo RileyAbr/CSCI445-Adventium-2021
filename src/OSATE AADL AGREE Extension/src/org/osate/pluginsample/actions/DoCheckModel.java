@@ -75,6 +75,7 @@ import org.osate.pluginsample.Activator;
 import org.osate.pluginsample.CheckModel;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
+import org.osate.ui.handlers.AadlFileTypePropertyTester;
 import org.osgi.framework.Bundle;
 
 public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
@@ -134,8 +135,12 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 	}
 	
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
-		SystemInstance si;
+		if(obj instanceof AadlPackageImpl) doAadlAction(monitor, obj);
+	}
+	
+	public void doAadlAction(IProgressMonitor monitor, Element obj) {
 		AadlPackageImpl api = null;
+		iro = new IterationResultObject();
 		
 		iro = new IterationResultObject();
 		
@@ -144,82 +149,38 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 		monitor.beginTask("Check the AADL model", IProgressMonitor.UNKNOWN);
 		
 		validator = new CheckModel (monitor,getErrorManager());
-		
-		// initialize aaxl2 data
-		if (obj instanceof InstanceObject)
-		{
-			si = ((InstanceObject)obj).getSystemInstance();
-		}
-		//initialize aadl data
-		else if(obj instanceof AadlPackageImpl)
+	
+		if(obj instanceof AadlPackageImpl)
 		{
 			api = (AadlPackageImpl) obj;
-			si = null;
 		}
 		else
 		{
-			si = null;
+			api = null;
 		}
 		
-		// iterate through aaxl2 data
-		if (si != null) 
-		{
-
-			validator.defaultTraversal(si);
-			ComponentClassifier ccl = si.getComponentClassifier();
-			Comment ci = ccl.createOwnedComment();
-			ci.setBody("this is my sample comment");
+		
+		if(api != null) {
+			PublicPackageSectionImpl base = (PublicPackageSectionImpl)api.eContents().get(0);
+			EList<EObject> baseContents = (EList<EObject>)base.eContents();
 			
-			AnnexSubclause as = ccl.createOwnedAnnexSubclause();
-			AnnexSubclauseImpl asi = (AnnexSubclauseImpl) as;
-			asi.setName("EMV2");
-			System.out.println("si=" + si );
-			System.out.println("ccl=" + ccl );
-			System.out.println("ccl owner=" + ccl.getOwner() );
-			System.out.println("ccl owner owner=" + ccl );
+			searchComponents(baseContents);
 			
-			//iterate through connections
-			for(int i = 0; i < si.getConnectionInstances().size(); i++) {
-				System.out.println("Connection=" + si.getConnectionInstances().get(i).getName());
-			}
+			String[] inputFeatures = iro.getInputFeatureNames().toArray(new String[0]);
+			String[] inputFeaturesTypes = iro.getInputFeatureTypes().toArray(new String[0]);
+			String[] outputFeatures = iro.getOutputFeatureNames().toArray(new String[0]);	
+			String[] outputFeaturesTypes = iro.getOutputFeatureTypes().toArray(new String[0]);
 			
-			//iterate through sub systems
-			for(int i = 0; i < si.getAllComponentInstances().size(); i++) {
-				System.out.println("Component=" + si.getAllComponentInstances().get(i).getName());
-			}
-			
-			//iterate through data ports
-			for(int i = 0; i < si.getFeatureInstances().size(); i++) {
-				System.out.println("Feature=" + si.getFeatureInstances().get(i).getName());
-			}
-			
-			Dialog.showInfo("Analysis result", "done");
+//			These are examples of how to work with interface utilizing mock data
+//			String[] mockInputFeatures = AGREEComponentFactory.getAllMockAssumptionParameters();
+//			String[] mockOutputFeatures = AGREEComponentFactory.getAllMockGuaranteeParameters();
+		    ArrayList<String> mockAssumptions = AGREEComponentFactory.getMockAssumptionStatements();
+		    ArrayList<String> mockGuarantees = AGREEComponentFactory.getMockGuaranteeStatements();
+			new GUMBOInterface(inputFeatures, outputFeatures, mockAssumptions, mockGuarantees);
+		} else {
+			Dialog.showInfo("Analysis result", "Please choose an AADL model");	
 		}
-		// iterate through AADL data
-		else
-		{
-			if(api != null) {
-				PublicPackageSectionImpl base = (PublicPackageSectionImpl)api.eContents().get(0);
-				EList<EObject> baseContents = (EList<EObject>)base.eContents();
-				
-				searchComponents(baseContents);
-				
-				String[] inputFeatures = iro.getInputFeatureNames().toArray(new String[0]);
-				String[] inputFeaturesTypes = iro.getInputFeatureTypes().toArray(new String[0]);
-				String[] outputFeatures = iro.getOutputFeatureNames().toArray(new String[0]);	
-				String[] outputFeaturesTypes = iro.getOutputFeatureTypes().toArray(new String[0]);
-				
-//			    These are examples of how to work with the interface utilizing mock data
-//			    String[] mockInputFeatures = AGREEComponentFactory.getAllMockAssumptionParameters();
-//			    String[] mockOutputFeatures = AGREEComponentFactory.getAllMockGuaranteeParameters();
-			    ArrayList<String> mockAssumptions = AGREEComponentFactory.getMockAssumptionStatements();
-			    ArrayList<String> mockGuarantees = AGREEComponentFactory.getMockGuaranteeStatements();
-				new GUMBOInterface(inputFeatures, inputFeaturesTypes, outputFeatures, outputFeaturesTypes, mockAssumptions, mockGuarantees);
-			} else {
-				Dialog.showInfo("Analysis result", "Please choose an AADL model");	
-			}
-//			Dialog.showInfo("Analysis result", "Please choose an instance model");	
-		}
+			
 		monitor.done();
 	}
 }

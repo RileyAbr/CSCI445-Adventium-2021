@@ -201,6 +201,10 @@ public class IterationResultObject {
 	public ArrayList<String> getSystemNames() {
 		return systemNames;
 	}
+
+	public String getSystemName() {
+		return systemNames.get(0);
+	}
 	
 	public ArrayList<String> getInputFeatureTypes() {
 		return inputFeatureTypes;
