@@ -6,7 +6,8 @@ import java.util.ArrayList;
 public class AGREEComponentFactory {
 	private static String[] mockAssumptionParameters = {"temperature", "degrees", "weight", "height", "PSI" };
 	private static String[] mockGuaranteeParameters = {"shutdown", "alert", "notify", "restart", "email"};
-	private static String[] assumptionComparators = {">", ">=", "=", "=<", "<"};
+	private static String[] inputIntegerComparators = {">", ">=", "=", "=<", "<"};
+	private static String[] inputBooleanComparators = {"==", "!="};
 	private static String[] guaranteeComparators = {"=", "->", "=>"};
 	
 	public static String getMockAssumptionParameter() {
@@ -35,14 +36,19 @@ public class AGREEComponentFactory {
 		return (rand.nextInt(9) + 1) * 10 * (10 / (rand.nextInt(1) + 1));
 	}
 	
-	public static String getMockAssumptionComparator() {
+	
+	public static String getInputIntegerComparator() {
 		Random rand = new Random();
 		
-		return assumptionComparators[rand.nextInt(assumptionComparators.length)];
+		return inputIntegerComparators[rand.nextInt(inputIntegerComparators.length)];
 	}
 	
-	public static String[] getAllAssumptionComparators() {
-		return assumptionComparators;
+	public static String[] getInputIntegerComparators() {
+		return inputIntegerComparators;
+	}
+	
+	public static String[] getInputBooleanComparators() {
+		return inputBooleanComparators;
 	}
 	
 	public static String getMockGuaranteeComparator() {
@@ -60,7 +66,7 @@ public class AGREEComponentFactory {
 		ArrayList<String> mockAssumptions = new ArrayList<String>();
 		
 		for (int i = 0; i < mockAssumptionCount; i++) {
-			mockAssumptions.add(String.format("assume \"Sample assumption\" : (%s %s %d)", AGREEComponentFactory.getMockAssumptionParameter(), AGREEComponentFactory.getMockAssumptionComparator(), AGREEComponentFactory.getMockComparisonValue()));		
+			mockAssumptions.add(String.format("assume \"Sample assumption\" : (%s %s %d)", AGREEComponentFactory.getMockAssumptionParameter(), AGREEComponentFactory.getInputIntegerComparator(), AGREEComponentFactory.getMockComparisonValue()));		
 		}
 		
 		return mockAssumptions;
@@ -71,7 +77,7 @@ public class AGREEComponentFactory {
 		ArrayList<String> mockGuarantees = new ArrayList<String>();
 		
 		for (int i = 0; i < mockGuaranteeCount; i++) {
-        	mockGuarantees.add(String.format("guarantee \"Example guarantee\" : (%s %s %d) %s %s", AGREEComponentFactory.getMockAssumptionParameter(), AGREEComponentFactory.getMockAssumptionComparator(), AGREEComponentFactory.getMockComparisonValue(), AGREEComponentFactory.getMockGuaranteeComparator(), AGREEComponentFactory.getMockGuaranteeParameter()));
+        	mockGuarantees.add(String.format("guarantee \"Example guarantee\" : (%s %s %d) %s %s", AGREEComponentFactory.getMockAssumptionParameter(), AGREEComponentFactory.getInputIntegerComparator(), AGREEComponentFactory.getMockComparisonValue(), AGREEComponentFactory.getMockGuaranteeComparator(), AGREEComponentFactory.getMockGuaranteeParameter()));
 		}
 		
 		return mockGuarantees;

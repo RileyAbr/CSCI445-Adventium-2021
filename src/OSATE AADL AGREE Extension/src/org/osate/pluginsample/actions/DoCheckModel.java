@@ -138,6 +138,8 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 		AadlPackageImpl api = null;
 		iro = new IterationResultObject();
 		
+		iro = new IterationResultObject();
+		
 		CheckModel validator;
 		
 		monitor.beginTask("Check the AADL model", IProgressMonitor.UNKNOWN);
@@ -163,14 +165,32 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 			String[] inputFeatures = iro.getInputFeatureNames().toArray(new String[0]);
 			String[] outputFeatures = iro.getOutputFeatureNames().toArray(new String[0]);
 			
-//			These are examples of how to work with interface utilizing mock data
-//			String[] mockInputFeatures = AGREEComponentFactory.getAllMockAssumptionParameters();
-//			String[] mockOutputFeatures = AGREEComponentFactory.getAllMockGuaranteeParameters();
-		    ArrayList<String> mockAssumptions = AGREEComponentFactory.getMockAssumptionStatements();
-		    ArrayList<String> mockGuarantees = AGREEComponentFactory.getMockGuaranteeStatements();
-			new GUMBOInterface(inputFeatures, outputFeatures, mockAssumptions, mockGuarantees);
-		} else {
-			Dialog.showInfo("Analysis result", "Please choose an AADL model");	
+			Dialog.showInfo("Analysis result", "done");
+		}
+		// iterate through AADL data
+		else
+		{
+			if(api != null) {
+				PublicPackageSectionImpl base = (PublicPackageSectionImpl)api.eContents().get(0);
+				EList<EObject> baseContents = (EList<EObject>)base.eContents();
+				
+				searchComponents(baseContents);
+				
+				String[] inputFeatures = iro.getInputFeatureNames().toArray(new String[0]);
+				String[] inputFeaturesTypes = iro.getInputFeatureTypes().toArray(new String[0]);
+				String[] outputFeatures = iro.getOutputFeatureNames().toArray(new String[0]);	
+				String[] outputFeaturesTypes = iro.getOutputFeatureTypes().toArray(new String[0]);
+				
+//			    These are examples of how to work with the interface utilizing mock data
+//			    String[] mockInputFeatures = AGREEComponentFactory.getAllMockAssumptionParameters();
+//			    String[] mockOutputFeatures = AGREEComponentFactory.getAllMockGuaranteeParameters();
+			    ArrayList<String> mockAssumptions = AGREEComponentFactory.getMockAssumptionStatements();
+			    ArrayList<String> mockGuarantees = AGREEComponentFactory.getMockGuaranteeStatements();
+				new GUMBOInterface(inputFeatures, inputFeaturesTypes, outputFeatures, outputFeaturesTypes, mockAssumptions, mockGuarantees);
+			} else {
+				Dialog.showInfo("Analysis result", "Please choose an AADL model");	
+			}
+//			Dialog.showInfo("Analysis result", "Please choose an instance model");	
 		}
 			
 		monitor.done();
