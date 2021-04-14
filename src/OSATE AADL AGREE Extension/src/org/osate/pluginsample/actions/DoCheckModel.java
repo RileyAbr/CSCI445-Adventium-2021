@@ -212,9 +212,9 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 //			    These are examples of how to work with the interface utilizing mock data
 //			    String[] mockInputFeatures = AGREEComponentFactory.getAllMockAssumptionParameters();
 //			    String[] mockOutputFeatures = AGREEComponentFactory.getAllMockGuaranteeParameters();
-			    ArrayList<String> mockAssumptions = AGREEComponentFactory.getMockAssumptionStatements();
-			    ArrayList<String> mockGuarantees = AGREEComponentFactory.getMockGuaranteeStatements();
-				new GUMBOInterface(inputFeatures, inputFeaturesTypes, outputFeatures, outputFeaturesTypes, mockAssumptions, mockGuarantees);
+			    ArrayList<String> previousAssumptions = AGREEComponentFactory.getPreviouslyStoredAssumptionStatements();
+			    ArrayList<String> previousGuarantees = AGREEComponentFactory.getPreviouslyStoredGuaranteesStatements();
+				new GUMBOInterface(inputFeatures, inputFeaturesTypes, outputFeatures, outputFeaturesTypes, previousAssumptions, previousGuarantees);
 			} else {
 				Dialog.showInfo("Analysis result", "Please choose an AADL model");	
 			}

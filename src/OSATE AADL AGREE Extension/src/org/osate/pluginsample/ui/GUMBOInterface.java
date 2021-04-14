@@ -1,5 +1,11 @@
 package org.osate.pluginsample.ui;
 
+import org.osate.aadl2.impl.SystemTypeImpl;
+import org.osate.aadl2.impl.DataPortImpl;
+import org.osate.aadl2.impl.PortConnectionImpl;
+import org.osate.aadl2.impl.SystemSubcomponentImpl;
+import org.osate.aadl2.impl.SystemImplementationImpl;
+import org.osate.aadl2.impl.DefaultAnnexSubclauseImpl;
 import javax.swing.*;
 import javax.swing.text.NumberFormatter;
 
@@ -7,6 +13,15 @@ import org.osate.ui.dialogs.Dialog;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.ArrayList;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -29,6 +44,8 @@ public class GUMBOInterface extends JFrame {
 	private String[] outputFeaturesTypes;
 	private ArrayList<String> assumptions;
 	private ArrayList<String> guarantees;
+	
+	private String outputValue = "";
 	
 	private JButton backButton = new JButton(new BackAction("Back"));
 	private JButton nextButton = new JButton(new NextAction("Next"));
@@ -102,7 +119,54 @@ public class GUMBOInterface extends JFrame {
 	}
 	
 //	This method is called when the UI is closed. All end-of-life code should be processed here.
-	private void endGUMBOInterface() {
+	private void endGUMBOInterface() {		
+//		Assumptions
+		for (String assumption : assumptions) {
+			outputValue += assumption + "\n";
+		}
+
+//		Guarantees
+		for (String guarantee : guarantees) {
+			outputValue += guarantee + "\n";
+		}
+
+		System.out.println("Output is ");
+		System.out.println(outputValue);
+
+//		Creating text file
+		try {
+			File myObj = new File(
+					//Change path later to match all users
+					"C:\\Users\\ansle\\OneDrive\\Documents\\GitHub\\CSCI445-Adventium-2021\\src\\OSATE AADL AGREE Extension\\src\\org\\osate\\pluginsample\\ui\\StoredAssumGuarants.txt");
+			if (myObj.createNewFile()) {
+				System.out.println("File Created " + myObj.getName() + " in " + myObj.getAbsolutePath() + "\n");
+			} else {
+				System.out.println("File already exists.\n");
+				System.out.println("Absolute Path: " + myObj.getAbsolutePath() + "\n");
+			}
+		} catch (IOException e) {
+			System.out.println("An error occurred.\n");
+			e.printStackTrace();
+		}
+
+		System.out.println("OutputValue is ");
+		System.out.println(outputValue);
+
+//		Write to text file
+		try {
+			FileWriter myWriter = new FileWriter(
+					//Change path later to match all users
+					"C:\\Users\\ansle\\OneDrive\\Documents\\GitHub\\CSCI445-Adventium-2021\\src\\OSATE AADL AGREE Extension\\src\\org\\osate\\pluginsample\\ui\\StoredAssumGuarants.txt");
+			myWriter.write(outputValue);
+			myWriter.close();
+			System.out.println("Successfully wrote to the file.\n");
+		} catch (IOException e) {
+			System.out.println("An error occurred.\n");
+			e.printStackTrace();
+		}
+
+		System.out.println(assumptions);
+		System.out.println(guarantees);
 		setVisible(false);
     	dispose();
 	}
