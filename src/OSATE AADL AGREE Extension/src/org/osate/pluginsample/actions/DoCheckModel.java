@@ -79,9 +79,9 @@ import org.osate.ui.handlers.AadlFileTypePropertyTester;
 import org.osgi.framework.Bundle;
 
 public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
-	
+
 	private IterationResultObject iro;
-	
+
 	protected Bundle getBundle() {
 		return Activator.getDefault().getBundle();
 	}
@@ -120,85 +120,61 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 				SystemImplementationImpl current = (SystemImplementationImpl) check;
 				iro.add(current);
 				searchComponents(current.eContents());
-			}
-			else if(check instanceof DefaultAnnexSubclauseImpl) {
+			} else if (check instanceof DefaultAnnexSubclauseImpl) {
 				DefaultAnnexSubclauseImpl current = (DefaultAnnexSubclauseImpl) check;
-				
-				String firstChars = current.getSourceText().substring(0, 3); 
-				if(firstChars.equals("{**")) {
+
+				String firstChars = current.getSourceText().substring(0, 3);
+				if (firstChars.equals("{**")) {
 					iro.add(current);
 				}
-				
+
 				searchComponents(current.eContents());
 			}
 		}
 	}
-	
+
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
-		if(obj instanceof AadlPackageImpl) doAadlAction(monitor, obj);
+		if (obj instanceof AadlPackageImpl)
+			doAadlAction(monitor, obj);
 	}
-	
+
 	public void doAadlAction(IProgressMonitor monitor, Element obj) {
 		AadlPackageImpl api = null;
 		iro = new IterationResultObject();
-		
+
 		iro = new IterationResultObject();
-		
+
 		CheckModel validator;
-		
+
 		monitor.beginTask("Check the AADL model", IProgressMonitor.UNKNOWN);
-		
-		validator = new CheckModel (monitor,getErrorManager());
-	
-		if(obj instanceof AadlPackageImpl)
-		{
+
+		validator = new CheckModel(monitor, getErrorManager());
+
+		if (obj instanceof AadlPackageImpl) {
 			api = (AadlPackageImpl) obj;
-		}
-		else
-		{
+		} else {
 			api = null;
 		}
-		
-		
-		if(api != null) {
-			PublicPackageSectionImpl base = (PublicPackageSectionImpl)api.eContents().get(0);
-			EList<EObject> baseContents = (EList<EObject>)base.eContents();
-			
+
+		if (api != null) {
+			PublicPackageSectionImpl base = (PublicPackageSectionImpl) api.eContents().get(0);
+			EList<EObject> baseContents = (EList<EObject>) base.eContents();
+
 			searchComponents(baseContents);
-			
+
 			String[] inputFeatures = iro.getInputFeatureNames().toArray(new String[0]);
 			String[] inputFeaturesTypes = iro.getInputFeatureTypes().toArray(new String[0]);
-			String[] outputFeatures = iro.getOutputFeatureNames().toArray(new String[0]);	
+			String[] outputFeatures = iro.getOutputFeatureNames().toArray(new String[0]);
 			String[] outputFeaturesTypes = iro.getOutputFeatureTypes().toArray(new String[0]);
-			
-			Dialog.showInfo("Analysis result", "done");
+
+			ArrayList<String> previousAssumptions = AGREEComponentFactory.getPreviouslyStoredAssumptionStatements();
+			ArrayList<String> previousGuarantees = AGREEComponentFactory.getPreviouslyStoredGuaranteesStatements();
+			new GUMBOInterface(inputFeatures, inputFeaturesTypes, outputFeatures, outputFeaturesTypes,
+					previousAssumptions, previousGuarantees);
+		} else {
+			Dialog.showInfo("Analysis result", "Please choose an AADL model");
 		}
-		// iterate through AADL data
-		else
-		{
-			if(api != null) {
-				PublicPackageSectionImpl base = (PublicPackageSectionImpl)api.eContents().get(0);
-				EList<EObject> baseContents = (EList<EObject>)base.eContents();
-				
-				searchComponents(baseContents);
-				
-				String[] inputFeatures = iro.getInputFeatureNames().toArray(new String[0]);
-				String[] inputFeaturesTypes = iro.getInputFeatureTypes().toArray(new String[0]);
-				String[] outputFeatures = iro.getOutputFeatureNames().toArray(new String[0]);	
-				String[] outputFeaturesTypes = iro.getOutputFeatureTypes().toArray(new String[0]);
-				
-//			    These are examples of how to work with the interface utilizing mock data
-//			    String[] mockInputFeatures = AGREEComponentFactory.getAllMockAssumptionParameters();
-//			    String[] mockOutputFeatures = AGREEComponentFactory.getAllMockGuaranteeParameters();
-			    ArrayList<String> previousAssumptions = AGREEComponentFactory.getPreviouslyStoredAssumptionStatements();
-			    ArrayList<String> previousGuarantees = AGREEComponentFactory.getPreviouslyStoredGuaranteesStatements();
-				new GUMBOInterface(inputFeatures, inputFeaturesTypes, outputFeatures, outputFeaturesTypes, previousAssumptions, previousGuarantees);
-			} else {
-				Dialog.showInfo("Analysis result", "Please choose an AADL model");	
-			}
-//			Dialog.showInfo("Analysis result", "Please choose an instance model");	
-		}
-			
 		monitor.done();
 	}
+
 }
