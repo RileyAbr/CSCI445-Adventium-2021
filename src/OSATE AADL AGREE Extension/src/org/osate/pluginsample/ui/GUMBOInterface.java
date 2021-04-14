@@ -46,7 +46,6 @@ public class GUMBOInterface extends JFrame {
 	    guarantees = incomingGuarantees;
 	    
 	    JPanel mainPanel = new JPanel();
-//	    mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
 	    mainPanel.setLayout(new BorderLayout());
 	  	
 //		Header Panel
@@ -254,6 +253,21 @@ public class GUMBOInterface extends JFrame {
             inputsPanel.add(addButtonPanel);
             
             add(inputsPanel);
+                        
+//          Custom Panel
+            JPanel customPanel = new JPanel();
+            customPanel.setLayout(new BoxLayout(customPanel, BoxLayout.PAGE_AXIS));
+            
+            JPanel customButtonPanel = new JPanel();
+            JButton customButton = new JButton(new LaunchCustomAssumptionModalAction("Custom Statement"));
+            
+            customButtonPanel.add(customButton);
+            
+            customPanel.add(new JSeparator(JSeparator.HORIZONTAL));
+            customPanel.add(Box.createVerticalStrut(5));
+            customPanel.add(customButtonPanel);
+            
+            add(customPanel, BorderLayout.PAGE_END);
     	}
     	
     	private void updateAssumptionComparatorList() {
@@ -274,7 +288,7 @@ public class GUMBOInterface extends JFrame {
             assumptionComparatorList = new JComboBox<>(assumptionComparatorListValues);
             assumptionComparatorList.setMaximumSize( assumptionComparatorList.getPreferredSize());
             assumptionComparatorPanel.add(assumptionComparatorList);
-            
+
             revalidate();
     		repaint();
     	}
@@ -347,6 +361,61 @@ public class GUMBOInterface extends JFrame {
     				
     			}
             }
+    	}
+    	
+    	private class LaunchCustomAssumptionModalAction extends AbstractAction {
+    		public LaunchCustomAssumptionModalAction(String name) {
+    			super(name);
+                int mnemonic = (int) name.charAt(0);
+                putValue(MNEMONIC_KEY, mnemonic);
+    		}
+    		
+    		@Override
+            public void actionPerformed(ActionEvent e) {
+    			new CustomAssumptionModal();
+            }
+    	}
+    	
+    	private class CustomAssumptionModal extends JDialog {
+    		private JButton addButton = new JButton("Add");
+    		private JButton cancelButton = new JButton("Cancel");
+    		
+    		private CustomAssumptionModal() {
+    			super(GUMBOInterface.this, "Custom Assumption");
+    			
+    		    JPanel mainPanel = new JPanel();
+    		    mainPanel.setLayout(new BorderLayout());	
+    		    
+//    		    Statement Panel
+    		    JPanel statementPanel = new JPanel();
+    		    statementPanel.setLayout(new FlowLayout());
+    		    
+    		    statementPanel.add(new JLabel("assume"));
+    		    
+    		    statementPanel.add(new JTextField("", 20));
+    		    
+    		    statementPanel.add(new JLabel(":"));
+    		    
+    		    statementPanel.add(new JTextField("", 20));
+    		    
+    		    mainPanel.add(statementPanel, BorderLayout.PAGE_START);
+    		    
+//    			Pagination Panel
+    	        JPanel paginationPanel = new JPanel();
+    	        paginationPanel.setLayout(new FlowLayout());
+
+    	        paginationPanel.add(addButton);
+    	        paginationPanel.add(cancelButton);
+    	        
+    	        mainPanel.add(paginationPanel, BorderLayout.PAGE_END);
+    		    
+    		    add(mainPanel);
+    	        
+    			setSize(525, 115);
+    			setLocationRelativeTo(null);
+    			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    			setVisible(true);
+    		}
     	}
     }
     
