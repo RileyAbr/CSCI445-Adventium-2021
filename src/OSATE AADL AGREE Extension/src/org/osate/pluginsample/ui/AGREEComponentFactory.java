@@ -1,6 +1,9 @@
 package org.osate.pluginsample.ui;
 
 import java.util.Random;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class AGREEComponentFactory {
@@ -81,5 +84,51 @@ public class AGREEComponentFactory {
 		}
 		
 		return mockGuarantees;
+	}
+	
+	// Reads previously stored assumptions and puts them in an ArrayList
+	public static ArrayList<String> getPreviouslyStoredAssumptionStatements() {
+		ArrayList<String> assumptions = new ArrayList<String>();
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(
+					"C:\\Users\\ansle\\OneDrive\\Documents\\GitHub\\CSCI445-Adventium-2021\\src\\OSATE AADL AGREE Extension\\src\\org\\osate\\pluginsample\\ui\\StoredAssumGuarants.txt"));
+			String line = reader.readLine();
+			System.out.println("Previously Stored Assumptions and Guarantees\n");
+			while (line != null) {
+				if (line.contains("assume")) {
+					String prevAssump = line.replace("\t", "");
+					assumptions.add(prevAssump);
+					System.out.println("Assumption is : " + prevAssump);
+				}
+				line = reader.readLine();
+			}
+			reader.close();
+		} catch (IOException ex) {
+			System.out.println("Error Occurred\n");
+		}
+		return assumptions;
+	}
+	
+	// Reads previously stored guarantees and puts them in an ArrayList
+	public static ArrayList<String> getPreviouslyStoredGuaranteesStatements() {
+		ArrayList<String> guarantees = new ArrayList<String>();
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(
+					"C:\\Users\\ansle\\OneDrive\\Documents\\GitHub\\CSCI445-Adventium-2021\\src\\OSATE AADL AGREE Extension\\src\\org\\osate\\pluginsample\\ui\\StoredAssumGuarants.txt"));
+			String line = reader.readLine();
+			System.out.println("Previously Stored Assumptions and Guarantees\n");
+			while (line != null) {
+				if (line.contains("guarantee")) {
+					String prevGuarants = line.replace("\t", "");
+					guarantees.add(prevGuarants);
+					System.out.println("Guarantees is : " + prevGuarants);
+				}
+				line = reader.readLine();
+			}
+			reader.close();
+		} catch (IOException ex) {
+			System.out.println("Error Occurred\n");
+		}
+		return guarantees;
 	}
 }
