@@ -91,7 +91,7 @@ public class AGREEComponentFactory {
 		ArrayList<String> assumptions = new ArrayList<String>();
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(
-					"C:\\Users\\ansle\\OneDrive\\Documents\\GitHub\\CSCI445-Adventium-2021\\src\\OSATE AADL AGREE Extension\\src\\org\\osate\\pluginsample\\ui\\StoredAssumGuarants.txt"));
+					"StoredAssumGuarants.txt"));
 			String line = reader.readLine();
 			System.out.println("Previously Stored Assumptions and Guarantees\n");
 			while (line != null) {
@@ -114,7 +114,7 @@ public class AGREEComponentFactory {
 		ArrayList<String> guarantees = new ArrayList<String>();
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(
-					"C:\\Users\\ansle\\OneDrive\\Documents\\GitHub\\CSCI445-Adventium-2021\\src\\OSATE AADL AGREE Extension\\src\\org\\osate\\pluginsample\\ui\\StoredAssumGuarants.txt"));
+					"StoredAssumGuarants.txt"));
 			String line = reader.readLine();
 			System.out.println("Previously Stored Assumptions and Guarantees\n");
 			while (line != null) {

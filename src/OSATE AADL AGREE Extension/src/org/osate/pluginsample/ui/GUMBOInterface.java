@@ -136,7 +136,7 @@ public class GUMBOInterface extends JFrame {
 		try {
 			File myObj = new File(
 					//Change path later to match all users
-					"C:\\Users\\ansle\\OneDrive\\Documents\\GitHub\\CSCI445-Adventium-2021\\src\\OSATE AADL AGREE Extension\\src\\org\\osate\\pluginsample\\ui\\StoredAssumGuarants.txt");
+					"StoredAssumGuarants.txt");
 			if (myObj.createNewFile()) {
 				System.out.println("File Created " + myObj.getName() + " in " + myObj.getAbsolutePath() + "\n");
 			} else {
@@ -155,7 +155,7 @@ public class GUMBOInterface extends JFrame {
 		try {
 			FileWriter myWriter = new FileWriter(
 					//Change path later to match all users
-					"C:\\Users\\ansle\\OneDrive\\Documents\\GitHub\\CSCI445-Adventium-2021\\src\\OSATE AADL AGREE Extension\\src\\org\\osate\\pluginsample\\ui\\StoredAssumGuarants.txt");
+					"StoredAssumGuarants.txt");
 			myWriter.write(outputValue);
 			myWriter.close();
 			System.out.println("Successfully wrote to the file.\n");
