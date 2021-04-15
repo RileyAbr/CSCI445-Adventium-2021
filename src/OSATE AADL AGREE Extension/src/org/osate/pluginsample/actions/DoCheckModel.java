@@ -81,6 +81,7 @@ import org.osgi.framework.Bundle;
 public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 
 	private IterationResultObject iro;
+	public String iro_name;
 
 	protected Bundle getBundle() {
 		return Activator.getDefault().getBundle();
@@ -95,6 +96,7 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 	}
 
 	private void searchComponents(EList<EObject> contents) {
+		
 		if (contents.size() == 0)
 			return;
 
@@ -171,6 +173,8 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 			ArrayList<String> previousGuarantees = AGREEComponentFactory.getPreviouslyStoredGuaranteesStatements();
 			new GUMBOInterface(inputFeatures, inputFeaturesTypes, outputFeatures, outputFeaturesTypes,
 					previousAssumptions, previousGuarantees);
+			iro_name = iro.getSystemName();
+			System.out.println("The system is: " + iro_name);
 		} else {
 			Dialog.showInfo("Analysis result", "Please choose an AADL model");
 		}

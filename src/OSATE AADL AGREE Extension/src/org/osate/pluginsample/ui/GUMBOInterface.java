@@ -9,6 +9,8 @@ import org.osate.aadl2.impl.DefaultAnnexSubclauseImpl;
 import javax.swing.*;
 import javax.swing.text.NumberFormatter;
 
+import org.osate.pluginsample.actions.IterationResultObject;
+
 import org.osate.ui.dialogs.Dialog;
 
 import java.awt.*;
@@ -119,7 +121,8 @@ public class GUMBOInterface extends JFrame {
 	}
 	
 //	This method is called when the UI is closed. All end-of-life code should be processed here.
-	private void endGUMBOInterface() {		
+	private void endGUMBOInterface() {
+		
 //		Assumptions
 		for (String assumption : assumptions) {
 			outputValue += assumption + "\n";

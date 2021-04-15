@@ -1,0 +1,6 @@
+assume "ghj" : (env_radiation == 0.00)
+assume "asdf" : (env_radiation > 0.00)
+assume "fgjdfg" : (env_pressure > 0.00)
+guarantee "dfghd" : (env_radiation > shutdown) = 0.00
+guarantee "fgh" : (env_radiation == shutdown) = 0.00
+guarantee "lhjklh" : (env_pressure > shutdown) = 0.00
