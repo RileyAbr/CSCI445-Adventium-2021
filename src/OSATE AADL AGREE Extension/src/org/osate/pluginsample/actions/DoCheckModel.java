@@ -142,8 +142,6 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 		AadlPackageImpl api = null;
 		iro = new IterationResultObject();
 
-		iro = new IterationResultObject();
-
 		CheckModel validator;
 
 		monitor.beginTask("Check the AADL model", IProgressMonitor.UNKNOWN);
