@@ -37,6 +37,8 @@ package org.osate.pluginsample.actions;
 import org.osate.pluginsample.ui.AGREEComponentFactory;
 import org.osate.pluginsample.ui.GUMBOInterface;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -81,6 +83,7 @@ import org.osgi.framework.Bundle;
 public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 
 	private IterationResultObject iro;
+	public String iro_name;
 
 	protected Bundle getBundle() {
 		return Activator.getDefault().getBundle();
@@ -95,6 +98,7 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 	}
 
 	private void searchComponents(EList<EObject> contents) {
+
 		if (contents.size() == 0)
 			return;
 
@@ -164,11 +168,14 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 			String[] inputFeaturesTypes = iro.getInputFeatureTypes().toArray(new String[0]);
 			String[] outputFeatures = iro.getOutputFeatureNames().toArray(new String[0]);
 			String[] outputFeaturesTypes = iro.getOutputFeatureTypes().toArray(new String[0]);
+			String systemName = iro.getSystemName();
 
+			new AGREEComponentFactory(systemName);
 			ArrayList<String> previousAssumptions = AGREEComponentFactory.getPreviouslyStoredAssumptionStatements();
 			ArrayList<String> previousGuarantees = AGREEComponentFactory.getPreviouslyStoredGuaranteesStatements();
 			new GUMBOInterface(inputFeatures, inputFeaturesTypes, outputFeatures, outputFeaturesTypes,
-					previousAssumptions, previousGuarantees);
+					previousAssumptions, previousGuarantees, systemName);
+
 		} else {
 			Dialog.showInfo("Analysis result", "Please choose an AADL model");
 		}
