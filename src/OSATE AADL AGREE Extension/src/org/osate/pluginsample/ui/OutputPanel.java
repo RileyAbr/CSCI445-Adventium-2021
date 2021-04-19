@@ -14,6 +14,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import org.osate.pluginsample.actions.IterationResultObject;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.File;
@@ -52,7 +54,7 @@ public class OutputPanel extends JPanel {
 		outputTextArea.setText(outputValue);
 		outputBoxPanel.add(outputTextArea);
 		outputPanel.add(outputBoxPanel);
-
+		
 //		Copy Button Panel
 		JPanel copyButtonPanel = new JPanel();
 

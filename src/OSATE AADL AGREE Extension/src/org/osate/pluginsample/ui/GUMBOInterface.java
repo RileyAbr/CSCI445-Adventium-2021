@@ -9,6 +9,9 @@ import org.osate.aadl2.impl.DefaultAnnexSubclauseImpl;
 import javax.swing.*;
 import javax.swing.text.NumberFormatter;
 
+import org.osate.pluginsample.actions.DoCheckModel;
+import org.osate.pluginsample.actions.IterationResultObject;
+
 import org.osate.ui.dialogs.Dialog;
 
 import java.awt.*;
@@ -44,15 +47,20 @@ public class GUMBOInterface extends JFrame {
 	private String[] outputFeaturesTypes;
 	private ArrayList<String> assumptions;
 	private ArrayList<String> guarantees;
+	private String systemName;
+	private String directoryPath;
 	
 	private String outputValue = "";
 	
 	private JButton backButton = new JButton(new BackAction("Back"));
 	private JButton nextButton = new JButton(new NextAction("Next"));
 	
+	private IterationResultObject iro;
+	public String iro_name;
+	
 	public GUMBOInterface(String[] incomingInputFeatures, String[] incomingInputFeaturesTypes,
 						String[] incomingOutputFeatures, String[] incomingOutputFeaturesTypes,
-						ArrayList<String> incomingAssumptions, ArrayList<String> incomingGuarantees) {
+						ArrayList<String> incomingAssumptions, ArrayList<String> incomingGuarantees, String incomingSystemName) {
 	    super("AGREE Creator");
 	 
 	    inputFeatures = incomingInputFeatures;
@@ -61,6 +69,7 @@ public class GUMBOInterface extends JFrame {
 	    outputFeaturesTypes = incomingOutputFeaturesTypes;
 	    assumptions = incomingAssumptions;
 	    guarantees = incomingGuarantees;
+	    systemName = incomingSystemName;
 	    
 	    JPanel mainPanel = new JPanel();
 	    mainPanel.setLayout(new BorderLayout());
@@ -118,7 +127,13 @@ public class GUMBOInterface extends JFrame {
 	}
 	
 //	This method is called when the UI is closed. All end-of-life code should be processed here.
-	private void endGUMBOInterface() {		
+	private void endGUMBOInterface() {
+//		Establishing path for all users
+//		Should be the users current directory that they are running the project
+//		Example:  C:\Users\ansle\eclipse\StoredAssumGuarants_Radiation_Ctrl.txt
+		directoryPath = System.getProperty("user.dir");
+		String path = directoryPath + "\\StoredAssumGuarants_" + systemName + ".txt";
+		
 //		Assumptions
 		for (String assumption : assumptions) {
 			outputValue += assumption + "\n";
@@ -131,12 +146,10 @@ public class GUMBOInterface extends JFrame {
 
 		System.out.println("Output is ");
 		System.out.println(outputValue);
-
+		
 //		Creating text file
 		try {
-			File myObj = new File(
-					//Change path later to match all users
-					"StoredAssumGuarants.txt");
+			File myObj = new File(path);
 			if (myObj.createNewFile()) {
 				System.out.println("File Created " + myObj.getName() + " in " + myObj.getAbsolutePath() + "\n");
 			} else {
@@ -153,9 +166,7 @@ public class GUMBOInterface extends JFrame {
 
 //		Write to text file
 		try {
-			FileWriter myWriter = new FileWriter(
-					//Change path later to match all users
-					"StoredAssumGuarants.txt");
+			FileWriter myWriter = new FileWriter(path);
 			myWriter.write(outputValue);
 			myWriter.close();
 			System.out.println("Successfully wrote to the file.\n");
