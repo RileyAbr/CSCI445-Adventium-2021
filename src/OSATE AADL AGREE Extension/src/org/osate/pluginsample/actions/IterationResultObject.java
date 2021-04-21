@@ -1,6 +1,10 @@
 package org.osate.pluginsample.actions;
 
+import java.io.File;
 import java.util.ArrayList;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import org.osate.aadl2.impl.SystemTypeImpl;
 import org.osate.aadl2.impl.DataPortImpl;
@@ -27,6 +31,9 @@ public class IterationResultObject {
 	private ArrayList<String> subcomponentNames;
 	private ArrayList<String> implementationNames;
 	private ArrayList<String> annexNames;
+
+	private String defaultDirectoryPath;
+	private String storedPath;
 
 	public IterationResultObject() {
 		systems = new ArrayList<>();
@@ -237,6 +244,32 @@ public class IterationResultObject {
 
 	public String getPortType(DataPortImpl port) {
 		return port.getDataFeatureClassifier().getName();
+	}
+
+	public String getPath() {
+		defaultDirectoryPath = System.getProperty("user.dir");
+		storedPath = "";
+
+		JFrame f = new JFrame();
+		while (true) {
+			storedPath = JOptionPane
+					.showInputDialog(f,
+							"Enter a directory path to locate and save previous assumptions and guarantees:\n"
+									+ "Use the default directory path or enter a new directory path:",
+							defaultDirectoryPath);
+			File testFile = new File(storedPath);
+			if (testFile.isDirectory()) {
+				System.out.println("File is a directory");
+				break;
+			} else {
+				JOptionPane.showMessageDialog(f, "Something is wrong with your path.\n "
+						+ "Please specify a new path for your stored assumptions and guarantees file.");
+				System.out.println("Directory doesn't exist");
+			}
+		}
+		String path = storedPath;
+
+		return path;
 	}
 
 	@Override
