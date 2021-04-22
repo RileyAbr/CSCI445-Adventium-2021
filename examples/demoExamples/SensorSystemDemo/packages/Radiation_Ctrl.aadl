@@ -11,11 +11,11 @@ with constants;
 			shutdown : out data port Boolean;
 		
 		annex agree{**
---			assume "Radiation within reasonable range (mSv)." :
---				(env_radiation > 0) and (env_radiation < 1000);
---			
---			guarantee "Shutdown commanded if and only if radiation is high." :
---				shutdown = (env_radiation > constants::RADIATION_THRESHOLD);
+			assume "Radiation within reasonable range (mSv)." :
+				(env_radiation > 0) and (env_radiation < 1000);
+			
+			guarantee "Shutdown commanded if and only if radiation is high." :
+				shutdown = (env_radiation > constants::RADIATION_THRESHOLD);
 					
 		**};	
 	end Radiation_Ctrl;
