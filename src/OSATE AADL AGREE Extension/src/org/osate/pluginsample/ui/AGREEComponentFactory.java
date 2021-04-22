@@ -17,8 +17,9 @@ public class AGREEComponentFactory {
 	private static String systemName;
 	private static String directoryPath;
 
-	public AGREEComponentFactory(String incomingSystemName) {
+	public AGREEComponentFactory(String incomingSystemName, String incomingPath) {
 		systemName = incomingSystemName;
+		directoryPath = incomingPath;
 	}
 
 	public static String getMockAssumptionParameter() {
@@ -99,11 +100,10 @@ public class AGREEComponentFactory {
 		return mockGuarantees;
 	}
 
-	// Reads previously stored assumptions and puts them in an ArrayList
+//	Reads previously stored assumptions and puts them in an ArrayList
 	public static ArrayList<String> getPreviouslyStoredAssumptionStatements() {
-		directoryPath = System.getProperty("user.dir");
 		String path = directoryPath + "\\StoredAssumGuarants_" + systemName + ".txt";
-		
+
 		ArrayList<String> assumptions = new ArrayList<String>();
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(path));
@@ -124,11 +124,10 @@ public class AGREEComponentFactory {
 		return assumptions;
 	}
 
-	// Reads previously stored guarantees and puts them in an ArrayList
+//	Reads previously stored guarantees and puts them in an ArrayList
 	public static ArrayList<String> getPreviouslyStoredGuaranteesStatements() {
-		directoryPath = System.getProperty("user.dir");
 		String path = directoryPath + "\\StoredAssumGuarants_" + systemName + ".txt";
-		
+
 		ArrayList<String> guarantees = new ArrayList<String>();
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(path));

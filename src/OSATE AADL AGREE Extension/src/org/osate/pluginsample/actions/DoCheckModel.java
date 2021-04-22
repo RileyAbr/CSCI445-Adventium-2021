@@ -145,7 +145,6 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 	public void doAadlAction(IProgressMonitor monitor, Element obj) {
 		AadlPackageImpl api = null;
 		iro = new IterationResultObject();
-
 		CheckModel validator;
 
 		monitor.beginTask("Check the AADL model", IProgressMonitor.UNKNOWN);
@@ -169,12 +168,13 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 			String[] outputFeatures = iro.getOutputFeatureNames().toArray(new String[0]);
 			String[] outputFeaturesTypes = iro.getOutputFeatureTypes().toArray(new String[0]);
 			String systemName = iro.getSystemName();
+			String path = iro.getPath();
 
-			new AGREEComponentFactory(systemName);
+			new AGREEComponentFactory(systemName, path);
 			ArrayList<String> previousAssumptions = AGREEComponentFactory.getPreviouslyStoredAssumptionStatements();
 			ArrayList<String> previousGuarantees = AGREEComponentFactory.getPreviouslyStoredGuaranteesStatements();
 			new GUMBOInterface(inputFeatures, inputFeaturesTypes, outputFeatures, outputFeaturesTypes,
-					previousAssumptions, previousGuarantees, systemName);
+					previousAssumptions, previousGuarantees, systemName, path);
 
 		} else {
 			Dialog.showInfo("Analysis result", "Please choose an AADL model");
