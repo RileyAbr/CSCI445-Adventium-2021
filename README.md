@@ -23,7 +23,7 @@ Your environment will need to have the following features installed:
 
 Once the environment is set up, follow these steps:
 
-1. Download [Plugin]("https://github.com/RileyAbr/CSCI445-Adventium-2021/blob/Exporting/AGREE%20Statement%20Builder%20Download.zip")
+1. Download [Plugin](https://github.com/RileyAbr/CSCI445-Adventium-2021/blob/main/AGREE_Statement_Builder_Download.zip)
 2. Extract the file downloaded
 3. Click "Install New Software" in the "Help" tab in OSATE
 ![Install New Software](/screenshots/installation_help_install.png)
@@ -51,7 +51,9 @@ Once the environment is set up, follow these steps:
 
 Follow these steps to properly run the plug-in:
 
-1. Import an AADL file into the Eclipse workspace.
+1. Specify the file path of the project:
+![Specify Directory](/screenshots/directory_spec.png)
+2. Import an AADL file into the Eclipse workspace.
     - Default path for existing model:
       1. Right click the AADL Navigator.
       ![Right Click](/screenshots/right_click.png)
@@ -60,16 +62,18 @@ Follow these steps to properly run the plug-in:
       ![Import Wizard](/screenshots/import_wizard.png)
       4. Click the "Directory" button and select the file path in the newly opened window.
       5. Click the "Finish" button
-2. Click on the AADL file so that it is highlighted and selected in the project explorer.
-3. Click the "Check Model" tab in the toolbar at the top of the editor.
-4. Follow the labels in the UI until you reach the "Output" screen. You have two options in both the "Assumptions" screen and the "Guarantees" screen:
+3. Click on the AADL file so that it is highlighted and selected in the project explorer.
+4. Click the "Check Model" tab in the toolbar at the top of the editor.
+5. Follow the labels in the UI until you reach the "Output" screen. You have two options in both the "Assumptions" screen and the "Guarantees" screen:
     1. Use the dropdown menus with the variables and operators predefined.
     ![Assumptions Custom Button](/screenshots/assumptions_custom.png)
     ![Guarantees Custom Button](/screenshots/guarantees_custom.png)
     2. Click the "Custom Statement" button if you have a more complex constraints to add to the AGREE model.
     ![Assumptions Custom Open](/screenshots/assumptions_custom_open.png)
-5. Copy and paste the "Output" into the selected model.
+6. Copy and paste the "Output" into the selected model.
 ![Output](/screenshots/output.png)
+7. Click "Finish" then click "Okay" in the "Success" window.
+![Success](/screenshots/successful_write.png)
 
 ---
 
