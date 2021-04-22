@@ -179,6 +179,7 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 		} else {
 			Dialog.showInfo("Analysis result", "Please choose an AADL model");
 		}
+			
 		monitor.done();
 	}
 

@@ -12,3 +12,13 @@
 /HeaderPanel.class
 /OutputPanel$CopyToClipboardAction.class
 /OutputPanel.class
+/GUMBOInterface$AssumptionPanel$1.class
+/GUMBOInterface$AssumptionPanel$CustomAssumptionModal$AddCustomAssumptionAction.class
+/GUMBOInterface$AssumptionPanel$CustomAssumptionModal$CancelCustomAssumptionDialog.class
+/GUMBOInterface$AssumptionPanel$CustomAssumptionModal.class
+/GUMBOInterface$AssumptionPanel$LaunchCustomAssumptionModalAction.class
+/GUMBOInterface$GuaranteePanel$1.class
+/GUMBOInterface$GuaranteePanel$CustomGuaranteeModal$AddCustomGuaranteeAction.class
+/GUMBOInterface$GuaranteePanel$CustomGuaranteeModal$CancelCustomGuaranteeDialog.class
+/GUMBOInterface$GuaranteePanel$CustomGuaranteeModal.class
+/GUMBOInterface$GuaranteePanel$LaunchCustomGuaranteeModalAction.class
