@@ -537,6 +537,7 @@ public class GUMBOInterface extends JFrame {
 		private JTextField agreeDescriptionTextField;
 		private int selectedConditionalOperandIndex;
 		private JPanel assumptionComparatorPanel;
+		private JPanel conditionalValueTextFieldPanel;
 		private JComboBox<String> conditionalOperandList;
 		private String[] assumptionComparatorListValues;
 		private JComboBox<String> assumptionComparatorList;
@@ -573,6 +574,7 @@ public class GUMBOInterface extends JFrame {
 					if (ie.getStateChange() == ItemEvent.SELECTED) {
 						selectedConditionalOperandIndex = conditionalOperandList.getSelectedIndex();
 						updateConditionalComparatorList();
+						updateConditionalValueTextField();
 					}
 				}
 			});
@@ -584,20 +586,13 @@ public class GUMBOInterface extends JFrame {
 			updateConditionalComparatorList();
 
 			inputsPanel.add(assumptionComparatorPanel);
-
-			NumberFormat longFormat = new DecimalFormat("#0.00");
-			;
-
-			NumberFormatter numberFormatter = new NumberFormatter(longFormat);
-			numberFormatter.setValueClass(Long.class);
-			numberFormatter.setAllowsInvalid(false);
-			numberFormatter.setMinimum(0l);
-
-			conditionalValueTextField = new JFormattedTextField(numberFormatter);
-			conditionalValueTextField.setColumns(20);
-			conditionalValueTextField.setText("0");
-
-			inputsPanel.add(conditionalValueTextField);
+			
+//			Conditional Text Field Panel
+			conditionalValueTextFieldPanel = new JPanel();
+			
+			updateConditionalValueTextField();
+			
+			inputsPanel.add(conditionalValueTextFieldPanel);
 
 //          2nd Comparator Panel
 			JPanel guaranteeComparatorPanel = new JPanel();
@@ -658,6 +653,48 @@ public class GUMBOInterface extends JFrame {
 
 			revalidate();
 			repaint();
+		}
+		
+		private void updateConditionalValueTextField() {
+			if (conditionalValueTextField != null) {
+				conditionalValueTextFieldPanel.remove(conditionalValueTextField);
+			}
+			
+			switch (inputFeaturesTypes[selectedConditionalOperandIndex]) {
+			case "Integer":
+				NumberFormat integerFormat = NumberFormat.getIntegerInstance();
+				;
+
+				NumberFormatter intNumberFormatter = new NumberFormatter(integerFormat);
+//				intNumberFormatter.setAllowsInvalid(false);
+				
+				intNumberFormatter.setMinimum(0);
+
+				conditionalValueTextField = new JFormattedTextField(intNumberFormatter);
+				conditionalValueTextField.setText("0");
+				break;
+			case "Float":
+				NumberFormat longFormat = new DecimalFormat("#0.00");
+				;
+
+				NumberFormatter floatNumberFormatter = new NumberFormatter(longFormat);
+				floatNumberFormatter.setValueClass(Long.class);
+//				floatNumberFormatter.setAllowsInvalid(false);
+				floatNumberFormatter.setMinimum(0l);
+
+				conditionalValueTextField = new JFormattedTextField(floatNumberFormatter);
+				conditionalValueTextField.setText("0.0");
+				break;
+			case "Boolean":
+			default:
+				conditionalValueTextField = new JFormattedTextField();
+				conditionalValueTextField.setText("true");
+				break;
+			}
+			
+			conditionalValueTextField.setColumns(20);
+
+			conditionalValueTextFieldPanel.add(conditionalValueTextField);
 		}
 
 		private void updateListPane() {
