@@ -713,15 +713,15 @@ public class GUMBOInterface extends JFrame {
 				String descValue = agreeDescriptionTextField.getText();
 				String conditionalParameterValue = conditionalOperandList.getSelectedItem().toString();
 				String conditionalComparatorValue = assumptionComparatorList.getSelectedItem().toString();
-				String parameterValue = guaranteeOperandList.getSelectedItem().toString();
-				String comparatorValue = guaranteeComparatorList.getSelectedItem().toString();
 				String assumptionValue = conditionalValueTextField.getText();
+				String comparatorValue = guaranteeComparatorList.getSelectedItem().toString();
+				String parameterValue = guaranteeOperandList.getSelectedItem().toString();
 				if (!descValue.isEmpty() && !conditionalParameterValue.isEmpty()
 						&& !conditionalComparatorValue.isEmpty() && !parameterValue.isEmpty()
 						&& !comparatorValue.isEmpty() && !assumptionValue.isEmpty()) {
 					guarantees.add(
 							String.format("guarantee \"%s\" : (%s %s %s) %s %s", descValue, conditionalParameterValue,
-									conditionalComparatorValue, parameterValue, comparatorValue, assumptionValue));
+									conditionalComparatorValue, assumptionValue, comparatorValue, parameterValue));
 					updateListPane();
 
 					agreeDescriptionTextField.setText("");
