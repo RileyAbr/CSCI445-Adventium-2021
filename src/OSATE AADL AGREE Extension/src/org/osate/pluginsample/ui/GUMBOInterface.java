@@ -254,10 +254,12 @@ public class GUMBOInterface extends JFrame {
 		private JTextField agreeDescriptionTextField;
 		private JComboBox<String> assumptionOperandList;
 		private JPanel assumptionComparatorPanel;
+		private JPanel assumptionValueTextFieldPanel;
+		private JFormattedTextField assumptionValueTextField;
 		private int selectedAssumptionOperandIndex;
 		private String[] assumptionComparatorListValues;
 		private JComboBox<String> assumptionComparatorList;
-		private JFormattedTextField assumptionValueTextField;
+		
 
 		public AssumptionPanel() {
 			setLayout(new BorderLayout());
@@ -287,6 +289,7 @@ public class GUMBOInterface extends JFrame {
 					if (ie.getStateChange() == ItemEvent.SELECTED) {
 						selectedAssumptionOperandIndex = assumptionOperandList.getSelectedIndex();
 						updateAssumptionComparatorList();
+						updateAssumptionValueTextField();
 					}
 				}
 			});
@@ -302,19 +305,12 @@ public class GUMBOInterface extends JFrame {
 //          + Button Panel
 			JPanel addButtonPanel = new JPanel();
 
-			NumberFormat longFormat = new DecimalFormat("#0.00");
-			;
+//			Assumption Text Field Panel
+			assumptionValueTextFieldPanel = new JPanel();
+			
+			updateAssumptionValueTextField();
 
-			NumberFormatter numberFormatter = new NumberFormatter(longFormat);
-			numberFormatter.setValueClass(Long.class);
-			numberFormatter.setAllowsInvalid(false);
-			numberFormatter.setMinimum(0l);
-
-			assumptionValueTextField = new JFormattedTextField(numberFormatter);
-			assumptionValueTextField.setColumns(20);
-			assumptionValueTextField.setText("0");
-
-			addButtonPanel.add(assumptionValueTextField);
+			addButtonPanel.add(assumptionValueTextFieldPanel);
 
 			JButton addAssumptionButton = new JButton(new AddAssumptionAction("+"));
 			addButtonPanel.add(addAssumptionButton);
@@ -360,6 +356,48 @@ public class GUMBOInterface extends JFrame {
 
 			revalidate();
 			repaint();
+		}
+		
+		private void updateAssumptionValueTextField() {
+			if (assumptionValueTextField != null) {
+				assumptionValueTextFieldPanel.remove(assumptionValueTextField);
+			}
+			
+			switch (inputFeaturesTypes[selectedAssumptionOperandIndex]) {
+			case "Integer":
+				NumberFormat integerFormat = NumberFormat.getIntegerInstance();
+				;
+
+				NumberFormatter intNumberFormatter = new NumberFormatter(integerFormat);
+//				intNumberFormatter.setAllowsInvalid(false);
+				
+				intNumberFormatter.setMinimum(0);
+
+				assumptionValueTextField = new JFormattedTextField(intNumberFormatter);
+				assumptionValueTextField.setText("0");
+				break;
+			case "Float":
+				NumberFormat longFormat = new DecimalFormat("#0.00");
+				;
+
+				NumberFormatter floatNumberFormatter = new NumberFormatter(longFormat);
+				floatNumberFormatter.setValueClass(Long.class);
+//				floatNumberFormatter.setAllowsInvalid(false);
+				floatNumberFormatter.setMinimum(0l);
+
+				assumptionValueTextField = new JFormattedTextField(floatNumberFormatter);
+				assumptionValueTextField.setText("0.0");
+				break;
+			case "Boolean":
+			default:
+				assumptionValueTextField = new JFormattedTextField();
+				assumptionValueTextField.setText("true");
+				break;
+			}
+			
+			assumptionValueTextField.setColumns(20);
+
+			assumptionValueTextFieldPanel.add(assumptionValueTextField);
 		}
 
 		private void updateListPane() {
