@@ -64,6 +64,7 @@ Follow these steps to properly run the plug-in:
       5. Click the "Finish" button
 3. Click on the AADL file so that it is highlighted and selected in the project explorer.
 4. Click the "Check Model" tab in the toolbar at the top of the editor.
+![Now Available](/screenshots/now_available.png)
 5. Follow the labels in the UI until you reach the "Output" screen. You have two options in both the "Assumptions" screen and the "Guarantees" screen:
     1. Use the dropdown menus with the variables and operators predefined.
     ![Assumptions Custom Button](/screenshots/assumptions_custom.png)
