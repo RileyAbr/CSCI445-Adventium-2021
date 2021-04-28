@@ -35,6 +35,9 @@ public class IterationResultObject {
 	private String defaultDirectoryPath;
 	private String storedPath;
 
+	/**
+	 * IterationResultObject constructor instantiating ArrayLists
+	 */
 	public IterationResultObject() {
 		systems = new ArrayList<>();
 		inputFeatures = new ArrayList<>();
@@ -56,6 +59,12 @@ public class IterationResultObject {
 		annexNames = new ArrayList<>();
 	}
 
+	/**
+	 * add SystemTypeImpl to appropriate ArrayList
+	 * 
+	 * @param system
+	 * @return result
+	 */
 	public boolean add(SystemTypeImpl system) {
 		boolean result = false;
 
@@ -65,6 +74,12 @@ public class IterationResultObject {
 		return result;
 	}
 
+	/**
+	 * add DataPortImpl to appropriate ArrayList
+	 * 
+	 * @param feature
+	 * @return result
+	 */
 	public boolean add(DataPortImpl feature) {
 		boolean result = false;
 
@@ -81,6 +96,12 @@ public class IterationResultObject {
 		return result;
 	}
 
+	/**
+	 * add connection to appropriate ArrayList
+	 * 
+	 * @param connection
+	 * @return result
+	 */
 	public boolean add(PortConnectionImpl connection) {
 		boolean result = false;
 
@@ -90,6 +111,12 @@ public class IterationResultObject {
 		return result;
 	}
 
+	/**
+	 * add system subcomponent to appropriate ArrayList
+	 * 
+	 * @param subcomponent
+	 * @return result
+	 */
 	public boolean add(SystemSubcomponentImpl subcomponent) {
 		boolean result = false;
 
@@ -99,6 +126,12 @@ public class IterationResultObject {
 		return result;
 	}
 
+	/**
+	 * add system implementation to appropriate ArrayList
+	 * 
+	 * @param impl
+	 * @return result
+	 */
 	public boolean add(SystemImplementationImpl impl) {
 		boolean result = false;
 
@@ -108,6 +141,12 @@ public class IterationResultObject {
 		return result;
 	}
 
+	/**
+	 * add annex to appropriate ArrayList
+	 * 
+	 * @param annex
+	 * @return result
+	 */
 	public boolean add(DefaultAnnexSubclauseImpl annex) {
 		boolean result = false;
 
@@ -117,6 +156,12 @@ public class IterationResultObject {
 		return result;
 	}
 
+	/**
+	 * remove system from appropriate ArrayList
+	 * 
+	 * @param system
+	 * @return result
+	 */
 	public boolean remove(SystemTypeImpl system) {
 		boolean result = false;
 
@@ -126,6 +171,12 @@ public class IterationResultObject {
 		return result;
 	}
 
+	/**
+	 * remove feature from appropriate ArrayList
+	 * 
+	 * @param feature
+	 * @return result
+	 */
 	public boolean remove(DataPortImpl feature) {
 		boolean result = false;
 
@@ -142,6 +193,12 @@ public class IterationResultObject {
 		return result;
 	}
 
+	/**
+	 * remove connection from appropriate ArrayList
+	 * 
+	 * @param connection
+	 * @return result
+	 */
 	public boolean remove(PortConnectionImpl connection) {
 		boolean result = false;
 
@@ -151,6 +208,12 @@ public class IterationResultObject {
 		return result;
 	}
 
+	/**
+	 * remove subcomponent from appropriate ArrayList
+	 * 
+	 * @param subcomponent
+	 * @return result
+	 */
 	public boolean remove(SystemSubcomponentImpl subcomponent) {
 		boolean result = false;
 
@@ -160,6 +223,12 @@ public class IterationResultObject {
 		return result;
 	}
 
+	/**
+	 * remove implementation from appropriate ArrayList
+	 * 
+	 * @param impl
+	 * @return result
+	 */
 	public boolean remove(SystemImplementationImpl impl) {
 		boolean result = false;
 
@@ -169,6 +238,12 @@ public class IterationResultObject {
 		return result;
 	}
 
+	/**
+	 * remove annex from appropriate ArrayList
+	 * 
+	 * @param annex
+	 * @return result
+	 */
 	public boolean remove(DefaultAnnexSubclauseImpl annex) {
 		boolean result = false;
 
@@ -178,70 +253,163 @@ public class IterationResultObject {
 		return result;
 	}
 
+	/**
+	 * get system from index
+	 * 
+	 * @param index
+	 * @return system
+	 */
 	public SystemTypeImpl getSystem(int index) {
 		return systems.get(index);
 	}
 
+	/**
+	 * get input feature from index
+	 * 
+	 * @param index
+	 * @return input feature
+	 */
 	public DataPortImpl getInputFeature(int index) {
 		return inputFeatures.get(index);
 	}
 
+	/**
+	 * get output feature from index
+	 * 
+	 * @param index
+	 * @return output feature
+	 */
 	public DataPortImpl getOutputFeature(int index) {
 		return outputFeatures.get(index);
 	}
 
+	/**
+	 * get connection from index
+	 * 
+	 * @param index
+	 * @return connection
+	 */
 	public PortConnectionImpl getConnection(int index) {
 		return connections.get(index);
 	}
 
+	/**
+	 * get subcomponent from index
+	 * 
+	 * @param index
+	 * @return subcomponent
+	 */
 	public SystemSubcomponentImpl getSubcomponents(int index) {
 		return subcomponents.get(index);
 	}
 
+	/**
+	 * get implementation from index
+	 * 
+	 * @param index
+	 * @return implementation
+	 */
 	public SystemImplementationImpl getImpl(int index) {
 		return implementations.get(index);
 	}
 
+	/**
+	 * get annex from index
+	 * 
+	 * @param index
+	 * @return annex
+	 */
 	public DefaultAnnexSubclauseImpl getAnnex(int index) {
 		return annexes.get(index);
 	}
 
+	/**
+	 * get system name ArrayList
+	 * 
+	 * @return systemNames
+	 */
 	public ArrayList<String> getSystemNames() {
 		return systemNames;
 	}
 
+	/**
+	 * get system name
+	 * 
+	 * @return system name
+	 */
 	public String getSystemName() {
 		return systemNames.get(0);
 	}
 
+	/**
+	 * get input feature types ArrayList
+	 * 
+	 * @return inputFeatureTypes
+	 */
 	public ArrayList<String> getInputFeatureTypes() {
 		return inputFeatureTypes;
 	}
 
+	/**
+	 * get input feature names ArrayList
+	 * 
+	 * @return inputFeatureNames
+	 */
 	public ArrayList<String> getInputFeatureNames() {
 		return inputFeatureNames;
 	}
 
+	/**
+	 * get output feature types ArrayList
+	 * 
+	 * @return outputFeatureTypes
+	 */
 	public ArrayList<String> getOutputFeatureTypes() {
 		return outputFeatureTypes;
 	}
 
+	/**
+	 * get output feature names ArrayList
+	 * 
+	 * @return outputFeatureNames
+	 */
 	public ArrayList<String> getOutputFeatureNames() {
 		return outputFeatureNames;
 	}
 
+	/**
+	 * get connection names ArrayList
+	 * 
+	 * @return connectionNames
+	 */
 	public ArrayList<String> getConnectionNames() {
 		return connectionNames;
 	}
 
+	/**
+	 * get subcomponent names ArrayList
+	 * 
+	 * @return subcomponentNames
+	 */
 	public ArrayList<String> getSubcomponentNames() {
 		return subcomponentNames;
 	}
 
+	/**
+	 * get implementation names ArrayList
+	 * 
+	 * @return implementationNames
+	 */
 	public ArrayList<String> getImplNames() {
 		return implementationNames;
 	}
 
+	/**
+	 * get type of a specific port
+	 * 
+	 * @param port
+	 * @return data type of port
+	 */
 	public String getPortType(DataPortImpl port) {
 		return port.getDataFeatureClassifier().getName();
 	}
@@ -272,6 +440,11 @@ public class IterationResultObject {
 		return path;
 	}
 
+	/**
+	 * Create String containing all names of iteration results
+	 * 
+	 * @return result
+	 */
 	@Override
 	public String toString() {
 		String result = "";
