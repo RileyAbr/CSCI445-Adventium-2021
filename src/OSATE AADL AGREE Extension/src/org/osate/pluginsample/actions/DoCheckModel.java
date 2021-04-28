@@ -97,13 +97,22 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 		return "Check the AADL model";
 	}
 
+	/**
+	 * recursive function to iterate over the contents of an AADL file
+	 * 
+	 * @param contents
+	 */
 	private void searchComponents(EList<EObject> contents) {
-
+		// base case
 		if (contents.size() == 0)
 			return;
 
+		// outer for loop to iterate over the iterables at each level
 		for (int i = 0; i < contents.size(); i++) {
 			Object check = contents.get(i);
+			
+			// selection statement for each possibility of object that can be run
+			// into while iterating
 			if (check instanceof SystemTypeImpl) {
 				SystemTypeImpl current = (SystemTypeImpl) check;
 				iro.add(current);
@@ -125,8 +134,10 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 				iro.add(current);
 				searchComponents(current.eContents());
 			} else if (check instanceof DefaultAnnexSubclauseImpl) {
+				// add the preexisting annex written in the file
 				DefaultAnnexSubclauseImpl current = (DefaultAnnexSubclauseImpl) check;
 
+				// add only the annexes with the prefix {**
 				String firstChars = current.getSourceText().substring(0, 3);
 				if (firstChars.equals("{**")) {
 					iro.add(current);
@@ -137,12 +148,28 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 		}
 	}
 
+	/**
+	 * doAaxlAction needs to be implemented in any class extending AaxlReadOnlyHandlerAsJob
+	 * to read in the file object
+	 * 
+	 * @param monitor
+	 * @param obj
+	 */
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
+		// send process to doAadlAction if of appropriate type
 		if (obj instanceof AadlPackageImpl)
 			doAadlAction(monitor, obj);
 	}
 
+	
+	/**
+	 * prepare AADL file for iteration and call recursive iteration function
+	 * 
+	 * @param monitor
+	 * @param obj
+	 */
 	public void doAadlAction(IProgressMonitor monitor, Element obj) {
+		// initialize objects
 		AadlPackageImpl api = null;
 		iro = new IterationResultObject();
 		CheckModel validator;
@@ -151,18 +178,22 @@ public final class DoCheckModel extends AaxlReadOnlyHandlerAsJob {
 
 		validator = new CheckModel(monitor, getErrorManager());
 
+		// instantiate api if necessary
 		if (obj instanceof AadlPackageImpl) {
 			api = (AadlPackageImpl) obj;
 		} else {
 			api = null;
 		}
 
+		// if api is instantiated, run the plug-in
 		if (api != null) {
+			// break down the outer AadlPackageImpl for easier iteration
 			PublicPackageSectionImpl base = (PublicPackageSectionImpl) api.eContents().get(0);
 			EList<EObject> baseContents = (EList<EObject>) base.eContents();
 
 			searchComponents(baseContents);
 
+			// instantiate input features from IterationResultObject
 			String[] inputFeatures = iro.getInputFeatureNames().toArray(new String[0]);
 			String[] inputFeaturesTypes = iro.getInputFeatureTypes().toArray(new String[0]);
 			String[] outputFeatures = iro.getOutputFeatureNames().toArray(new String[0]);
