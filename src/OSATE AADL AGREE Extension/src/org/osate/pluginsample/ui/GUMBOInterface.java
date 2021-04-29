@@ -1,18 +1,7 @@
 package org.osate.pluginsample.ui;
 
-import org.osate.aadl2.impl.SystemTypeImpl;
-import org.osate.aadl2.impl.DataPortImpl;
-import org.osate.aadl2.impl.PortConnectionImpl;
-import org.osate.aadl2.impl.SystemSubcomponentImpl;
-import org.osate.aadl2.impl.SystemImplementationImpl;
-import org.osate.aadl2.impl.DefaultAnnexSubclauseImpl;
 import javax.swing.*;
 import javax.swing.text.NumberFormatter;
-
-import org.osate.pluginsample.actions.DoCheckModel;
-import org.osate.pluginsample.actions.IterationResultObject;
-
-import org.osate.ui.dialogs.Dialog;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -23,15 +12,16 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.util.ArrayList;
 
+/*
+ * The UI for this plugin takes place in a single JFrame, in which three sub-JPanels or "pages" are maintained. These pages are the Assumption, Guarantee, & Output Panels.
+ * The Assumption and Guarantee panels are nested in this class. The OutputPanel can be found in a a stand-alone file titled `OutputPanel.java`.
+ * The state of the application is all handled in the highest level, using private fields on the GUMBOInterface. Modifications to this state is performed in the panels themselves 
+ * via event-listener like functions. The individual JPanels then must also re-render themselves to update with the modificates made to the internal state.
+ */ 
 public class GUMBOInterface extends JFrame {
 	private int currentPage = 0;
 	private String[] pages = { "assumptions", "guarantees", "output" };
@@ -58,6 +48,17 @@ public class GUMBOInterface extends JFrame {
 	private JButton backButton = new JButton(new BackAction("Back"));
 	private JButton nextButton = new JButton(new NextAction("Next"));
 
+	/**
+	 * The constructor creates a GUMBOInterface with the supplied parameters, which instantly launches from Eclipse once the construction is complete.
+	 * @param incomingInputFeatures 		String[] of the input feature variable names
+	 * @param incomingInputFeaturesTypes	String[] of the input feature variable types
+	 * @param incomingOutputFeatures		String[] of the output feature variable names
+	 * @param incomingOutputFeaturesTypes	String[] of the output feature variable types
+	 * @param incomingAssumptions			ArrayList<String> of the set of assumptions matching an AADL component, typically loaded from an external file
+	 * @param incomingGuarantees			ArrayList<String> of the set of guarantees matching an AADL component, typically loaded from an external file
+	 * @param incomingSystemName			The name of the system selected when the GUMBOInterface is created
+	 * @param incomingPath					The path specified by the user to store/read the assumption and guarantee data locally
+	 */
 	public GUMBOInterface(String[] incomingInputFeatures, String[] incomingInputFeaturesTypes,
 			String[] incomingOutputFeatures, String[] incomingOutputFeaturesTypes,
 			ArrayList<String> incomingAssumptions, ArrayList<String> incomingGuarantees, String incomingSystemName,
@@ -109,7 +110,7 @@ public class GUMBOInterface extends JFrame {
 //      Add Entire Content Panel
 		add(mainPanel);
 
-		setSize(575, 500);
+		setSize(575, 520);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setVisible(true);
@@ -907,6 +908,9 @@ public class GUMBOInterface extends JFrame {
 	}
 }
 
+/**
+ * Wrapper Panel class that assists with changed with of the 3 internal pages the GUI is currently displaying. Functionally identical to a JPanel with a single extra function.
+ */
 class ContentPanel extends JPanel {
 	public ContentPanel() {
 	}
