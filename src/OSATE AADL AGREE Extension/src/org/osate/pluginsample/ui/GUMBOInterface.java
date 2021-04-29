@@ -1,18 +1,7 @@
 package org.osate.pluginsample.ui;
 
-import org.osate.aadl2.impl.SystemTypeImpl;
-import org.osate.aadl2.impl.DataPortImpl;
-import org.osate.aadl2.impl.PortConnectionImpl;
-import org.osate.aadl2.impl.SystemSubcomponentImpl;
-import org.osate.aadl2.impl.SystemImplementationImpl;
-import org.osate.aadl2.impl.DefaultAnnexSubclauseImpl;
 import javax.swing.*;
 import javax.swing.text.NumberFormatter;
-
-import org.osate.pluginsample.actions.DoCheckModel;
-import org.osate.pluginsample.actions.IterationResultObject;
-
-import org.osate.ui.dialogs.Dialog;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -23,14 +12,9 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.util.ArrayList;
 
 public class GUMBOInterface extends JFrame {
 	private int currentPage = 0;
@@ -109,7 +93,7 @@ public class GUMBOInterface extends JFrame {
 //      Add Entire Content Panel
 		add(mainPanel);
 
-		setSize(575, 500);
+		setSize(575, 520);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setVisible(true);
