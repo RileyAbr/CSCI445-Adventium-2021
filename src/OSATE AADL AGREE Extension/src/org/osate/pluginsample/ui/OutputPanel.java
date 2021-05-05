@@ -5,22 +5,11 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.Set;
-
 import javax.swing.AbstractAction;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-
-import org.osate.pluginsample.actions.IterationResultObject;
-
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.File;
-import java.io.BufferedReader;
-import java.io.FileReader;
 
 public class OutputPanel extends JPanel {
 	private JTextArea outputTextArea = new JTextArea(20, 45);
