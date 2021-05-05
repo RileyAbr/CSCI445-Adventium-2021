@@ -84,10 +84,10 @@ You can view the following demonstration materials to see this OSATE plug-in in 
 
 ### Demo Video
 
-[Demo Video]()
+[Demo Video](https://youtu.be/z6oxQwamnps)
 
 ### UI Prototype
 
-This project also contains a UI Prototype. This prototype was built during the first sprint for the project, in order to gather feedback from project stakeholders on appearance and workflow. The prototype was developed as a React app. The visual design was created to mimic the default Eclipse style. 
+This project also contains a UI Prototype. This prototype was built during the first sprint for the project, in order to gather feedback from project stakeholders on appearance and workflow. The prototype was developed as a React app. The visual design was created to mimic the default Eclipse style.
 
 The prototype can be viewed live on Netlify at: [https://adventium-gumbo-ui-prototype.netlify.app/](https://adventium-gumbo-ui-prototype.netlify.app/)
